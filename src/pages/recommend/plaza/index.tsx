@@ -4,6 +4,7 @@ import {
   View,
   Text,
 } from 'react-native'
+import { useStores } from '../../../hooks'
 
 export interface IPlazaProps {
 
@@ -12,9 +13,12 @@ export interface IPlazaProps {
 const Plaza: React.FC<IPlazaProps> = ({
 
 }) => {
+  const { recommendStore } = useStores()
+  const { page, tenPage } = recommendStore
+
   return (
     <View style={styles.root}>
-      <Text>Plaza</Text>
+      <Text>Plaza{tenPage} {page}</Text>
     </View>
   )
 }
