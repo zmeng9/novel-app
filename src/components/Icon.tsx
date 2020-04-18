@@ -12,7 +12,7 @@ export interface IIconProps {
   handle?: () => void
 }
 
-const Icon: React.SFC<IIconProps> = ({
+export const Icon: React.SFC<IIconProps> = ({
   name,
   size = 28,
   color = '#333',
@@ -25,7 +25,7 @@ const Icon: React.SFC<IIconProps> = ({
           <VIcon name={name} size={size} color={color} />
         </TouchableOpacity>
       )
-      : <VIcon name={name} size={size} color={color} />
+      : <VIcon style={styles.root} name={name} size={size} color={color} />
   )
 }
 
@@ -34,5 +34,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 })
-
-export default React.memo(Icon)

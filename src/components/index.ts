@@ -1,5 +1,6 @@
-import Icon from './Icon'
-
-export {
-  Icon,
-}
+export * from './Icon'
+export * from './Card'
+export * from './Btn'
+export * from './Header'
+export * from './Loading'
+export * from './Animate'

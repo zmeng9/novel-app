@@ -4,24 +4,24 @@ import {
   View,
   Text,
 } from 'react-native'
-import { useStores } from '../../../hooks'
+import { observer } from 'mobx-react'
+import { useStores } from '../../../../hooks'
 
 export interface IPlazaProps {
 
 }
 
-const Plaza: React.FC<IPlazaProps> = ({
+const Plaza: React.FC<IPlazaProps> = observer(({
 
 }) => {
   const { recommendStore } = useStores()
-  const { page, tenPage } = recommendStore
 
   return (
     <View style={styles.root}>
-      <Text>Plaza{tenPage} {page}</Text>
+      <Text>Plaza</Text>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   root: {
