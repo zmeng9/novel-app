@@ -64,3 +64,13 @@
 // console.log('print', /A|B/.test('B'))
 
 // console.log('print', str)
+
+// const a = [{id: 1}, {id: 1}, {id: 2}, {id: 2}]
+// let b = []
+// for (let i of a) {
+//   const isExist = b.find(j => j.id === i.id)
+//   if (!isExist)
+//     b.push(i)
+// }
+
+// console.log('print', b)

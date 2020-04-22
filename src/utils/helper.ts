@@ -4,10 +4,10 @@
  * 3. Foreach the key of object and set `attribute of objects to attribute of this`
  */
 
-export const resetObj = (fn: Object, array: Array<Object>) => {
+export const resetObj = (self: any, array: Array<Object>) => {
   const obj: Object = Object.assign(...array as [Array<Object>]);
   (Object.keys(obj) as Array<keyof typeof obj>).forEach(key => {
-    (fn[key] as any) = obj[key]
+    (self[key] as any) = obj[key]
   })
 }
 
@@ -25,4 +25,43 @@ export const isLorI = (code: string) => {
 
 export const isThinCode = (code: string) => {
   return /f|t|r/.test(code)
+}
+
+export const unique = (array: Array<any>, key: string) => {
+  let cleanArray: Array<any> = []
+  for (let item of array) {
+    const isExist = cleanArray.find(i => i[key] === item[key])
+    if (!isExist)
+      cleanArray.push(item)
+  }
+  return cleanArray
+}
+
+export const debounce = (
+  func: () => void,
+  wait: number,
+  immedate: boolean,
+) => {
+  let timeout: any
+  return function () {
+    const context = this
+    const args = arguments
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    if (immedate) {
+      const callNow = !timeout
+      timeout = setTimeout(function () {
+        timeout = null
+      }, wait)
+      if (callNow) {
+        func.apply(context, args as any)
+      }
+    }
+    else {
+      timeout = setTimeout(function () {
+        func.apply(context, args as any)
+      }, wait)
+    }
+  }
 }

@@ -16,7 +16,7 @@ export const Loading: React.SFC = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: height / 2 - 20,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

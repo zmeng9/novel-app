@@ -52,20 +52,23 @@ const Chapter: React.FC<IChapterProps> = observer(({
   useResetState(chapterStore)
 
   // Use service
-  const [dirData, dirDataIsLoading] = useService(getDir, [id])
-  const [chapterData, chapterDataIsLoading] = useService(
-    getChapter,
-    [id, chapterId],
-    Boolean(~chapterId),
-    [chapterId],
-    () => {
+  const [dirData, dirDataIsLoading] = useService({
+    service: getDir,
+    params: [id],
+  })
+  const [chapterData, chapterDataIsLoading] = useService({
+    service: getChapter,
+    params: [id, chapterId],
+    isSend: Boolean(~chapterId),
+    condition: [chapterId],
+    beforeHandle: () => {
       setIsShowSetting(false)
     },
-  )
+  })
 
   useEffect(() => {
     if (dirData) {
-      const { rows } = dirData
+      const { rows = [] } = dirData
       const newChapterId = Boolean(~chapterId) ? chapterId : rows[0].id
 
       // Update state
@@ -76,7 +79,7 @@ const Chapter: React.FC<IChapterProps> = observer(({
 
   useEffect(() => {
     if (chapterData) {
-      const { id, chapterTitle, chapterContent } = chapterData
+      const { id = -1, chapterTitle = '', chapterContent = '' } = chapterData
       const lineWidth = Math.floor((width - 40) * 2 / fontSize)
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
       const cleanContent = formatContent(chapterContent)

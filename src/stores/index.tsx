@@ -1,26 +1,17 @@
 import React from 'react'
-import { useLocalStore } from 'mobx-react'
-import { RecommendStore, IRecommendStore } from './recommend'
-import { ChapterStore, IChapterStore } from './novel'
+import { types, Instance } from 'mobx-state-tree'
+import { RecommendStore } from './recommend'
+import { ChapterStore } from './novel'
 
-interface IStoreProviderProps {
-  children: React.ReactNode
-}
-
-// Defined stores interface
-interface IStores {
-  recommendStore: IRecommendStore
-  chapterStore: IChapterStore
-}
+export const stores = types
+  .model({
+    recommendStore: RecommendStore,
+    chapterStore: ChapterStore,
+  })
+  .create({
+    recommendStore: RecommendStore.create(),
+    chapterStore: ChapterStore.create(),
+  })
 
 // Create the stores context
-export const storesContext = React.createContext<IStores | null>(null)
-
-// Create provider
-export const StoreProvider = ({ children }: IStoreProviderProps) => {
-  const stores = {
-    recommendStore: useLocalStore(RecommendStore),
-    chapterStore: useLocalStore(ChapterStore),
-  }
-  return <storesContext.Provider value={stores} >{children}</storesContext.Provider>
-}
+export const storesContext = React.createContext<Instance<typeof stores> | null>(null)

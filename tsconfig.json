@@ -7,9 +7,12 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "lib": ["es6"],
+    "module": "esnext",
     "moduleResolution": "node",
+    "noImplicitThis": false,
     "noEmit": true,
     "strict": true,
+    "noImplicitReturns": true,
     "target": "esnext"
   },
   "exclude": [

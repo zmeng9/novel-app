@@ -4,11 +4,11 @@
 
 export const consoleTheme = {
   normal: '',
-  testing: 'color: darkcyan; font-size: 0.7rem; font-style: italic;',
-  important: 'color: green; font-size: 0.7rem; font-style: normal; font-weight: bold;',
-  fail: 'color: #e67e22; font-size: 0.7rem; font-style: normal; font-weight: normal;',
-  warn: 'color: #fdcb6e; font-size: 0.7rem; font-style: normal; font-weight: normal;',
-  error: 'color: red; font-size: 0.7rem; font-style: normal; font-weight: bold;',
+  testing: 'color: darkcyan; font-style: italic;',
+  important: 'color: green; font-style: normal; font-weight: bold;',
+  fail: 'color: #e67e22; font-style: normal; font-weight: normal;',
+  warn: 'color: #fdcb6e; font-style: normal; font-weight: normal;',
+  error: 'color: red; font-style: normal; font-weight: bold;',
 }
 
 const debug = (

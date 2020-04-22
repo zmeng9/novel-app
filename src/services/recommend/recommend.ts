@@ -1,8 +1,8 @@
 import { request } from '../../utils'
 
 export interface IGetNovelsParams {
-  limit: number,
-  offset: number,
+  limit?: number,
+  offset?: number,
 }
 
 export const getNovels = (params: IGetNovelsParams) => {

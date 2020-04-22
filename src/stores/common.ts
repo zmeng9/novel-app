@@ -1,13 +1,16 @@
+import { types } from 'mobx-state-tree'
 export { resetObj } from '../utils'
 
-export interface ICommonState {
-
+export const CommonState = {
+  isLoading: false,
+  error: types.maybeNull(types.string),
 }
 
-export const CommonState: ICommonState = {
-
-}
-
-export const CommonStore = {
-  ...CommonState,
-}
+export const CommonAction = (self: any) => ({
+  setIsLoading(isLoading: boolean) {
+    self.isLoading = isLoading
+  },
+  setError(error: string | null) {
+    self.error = error
+  },
+})

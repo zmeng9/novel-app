@@ -102,7 +102,7 @@ export const parseContent = (str: string, width: number) => {
     }
   }
 
-  // Push the end line 
+  // Push the last line 
   lines.push(currentLine)
 
   return lines

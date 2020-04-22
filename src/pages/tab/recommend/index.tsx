@@ -17,11 +17,11 @@ const RecommendStackNavigator: React.SFC = () => {
         cardStyle: {
           backgroundColor: `#eee`,
         },
-        headerTransparent: true,
+        // headerTransparent: true,
         headerTintColor: '#333',
-        headerBackground: () => (
-          <BlurView intensity={100} style={StyleSheet.absoluteFill} />
-        ),
+        // headerBackground: () => (
+        //   <BlurView intensity={100} style={StyleSheet.absoluteFill} />
+        // ),
       }}
     >
       <Stack.Screen

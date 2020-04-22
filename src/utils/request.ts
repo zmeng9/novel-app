@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { loadToken } from './auth'
 import { logger, consoleTheme } from './logger'
+import { toast } from './toast'
 
 const baseURL = `http://localhost:8000`
 
@@ -19,9 +20,9 @@ request.interceptors.request.use((config: any) => {
 
   const { url, method, params, data } = config
 
-  if (params && params === {})
+  if (params && params !== {})
     logger.debug(url as string, method as string, `Params: `, consoleTheme.testing, params)
-  if (data && data === {})
+  if (data && data !== {})
     logger.debug(url as string, method as string, `Data: `, consoleTheme.testing, data)
 
   return config
@@ -38,33 +39,39 @@ request.interceptors.response.use((res: AxiosResponse) => {
   const { code, msg, error } = data
 
   // Status is 200
-  if (!code && !error)
+  if (!code && !error) {
+    toast(msg)
     logger.debug(reqUrl, method as string, `Opt fail: `, consoleTheme.fail, msg || data)
+  }
   else
     logger.debug(reqUrl, method as string, `Result: `, consoleTheme.important, data.data || data)
 
   return res
 }, (error: any) => {
   const { response, config } = error
-  const { status, data } = response
-  const { baseURL, url, method } = config
-  const regBaseURL = new RegExp((baseURL as string), '')
-  const reqUrl = (url as string).replace(regBaseURL, '')
 
-  switch (status) {
-    case 400:
-      logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
-      break
-    case 401:
-      logger.debug(reqUrl, method as string, `Auth error: `, consoleTheme.error, data)
-      break
-    case 500:
-      logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)
-      break
-    default:
-      logger.debug(reqUrl, method as string, `Unexpected error: `, consoleTheme.error, data)
-      break
+  if (response) {
+    const { status, data } = response
+    const { baseURL, url, method } = config
+    const regBaseURL = new RegExp((baseURL as string), '')
+    const reqUrl = (url as string).replace(regBaseURL, '')
+
+    switch (status) {
+      case 400:
+        logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
+        break
+      case 401:
+        logger.debug(reqUrl, method as string, `Unauthorized error: `, consoleTheme.error, data)
+        break
+      case 500:
+        logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)
+        break
+      default:
+        logger.debug(reqUrl, method as string, `Unexpected error: `, consoleTheme.error, data)
+        break
+    }
   }
+
   return Promise.reject(error)
 })
 
