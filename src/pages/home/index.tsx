@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { useNavigation } from '@react-navigation/native'
 import { Icon } from '../../components'
 import Mine from './mine'
 import Recommend from './recommend'
@@ -8,7 +9,12 @@ import { setNavigation } from '../../utils'
 
 const Tab = createBottomTabNavigator()
 
-const BottomTabNavigator: React.SFC = () => {
+const HomeTab: React.SFC = () => {
+  
+  // Set navigation
+  const navigation = useNavigation()
+  setNavigation(navigation)
+  
   return (
     <Tab.Navigator
       initialRouteName='Recommend'
@@ -18,18 +24,14 @@ const BottomTabNavigator: React.SFC = () => {
       }}
       screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ focused }) => {
-
-          // Set navigation
-          setNavigation(navigation)
-
           const routeName = route.name
 
           switch (routeName) {
-            case 'Mine':
+            case `Mine`:
               return <Icon name={`ios-square${focused ? '' : '-outline'}`} />
-            case 'Recommend':
+            case `Recommend`:
               return <Icon name={`ios-time${focused ? '' : 'r'}`} />
-            case 'Write':
+            case `Write`:
               return <Icon name={`ios-add-circle${focused ? '' : '-outline'}`} />
             default:
               return <Icon name={`ios-time${focused ? '' : 'r'}`} />
@@ -44,4 +46,4 @@ const BottomTabNavigator: React.SFC = () => {
   )
 }
 
-export default BottomTabNavigator
+export default HomeTab

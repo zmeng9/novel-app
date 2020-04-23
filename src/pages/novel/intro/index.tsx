@@ -14,7 +14,7 @@ export interface IIntroProps {
 
 }
 
-const Intro: React.FC<IIntroProps> = observer(({
+export const Intro: React.FC<IIntroProps> = observer(({
 
 }) => {
   const route = useRoute()
@@ -37,5 +37,3 @@ const styles = StyleSheet.create({
 
   },
 })
-
-export default Intro

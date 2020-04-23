@@ -5,27 +5,25 @@ import {
   Text,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { useStores } from '../../../../hooks'
+import { Header } from './Header'
 
-export interface IPlazaProps {
+export interface ISearchProps {
 
 }
 
-const Plaza: React.FC<IPlazaProps> = observer(({
+export const Search: React.FC<ISearchProps> = observer(({
 
 }) => {
-  const { recommendStore } = useStores()
-
   return (
     <View style={styles.root}>
-      <Text>Plaza</Text>
+      <Header />
+      <Text>Search</Text>
     </View>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
   },
 })
-
-export default Plaza

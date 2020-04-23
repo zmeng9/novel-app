@@ -1,8 +1,7 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { BlurView } from 'expo-blur'
-import Tab from './tab'
+import Home from './home'
+import { Search } from './search'
 import { Intro, Chapter } from './novel'
 
 const Stack = createStackNavigator()
@@ -10,7 +9,7 @@ const Stack = createStackNavigator()
 const StackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
-      initialRouteName='Tab'
+      initialRouteName='Home'
       headerMode='none'
       screenOptions={{
         cardStyle: {
@@ -19,22 +18,20 @@ const StackNavigator: React.SFC = () => {
       }}
     >
       <Stack.Screen
-        name='Tab'
-        component={Tab}
+        name='Home'
+        component={Home}
       />
       <Stack.Screen
         name='Intro'
         component={Intro}
-        options={{
-          headerTitle: '简介'
-        }}
       />
       <Stack.Screen
         name='Chapter'
         component={Chapter}
-        options={{
-          headerTitle: 'Chapter'
-        }}
+      />
+      <Stack.Screen
+        name='Search'
+        component={Search}
       />
     </Stack.Navigator>
   )

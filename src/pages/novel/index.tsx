@@ -1,2 +1,2 @@
-export { default as Chapter } from './chapter'
-export { default as Intro } from './intro'
+export * from './chapter'
+export * from './intro'

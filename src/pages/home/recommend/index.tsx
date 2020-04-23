@@ -1,43 +1,42 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { BlurView } from 'expo-blur'
-import Recommend from './recommend'
-import Plaza from './plaza'
+import { Recommend } from './recommend'
+import { Plaza } from './plaza'
 import { Icon } from '../../../components'
-import { goToPlaza } from '../../../utils'
+import { goToPlaza, goToSearch } from '../../../utils'
 
 const Stack = createStackNavigator()
 
 const RecommendStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
-      initialRouteName='RecommendIndex'
       screenOptions={{
         cardStyle: {
           backgroundColor: `#eee`,
         },
-        // headerTransparent: true,
         headerTintColor: '#333',
+        // headerTransparent: true,
         // headerBackground: () => (
         //   <BlurView intensity={100} style={StyleSheet.absoluteFill} />
         // ),
       }}
     >
       <Stack.Screen
-        name="RecommendIndex"
+        name='Recommend'
         component={Recommend}
         options={{
-          headerTitle: '推荐',
+          headerTitle: `推荐`,
           headerLeft: () => <Icon name='ios-home' handle={goToPlaza} />,
-          headerRight: () => <Icon name='ios-search' handle={goToPlaza} />,
+          headerRight: () => <Icon name='ios-search' handle={goToSearch} />,
         }}
       />
       <Stack.Screen
-        name="Plaza"
+        name='Plaza'
         component={Plaza}
         options={{
-          headerTitle: '广场'
+          headerTitle: `广场`
         }}
       />
     </Stack.Navigator>

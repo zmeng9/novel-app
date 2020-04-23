@@ -16,6 +16,10 @@ export const goToPlaza = () => {
   navigation.navigate(`Plaza`)
 }
 
+export const goToSearch = () => {
+  navigation.navigate(`Search`)
+}
+
 export const goToIntro = (id: number) => {
   navigation.navigate(`Intro`, { id })
 }

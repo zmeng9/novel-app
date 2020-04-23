@@ -24,7 +24,7 @@ export interface IChapterProps {
 
 const { height, width } = Dimensions.get('window')
 
-const Chapter: React.FC<IChapterProps> = observer(({
+export const Chapter: React.FC<IChapterProps> = observer(({
 
 }) => {
   // Route params
@@ -183,5 +183,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 })
-
-export default Chapter

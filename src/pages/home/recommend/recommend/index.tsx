@@ -9,7 +9,7 @@ import { getNovels } from '../../../../services'
 import { FlatList } from '../../../../components'
 import Novel from './Novel'
 
-const Recommend: React.FC = observer(() => {
+export const Recommend: React.FC = observer(() => {
   const { recommendStore } = useStores()
 
   const renderItem = useCallback((item: any) => (
@@ -35,5 +35,3 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 })
-
-export default Recommend

@@ -12,19 +12,19 @@ import { goBack } from '../utils'
 
 export interface IHeaderProps {
   children?: React.ReactNode
-  type?: 'header' | 'footer'
+  type?: `header` | `footer`
 }
 
 const { width } = Dimensions.get('window')
 
 export const Header: React.SFC<IHeaderProps> = observer(({
   children,
-  type = 'header',
+  type = `header`,
 }) => {
   const headerHeight = useHeaderHeight()
   const statusBarHeight = getStatusBarHeight()
-  const isHeader = type === 'header'
-  const isFooter = type === 'footer'
+  const isHeader = type === `header`
+  const isFooter = type === `footer`
   return (
     <View style={[
       styles.root,
