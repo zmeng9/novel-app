@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react'
 import {
   StyleSheet,
-  View,
   Text,
   Dimensions,
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import FastImage from 'react-native-fast-image'
-import { Card } from '../../../../components'
+import { Card, ViewHeight } from '../../../../components'
+import { useStores } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
 export interface INovelProps {
@@ -20,6 +20,9 @@ const { height, width } = Dimensions.get('window')
 const Novel: React.FC<INovelProps> = observer(({
   novel,
 }) => {
+  const { recommendStore } = useStores()
+  const { setItemHeight } = recommendStore
+
   const {
     id,
     cover,
@@ -32,20 +35,22 @@ const Novel: React.FC<INovelProps> = observer(({
   }, [])
 
   return (
-    <Card handle={handle}>
-      <FastImage
-        style={styles.img}
-        source={{
-          uri: cover,
-          priority: FastImage.priority.normal,
-        }}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-      <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity>
-        <Text style={styles.username}>{username}</Text>
-      </TouchableOpacity>
-    </Card>
+    <ViewHeight setHeight={setItemHeight}>
+      <Card handle={handle}>
+        <FastImage
+          style={styles.img}
+          source={{
+            uri: cover,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+        <Text style={styles.title}>{title}</Text>
+        <TouchableOpacity>
+          <Text style={styles.username}>{username}</Text>
+        </TouchableOpacity>
+      </Card>
+    </ViewHeight>
   )
 })
 

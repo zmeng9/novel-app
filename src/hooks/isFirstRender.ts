@@ -6,7 +6,7 @@ export const useIsFirstRender = () => {
   useEffect(() => {
     if (isFirstRender)
       isFirstRender.current = false
-  })
+  }, [isFirstRender])
 
   return isFirstRender.current
 }

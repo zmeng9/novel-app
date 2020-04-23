@@ -1,5 +1,5 @@
 import { types, cast } from 'mobx-state-tree'
-import { CommonState, CommonAction } from '../common'
+import { CommonState, CommonActions } from '../common'
 
 const Dir = types.model({
   id: types.identifierNumber,
@@ -19,7 +19,7 @@ export const ChapterStore = types
     lines: types.optional(types.array(types.string), []),
   })
   .actions(self => ({
-    ...CommonAction,
+    ...CommonActions,
     
     setIsShowSetting(isShowSetting: boolean) {
       self.isShowSetting = isShowSetting

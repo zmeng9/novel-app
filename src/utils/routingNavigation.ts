@@ -13,13 +13,13 @@ export const goBack = () => {
 }
 
 export const goToPlaza = () => {
-  navigation.navigate('Plaza')
+  navigation.navigate(`Plaza`)
 }
 
 export const goToIntro = (id: number) => {
-  navigation.navigate('Intro', { id })
+  navigation.navigate(`Intro`, { id })
 }
 
 export const goToChapter = (id: number) => {
-  navigation.navigate('Chapter', { id })
+  navigation.navigate(`Chapter`, { id })
 }

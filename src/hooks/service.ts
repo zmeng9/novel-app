@@ -19,13 +19,14 @@ export const useService = ({
   beforeHandle,
 }: IService): any => {
   const [data, setData] = useState(null)
-  const { setIsLoading, setError, reset } = store
+  const { setIsLoading, setError } = store
 
   const fetchData = async () => {
     setIsLoading(true)
     try {
       const result = await service(...params)
       const { code, data } = result.data
+
       if (code) {
         setData(data)
         setError(null)

@@ -37,6 +37,10 @@ export const unique = (array: Array<any>, key: string) => {
   return cleanArray
 }
 
+export const uniqueById = (array: Array<any>) => {
+  return unique(array, `id`)
+}
+
 export const debounce = (
   func: () => void,
   wait: number,

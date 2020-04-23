@@ -17,7 +17,6 @@ export const Loading: React.SFC = observer(({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
   },
 })

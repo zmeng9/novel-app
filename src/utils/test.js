@@ -74,3 +74,15 @@
 // }
 
 // console.log('print', b)
+
+// const f = {
+//   get count () {
+//     return 1
+//   }
+// }
+
+// const a = Object.assign({
+//   b: 2,
+// }, f)
+
+// console.log('print', a)

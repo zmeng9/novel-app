@@ -1,6 +1,11 @@
 import { types, cast } from 'mobx-state-tree'
-import { CommonState, CommonAction } from '../common'
-import { unique } from '../../utils'
+import {
+  CommonState,
+  CommonActions,
+  FlatListState,
+  FlatListViews,
+  FlatListActions,
+} from '../common'
 
 const Type = types.model({
   id: types.identifierNumber,
@@ -33,34 +38,12 @@ const Novel = types.model({
 export const RecommendStore = types
   .model({
     ...CommonState,
-
-    limit: 3,
-    offset: 0,
-    refreshLimit: 0,
-    isRefreshing: false,
-    novels: types.optional(types.array(Novel), []),
-    novelsCount: 0,
+    ...FlatListState(Novel),
+  })
+  .views(self => {
+    return FlatListViews(self)
   })
   .actions(self => ({
-    ...CommonAction(self),
-
-    setNovels(novels: Array<any>) {
-      const cleanNovels = unique(novels, `id`)
-      self.novels = cast(cleanNovels)
-    },
-    setNovelsCount(novelsCount: number) {
-      self.novelsCount = novelsCount
-    },
-    setLimit(limit: number) {
-      self.limit = limit
-    },
-    setOffset(offset: number) {
-      self.offset = offset
-    },
-    setRefreshLimit(refreshLimit: number) {
-      self.refreshLimit = refreshLimit
-    },
-    setIsRefreshing(isRefreshing: boolean) {
-      self.isRefreshing = isRefreshing
-    },
+    ...CommonActions(self),
+    ...FlatListActions(self),
   }))
