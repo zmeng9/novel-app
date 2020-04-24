@@ -5,7 +5,7 @@ import {
   Text,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { Header as HeaderComp } from '../../components'
+import { Header as HeaderComp, SearchBar } from '../../components'
 
 export interface IHeaderProps {
 
@@ -15,8 +15,8 @@ export const Header: React.SFC<IHeaderProps> = observer(({
 
 }) => {
   return (
-    <HeaderComp>
-
+    <HeaderComp isEmpty={true}>
+      <SearchBar />
     </HeaderComp>
   )
 })

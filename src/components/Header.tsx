@@ -13,6 +13,7 @@ import { goBack } from '../utils'
 export interface IHeaderProps {
   children?: React.ReactNode
   type?: `header` | `footer`
+  isEmpty?: boolean
 }
 
 const { width } = Dimensions.get('window')
@@ -20,6 +21,7 @@ const { width } = Dimensions.get('window')
 export const Header: React.SFC<IHeaderProps> = observer(({
   children,
   type = `header`,
+  isEmpty = false,
 }) => {
   const headerHeight = useHeaderHeight()
   const statusBarHeight = getStatusBarHeight()
@@ -34,7 +36,7 @@ export const Header: React.SFC<IHeaderProps> = observer(({
         paddingBottom: isFooter ? 20 : 0,
       }
     ]}>
-      {isHeader && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
+      {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
       {children}
     </View>
   )
