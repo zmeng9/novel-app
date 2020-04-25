@@ -35,7 +35,7 @@ export const FlatListViews = (self: any) => ({
     return self.listData.length
   },
   get totalHeight() {
-    const paddingV = 10
+    const paddingV = 20
     const h = self.itemHeight * self.listData.length
     return Boolean(h) ? h + paddingV : `100%`
   },

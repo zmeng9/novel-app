@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react'
 
 export interface ICardProps {
@@ -33,5 +30,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 5,
     padding: 10,
+    shadowColor: `#ccc`,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
   },
 })

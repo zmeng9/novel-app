@@ -22,7 +22,7 @@ const { height, width } = useWindowSize()
 export const Reader: React.FC = observer(() => {
   // Route params
   const route = useRoute()
-  const { id } = route.params as any
+  const { id = -1 } = route.params as any
 
   // Use store
   const { readerStore } = useStores()
@@ -66,7 +66,8 @@ export const Reader: React.FC = observer(() => {
   useEffect(() => {
     if (dirData) {
       const { rows = [] } = dirData
-      const newChapterId = Boolean(~chapterId) ? chapterId : rows[0].id
+      const firstChapterId = _.get(rows, `[0].id`, -1)
+      const newChapterId = Boolean(~chapterId) ? chapterId : firstChapterId
 
       // Update state
       setDir(rows)

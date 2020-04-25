@@ -17,12 +17,12 @@ export const InfoCard: React.SFC<IInfoCardProps> = observer(({
   novel,
 }) => {
   const {
-    id,
-    cover,
-    title,
-    author: { username },
-    type,
-    clickNum,
+    id = -1,
+    cover = '',
+    title = '',
+    author: { username = '' },
+    type: { name = '' },
+    clickNum = 0,
   } = novel
 
   const handleGoToReader = useCallback(() => {
@@ -49,7 +49,7 @@ export const InfoCard: React.SFC<IInfoCardProps> = observer(({
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-pricetag' size={20} />
-            <Text style={styles.text}>{type.name}</Text>
+            <Text style={styles.text}>{name}</Text>
           </TouchableOpacity>
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />

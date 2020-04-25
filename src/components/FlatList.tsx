@@ -139,6 +139,6 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    padding: 5,
+    padding: 10,
   },
 })
