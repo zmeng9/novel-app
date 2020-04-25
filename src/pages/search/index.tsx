@@ -78,7 +78,7 @@ export const Search: React.FC = observer(() => {
         setSearchHistory(searchHistory)
       })()
     }
-  }, [searchHistory, isSubmit])
+  }, [searchHistory, isLoading, isSubmit])
 
   const handleSubmit = useCallback(() => {
     setListData([])

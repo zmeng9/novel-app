@@ -6,7 +6,7 @@ export * from './flatList'
  */
 
 export const CommonState = {
-  isLoading: false,
+  isLoading: true,
   error: types.maybeNull(types.string),
 }
 

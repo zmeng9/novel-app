@@ -5,11 +5,11 @@ import {
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { useRoute } from '@react-navigation/native'
-import { Btn } from '../../../components'
-import { goToReader } from '../../../utils'
 import { useStores, useService } from '../../../hooks'
+import { Loading } from '../../../components'
 import { getNovel } from '../../../services'
 import { Header } from './Header'
+import { InfoCard } from './InfoCard'
 
 export interface IIntroProps {
 
@@ -22,7 +22,7 @@ export const Intro: React.FC<IIntroProps> = observer(({
   const { id } = route.params as any
 
   const { introStore } = useStores()
-  const { setNovel } = introStore
+  const { isLoading, novel, setNovel } = introStore
 
   const data = useService({
     store: introStore,
@@ -36,20 +36,22 @@ export const Intro: React.FC<IIntroProps> = observer(({
     }
   }, [data])
 
-  const handleGoToReader = useCallback(() => {
-    return goToReader(id)
-  }, [])
-
   return (
     <View style={styles.root}>
       <Header />
-      <Btn text='点击阅读' handle={handleGoToReader} />
+      {
+        isLoading
+          ? <Loading />
+          : (
+            <InfoCard novel={novel} />
+          )
+      }
     </View>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
-
+    flex: 1,
   },
 })

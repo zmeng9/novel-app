@@ -3,11 +3,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import FastImage from 'react-native-fast-image'
-import { Card, ViewHeight, IViewHeightProps } from '../../../../components'
-import { useStores, useWindowSize } from '../../../../hooks'
+import { Card, Img, ViewHeight, IViewHeightProps } from '../../../../components'
+import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
 export interface INovelProps extends IViewHeightProps {
@@ -34,29 +34,23 @@ export const Novel: React.FC<INovelProps> = observer(({
   return (
     <ViewHeight setHeight={setHeight}>
       <Card handle={handle}>
-        <FastImage
-          style={styles.img}
-          source={{
-            uri: cover,
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-        <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity>
-          <Text style={styles.username}>{username}</Text>
-        </TouchableOpacity>
+        <View style={styles.root}>
+          <Img uri={cover} height={height / 4} width={width} />
+          <Text style={styles.title}>{title}</Text>
+          <TouchableOpacity>
+            <Text style={styles.username}>{username}</Text>
+          </TouchableOpacity>
+        </View>
       </Card>
     </ViewHeight>
   )
 })
 
 const styles = StyleSheet.create({
-  img: {
-    height: height / 4,
-    width,
-    marginTop: 35,
-    marginBottom: 25,
+  root: {
+    alignItems: `center`,
+    paddingTop: 35,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 20,

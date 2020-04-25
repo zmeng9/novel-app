@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
@@ -34,6 +33,5 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 5,
     padding: 10,
-    alignItems: `center`,
   },
 })
