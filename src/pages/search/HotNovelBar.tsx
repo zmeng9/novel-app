@@ -21,7 +21,7 @@ export const HotNovelBar: React.SFC<IHotNovelBarProps> = observer(({
         {
           hotNovels.map(hotNovel => {
             const { id, title } = hotNovel
-            return <Btn key={id} text={title} handle={() => goToIntro(id)} />
+            return <Btn key={id} color='primary' text={title} handle={() => goToIntro(id)} />
           })
         }
       </View>

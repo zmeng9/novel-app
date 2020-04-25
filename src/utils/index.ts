@@ -1,3 +1,4 @@
+export * from './theme'
 export * from './storage'
 export { default as request } from './request'
 export * from './logger'

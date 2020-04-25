@@ -1,26 +1,34 @@
 import React from 'react'
 import {
   StyleSheet,
-  View,
   Text,
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
+import { themeColor, IIhemeColorColor } from '../utils'
 
 export interface IBtnProps {
   text: string
-  colorType?: `dark` | `light`
+  color?: IIhemeColorColor
   handle: (...params: any) => void
 }
 
 export const Btn: React.SFC<IBtnProps> = observer(({
   text,
-  colorType = `light`,
+  color = `default`,
   handle,
 }) => {
   return (
-    <TouchableOpacity style={[styles.root, styles[colorType]]} onPress={handle}>
-      <Text style={styles.btnText} numberOfLines={4} ellipsizeMode='tail' >{text}</Text>
+    <TouchableOpacity 
+      style={[
+        styles.root, 
+        {
+          backgroundColor: themeColor[color],
+        }
+      ]} 
+      onPress={handle}
+    >
+      <Text style={[styles.btnText, styles[color]]} numberOfLines={4} ellipsizeMode='tail' >{text}</Text>
     </TouchableOpacity>
   )
 })
@@ -34,14 +42,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 15,
   },
-  light: {
-    backgroundColor: `#2d98da`,
+  default: {
+    color: `#000`,
   },
-  dark: {
-    backgroundColor: `#333`,
+  primary: {
+    color: `#fff`,
+  },
+  secondary: {
+    color: `#fff`,
   },
   btnText: {
-    color: `#fff`,
     fontSize: 15,
   },
 })
