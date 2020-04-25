@@ -7,7 +7,7 @@ import { useEffect } from "react"
 export const useResetState = (store: any) => {
   useEffect(() => {
     return () => {
-      store.resetState()
+      store.reset()
     }
   }, [])
 }

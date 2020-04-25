@@ -1,5 +1,4 @@
-import { types } from 'mobx-state-tree'
-export { resetObj } from '../../utils'
+import { types, applySnapshot } from 'mobx-state-tree'
 export * from './flatList'
 
 /* 
@@ -17,5 +16,8 @@ export const CommonActions = (self: any) => ({
   },
   setError(error: string | null) {
     self.error = error
+  },
+  reset() {
+    applySnapshot(self, {})
   },
 })

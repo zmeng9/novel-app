@@ -3,18 +3,20 @@ import { StyleSheet, FlatList as RnFlatList } from 'react-native'
 import { observer } from 'mobx-react'
 import { Loading } from './Loading'
 import { NoData } from './NoData'
-import { useService, useIsFirstRender } from '../hooks'
+import { useIsFirstRender } from '../hooks'
 import { toast } from '../utils'
 
 export interface IFlatListProps {
   store: any
-  service: any
+  data: any
+  refreshData?: any
   renderItem: (item: any) => React.ReactElement | null
 }
 
 export const FlatList: React.FC<IFlatListProps> = observer(({
   store,
-  service,
+  data,
+  refreshData,
   renderItem,
 }) => {
   const isFirstRender = useIsFirstRender()
@@ -27,6 +29,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     refreshLimit,
     isRefreshing,
     listData,
+    count,
     totalCount,
     itemHeight,
     totalHeight,
@@ -36,22 +39,6 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     setIsRefreshing,
     setTotalCount,
   } = store
-
-  // Service
-  const data = useService({
-    store,
-    service,
-    params: [{ limit, offset }],
-    condition: [offset, limit],
-  })
-
-  const refreshData = useService({
-    store,
-    service,
-    params: [{ limit: refreshLimit, offset: 0 }],
-    isSend: isRefreshing || (refreshLimit > 0),
-    condition: [isRefreshing, refreshLimit],
-  })
 
   useEffect(() => {
     if (data) {
@@ -107,10 +94,10 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     }
   }, [error, isRefreshing])
 
-  const loadMoreData = useCallback(() => {
-    if (!isFirstRender && !isLoading)
+  const loadMoreData = useCallback(({ distanceFromEnd }: any) => {
+    if (!isFirstRender && !isLoading && distanceFromEnd && (totalCount > limit))
       setOffset(offset + limit)
-  }, [isFirstRender, offset, limit, isLoading])
+  }, [isFirstRender, offset, limit, totalCount, isLoading])
 
   const handleRefreshing = useCallback(() => {
     setIsRefreshing(true)
@@ -134,10 +121,11 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     <RnFlatList
       contentContainerStyle={[styles.root, { height: totalHeight }]}
       data={listData}
-      ListEmptyComponent={isLoading ? <Loading /> : <NoData />}
+      bounces={count > 0}
+      ListEmptyComponent={isLoading ? <Loading /> : <NoData isSearch />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}
       refreshing={isRefreshing}
-      onRefresh={handleRefreshing}
+      onRefresh={refreshData === undefined ? null : handleRefreshing}
       keyExtractor={keyExtractor}
       renderItem={_renderItem}
       initialNumToRender={limit}

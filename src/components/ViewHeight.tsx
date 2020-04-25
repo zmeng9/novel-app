@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { observer } from 'mobx-react'
 
 export interface IViewHeightProps {
-  children: React.ReactNode
+  children?: React.ReactNode
   setHeight: (height: number) => void
 }
 

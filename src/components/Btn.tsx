@@ -9,16 +9,18 @@ import { observer } from 'mobx-react'
 
 export interface IBtnProps {
   text: string
-  handle: () => void
+  colorType?: `dark` | `light`
+  handle: (...params: any) => void
 }
 
 export const Btn: React.SFC<IBtnProps> = observer(({
   text,
+  colorType = `light`,
   handle,
 }) => {
   return (
-    <TouchableOpacity style={styles.root} onPress={handle}>
-      <Text style={styles.btnText}>{text}</Text>
+    <TouchableOpacity style={[styles.root, styles[colorType]]} onPress={handle}>
+      <Text style={styles.btnText} numberOfLines={4} ellipsizeMode='tail' >{text}</Text>
     </TouchableOpacity>
   )
 })
@@ -31,10 +33,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 15,
-    backgroundColor: '#333',
+  },
+  light: {
+    backgroundColor: `#2d98da`,
+  },
+  dark: {
+    backgroundColor: `#333`,
   },
   btnText: {
     color: `#fff`,
-    fontSize: 16,
+    fontSize: 15,
   },
 })

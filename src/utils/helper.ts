@@ -1,16 +1,3 @@
-/* 
- * 1. The params is `this` of object,  and array of state
- * 2. Merge the multiple objects of state
- * 3. Foreach the key of object and set `attribute of objects to attribute of this`
- */
-
-export const resetObj = (self: any, array: Array<Object>) => {
-  const obj: Object = Object.assign(...array as [Array<Object>]);
-  (Object.keys(obj) as Array<keyof typeof obj>).forEach(key => {
-    (self[key] as any) = obj[key]
-  })
-}
-
 export const isUpper = (code: string) => {
   return /[A-Z]/.test(code)
 }

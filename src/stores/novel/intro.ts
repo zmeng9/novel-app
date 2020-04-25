@@ -1,18 +1,16 @@
-import { types, cast } from 'mobx-state-tree'
+import { types, Instance } from 'mobx-state-tree'
 import {
   CommonState,
   CommonActions,
-  FlatListState,
-  FlatListViews,
-  FlatListActions,
 } from '../common'
 
-const Type = types.model({
+
+export const Type = types.model({
   id: types.identifierNumber,
   name: '',
 })
 
-const Author = types.model({
+export const Author = types.model({
   id: types.identifierNumber,
   mobile: '',
   username: '',
@@ -24,26 +22,31 @@ const Author = types.model({
   isAdmin: false,
 })
 
-const Novel = types.model({
-  id: types.identifierNumber,
+export const Novel = types.model({
+  id: -1,
   title: '',
   authorId: -1,
-  author: Author,
+  author: types.maybeNull(Author),
   typeId: -1,
-  type: Type,
+  type: types.maybeNull(Type),
   cover: '',
   info: types.maybeNull(types.string),
+  announcement: types.maybeNull(types.string),
+  clickNum: 0,
+  likeNum: 0,
+  collectionNum: 0,
 })
 
-export const RecommendStore = types
+export const IntroStore = types
   .model({
     ...CommonState,
-    ...FlatListState(Novel),
-  })
-  .views(self => {
-    return FlatListViews(self)
+    novel: types.maybeNull(Novel),
   })
   .actions(self => ({
     ...CommonActions(self),
-    ...FlatListActions(self),
+
+    setNovel(novel: Instance<typeof Novel>) {
+      self.novel = novel
+    },
   }))
+

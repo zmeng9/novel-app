@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
+import { useIsFirstRender } from './isFirstRender'
 import { toast } from '../utils'
 
 export interface IService {
   store: any,
   service: any
   params?: any
-  isSend?: boolean
+  isSubmit?: boolean
+  immedate?: boolean
+  setDataNull?: boolean
   condition?: Array<any>
   beforeHandle?: () => void
 }
@@ -14,12 +17,15 @@ export const useService = ({
   store,
   service,
   params,
-  isSend = true,
+  isSubmit = true,
+  immedate = true,
+  setDataNull = false,
   condition = [],
   beforeHandle,
 }: IService): any => {
+  const isFirstRender = useIsFirstRender()
   const [data, setData] = useState(null)
-  const { setIsLoading, setError } = store
+  const { setIsLoading, setError, setIsSubmit } = store
 
   const fetchData = async () => {
     setIsLoading(true)
@@ -31,6 +37,10 @@ export const useService = ({
         setData(data)
         setError(null)
         setIsLoading(false)
+
+        // If it's submit list
+        if (typeof setIsSubmit === `function`)
+          setIsSubmit(false)
       }
     } catch (error) {
       setError(error.message)
@@ -47,13 +57,16 @@ export const useService = ({
   }
 
   useEffect(() => {
+    if (immedate || !isFirstRender) {
+      // Do something before 
+      if (beforeHandle)
+        beforeHandle()
 
-    // Do something before 
-    if (beforeHandle)
-      beforeHandle()
-
-    if (isSend)
-      fetchData()
+      if (isSubmit)
+        fetchData()
+    }
+    if (setDataNull)
+      setData(null)
   }, condition)
 
   return data

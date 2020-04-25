@@ -6,16 +6,16 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { Input } from './Input'
+import { Input, IInputProps } from './Input'
 import { goBack } from '../utils'
 import { Icon } from './Icon'
 
-export interface ISearchBarProps {
+export interface ISearchBarProps extends IInputProps {
 
 }
 
 export const SearchBar: React.SFC<ISearchBarProps> = observer(({
-
+  ...inputProps
 }) => {
   return (
     <View style={styles.root}>
@@ -23,7 +23,14 @@ export const SearchBar: React.SFC<ISearchBarProps> = observer(({
         <View style={styles.iconContainer}>
           <Icon name='ios-search' size={24} />
         </View>
-        <Input type='input' placeholder='搜索' autoFocus />
+        <Input
+          {...inputProps}
+          type='input'
+          placeholder='搜索'
+          clearButtonMode='while-editing'
+          returnKeyType='search'
+          autoFocus
+        />
       </View>
       <TouchableOpacity onPress={goBack} >
         <Text style={styles.text}>取消</Text>

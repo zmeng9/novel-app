@@ -2,27 +2,24 @@ import React, { useCallback } from 'react'
 import {
   StyleSheet,
   Text,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import FastImage from 'react-native-fast-image'
-import { Card, ViewHeight } from '../../../../components'
-import { useStores } from '../../../../hooks'
+import { Card, ViewHeight, IViewHeightProps } from '../../../../components'
+import { useStores, useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
-export interface INovelProps {
+export interface INovelProps extends IViewHeightProps {
   novel: any
 }
 
-const { height, width } = Dimensions.get('window')
+const { height, width } = useWindowSize()
 
-const Novel: React.FC<INovelProps> = observer(({
+export const Novel: React.FC<INovelProps> = observer(({
   novel,
+  setHeight,
 }) => {
-  const { recommendStore } = useStores()
-  const { setItemHeight } = recommendStore
-
   const {
     id,
     cover,
@@ -35,7 +32,7 @@ const Novel: React.FC<INovelProps> = observer(({
   }, [])
 
   return (
-    <ViewHeight setHeight={setItemHeight}>
+    <ViewHeight setHeight={setHeight}>
       <Card handle={handle}>
         <FastImage
           style={styles.img}
@@ -71,5 +68,3 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 })
-
-export default Novel

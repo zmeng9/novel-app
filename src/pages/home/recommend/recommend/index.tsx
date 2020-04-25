@@ -4,23 +4,45 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { useStores } from '../../../../hooks'
-import { getNovels } from '../../../../services'
+import { useStores, useService } from '../../../../hooks'
+import { getRecommends } from '../../../../services'
 import { FlatList } from '../../../../components'
-import Novel from './Novel'
+import { Novel } from './Novel'
 
 export const Recommend: React.FC = observer(() => {
   const { recommendStore } = useStores()
+  const {
+    limit,
+    offset,
+    refreshLimit,
+    isRefreshing,
+  } = recommendStore
+
+  const data = useService({
+    store: recommendStore,
+    service: getRecommends,
+    params: [{ limit, offset }],
+    condition: [offset, limit],
+  })
+
+  const refreshData = useService({
+    store: recommendStore,
+    service: getRecommends,
+    params: [{ limit: refreshLimit, offset: 0 }],
+    isSubmit: isRefreshing || (refreshLimit > 0),
+    condition: [isRefreshing, refreshLimit],
+  })
 
   const renderItem = useCallback((item: any) => (
-    <Novel novel={item} />
+    <Novel novel={item} setHeight={recommendStore.setItemHeight} />
   ), [])
 
   return (
     <View style={styles.root}>
       <FlatList
         store={recommendStore}
-        service={getNovels}
+        data={data}
+        refreshData={refreshData}
         renderItem={renderItem}
       />
     </View>
@@ -29,9 +51,6 @@ export const Recommend: React.FC = observer(() => {
 
 const styles = StyleSheet.create({
   root: {
-  },
-  container: {
-    minHeight: `100%`,
-    padding: 5,
+    flex: 1,
   },
 })

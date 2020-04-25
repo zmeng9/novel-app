@@ -8,14 +8,16 @@ import { observer } from 'mobx-react'
 
 export interface INoDataProps {
   text?: string
+  isSearch?: boolean
 }
 
 export const NoData: React.SFC<INoDataProps> = observer(({
   text = `暂无数据`,
+  isSearch = false,
 }) => {
   return (
     <View style={styles.root}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{isSearch ? `无搜索结果` : text}</Text>
     </View>
   )
 })

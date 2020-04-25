@@ -1,30 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   TextInput,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { useInput } from '../hooks'
 
 export interface IInputProps {
+  value: string
   type?: `outline` | `input`
   placeholder?: string
   autoFocus?: boolean
+  clearButtonMode?: `never` | `while-editing`
+  returnKeyType?: `done` | `search` | `go`
+  onChangeText: (text: string) => void
+  onSubmitEditing?: () => void
 }
 
 export const Input: React.SFC<IInputProps> = observer(({
+  value,
   type = `outline`,
   placeholder = ``,
   autoFocus = false,
+  clearButtonMode = `never`,
+  returnKeyType = `done`,
+  onChangeText,
+  onSubmitEditing,
 }) => {
-  const input = useInput('')
 
   return (
     <TextInput
+      style={[styles.root, styles[type]]}
+      value={value}
+      onChangeText={onChangeText}
+      onSubmitEditing={onSubmitEditing}
       autoFocus={autoFocus}
       placeholder={placeholder}
-      style={[styles.root, styles[type]]}
-      {...input}
+      clearButtonMode={clearButtonMode}
+      enablesReturnKeyAutomatically
+      returnKeyType={returnKeyType}
     />
   )
 })

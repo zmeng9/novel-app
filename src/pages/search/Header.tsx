@@ -1,22 +1,22 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native'
+import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
-import { Header as HeaderComp, SearchBar } from '../../components'
+import {
+  Header as HeaderComp,
+  SearchBar,
+  ISearchBarProps,
+} from '../../components'
 
-export interface IHeaderProps {
+export interface IHeaderProps extends ISearchBarProps {
 
 }
 
-export const Header: React.SFC<IHeaderProps> = observer(({
-
+export const Header: React.FC<IHeaderProps> = observer(({
+  ...SearchBarProps
 }) => {
   return (
-    <HeaderComp isEmpty={true}>
-      <SearchBar />
+    <HeaderComp isEmpty >
+      <SearchBar {...SearchBarProps} />
     </HeaderComp>
   )
 })
