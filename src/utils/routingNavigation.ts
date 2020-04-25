@@ -24,6 +24,6 @@ export const goToIntro = (id: number) => {
   navigation.navigate(`Intro`, { id })
 }
 
-export const goToChapter = (id: number) => {
-  navigation.navigate(`Chapter`, { id })
+export const goToReader = (id: number) => {
+  navigation.navigate(`Reader`, { id })
 }

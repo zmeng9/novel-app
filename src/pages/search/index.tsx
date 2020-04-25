@@ -9,12 +9,16 @@ import { useStores, useResetState, useService } from '../../hooks'
 import { FlatList } from '../../components'
 import { getHotNovels, getNovels } from '../../services'
 import { Novel } from '../home/recommend/recommend/Novel'
-import { HotNovel } from './HotNovel'
+import { SearchHistoryBar } from './searchHistoryBar'
+import { HotNovelBar } from './HotNovelBar'
+import { loadSearchHistory, saveSearchHistory } from '../../utils'
 
 export const Search: React.FC = observer(() => {
   const { searchStore } = useStores()
   const {
+    isLoading,
     searchText,
+    searchHistory,
     immedate,
     isSubmit,
     limit,
@@ -23,6 +27,7 @@ export const Search: React.FC = observer(() => {
     hotNovels,
     setHotNovels,
     setSearchText,
+    setSearchHistory,
     setIsSubmit,
     setListData,
     setOffset,
@@ -30,25 +35,6 @@ export const Search: React.FC = observer(() => {
   } = searchStore
 
   useResetState(searchStore)
-
-  const hotNovelsData = useService({
-    store: searchStore,
-    service: getHotNovels,
-    params: [{ limit: hotLimit }],
-  })
-
-  useEffect(() => {
-    if (hotNovelsData) {
-      const { rows = [] } = hotNovelsData
-      setHotNovels(rows)
-    }
-  }, [hotNovelsData])
-
-  const handleSubmit = useCallback(() => {
-    setListData([])
-    setOffset(0)
-    setIsSubmit(true)
-  }, [])
 
   const isSearchTextEmpty = searchText.trim() === ``
 
@@ -62,11 +48,46 @@ export const Search: React.FC = observer(() => {
     condition: [offset, limit, isSubmit, searchText],
   })
 
+  const hotNovelsData = useService({
+    store: searchStore,
+    service: getHotNovels,
+    params: [{ limit: hotLimit }],
+  })
+
+  // Set List data is `[]` and offset is `0` when the search text is empty
   useEffect(() => {
     if (isSearchTextEmpty) {
       setListData([])
       setOffset(0)
     }
+  }, [searchText])
+
+  // Set hot novels
+  useEffect(() => {
+    if (hotNovelsData) {
+      const { rows = [] } = hotNovelsData
+      setHotNovels(rows)
+    }
+  }, [hotNovelsData])
+
+  // Load search history
+  useEffect(() => {
+    if (!isLoading) {
+      (async () => {
+        const searchHistory = await loadSearchHistory()
+        setSearchHistory(searchHistory)
+      })()
+    }
+  }, [searchHistory, isSubmit])
+
+  const handleSubmit = useCallback(() => {
+    setListData([])
+    setOffset(0)
+    setIsSubmit(true);
+
+    (async () => {
+      await saveSearchHistory(searchText)
+    })()
   }, [searchText])
 
   const renderItem = useCallback((item: any) => (
@@ -82,7 +103,20 @@ export const Search: React.FC = observer(() => {
       />
       {
         isSearchTextEmpty || !data
-          ? <HotNovel hotNovels={hotNovels} />
+          ? (
+            <>
+              {
+                searchHistory && (
+                  <SearchHistoryBar
+                    handleSubmit={handleSubmit}
+                    searchHistory={searchHistory}
+                    setSearchText={setSearchText}
+                  />
+                )
+              }
+              <HotNovelBar hotNovels={hotNovels} />
+            </>
+          )
           : (
             <FlatList
               store={searchStore}

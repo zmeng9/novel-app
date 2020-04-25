@@ -14,7 +14,17 @@ export const isThinCode = (code: string) => {
   return /f|t|r/.test(code)
 }
 
-export const unique = (array: Array<any>, key: string) => {
+export const unique = (array: Array<any>) => {
+  let cleanArray: Array<any> = []
+  for (let item of array) {
+    const isExist = cleanArray.find(i => i === item)
+    if (!isExist)
+      cleanArray.push(item)
+  }
+  return cleanArray
+}
+
+export const uniqueByKey = (array: Array<any>, key: string) => {
   let cleanArray: Array<any> = []
   for (let item of array) {
     const isExist = cleanArray.find(i => i[key] === item[key])
@@ -25,7 +35,7 @@ export const unique = (array: Array<any>, key: string) => {
 }
 
 export const uniqueById = (array: Array<any>) => {
-  return unique(array, `id`)
+  return uniqueByKey(array, `id`)
 }
 
 export const debounce = (
@@ -55,4 +65,17 @@ export const debounce = (
       }, wait)
     }
   }
+}
+
+export const removeArrayLastEle = (array: Array<any>) => {
+  array.splice(-1, 1)
+  return array
+}
+
+export const splitByComma = (str: string) => {
+  return str.split(',')
+}
+
+export const joinByComma = (str: string, anotherStr: string) => {
+  return `${str},${anotherStr}`
 }

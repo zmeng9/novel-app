@@ -6,7 +6,7 @@ import {
 import { observer } from 'mobx-react'
 import { useRoute } from '@react-navigation/native'
 import { Btn } from '../../../components'
-import { goToChapter } from '../../../utils'
+import { goToReader } from '../../../utils'
 import { useStores, useService } from '../../../hooks'
 import { getNovel } from '../../../services'
 import { Header } from './Header'
@@ -36,14 +36,14 @@ export const Intro: React.FC<IIntroProps> = observer(({
     }
   }, [data])
 
-  const handleGoToChapter = useCallback(() => {
-    return goToChapter(id)
+  const handleGoToReader = useCallback(() => {
+    return goToReader(id)
   }, [])
 
   return (
     <View style={styles.root}>
       <Header />
-      <Btn text='点击阅读' handle={handleGoToChapter} />
+      <Btn text='点击阅读' handle={handleGoToReader} />
     </View>
   )
 })

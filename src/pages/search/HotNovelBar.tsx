@@ -1,18 +1,17 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
-  Text,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { Title, Btn } from '../../components'
 import { goToIntro } from '../../utils'
 
-export interface IHotNovelProps {
+export interface IHotNovelBarProps {
   hotNovels: Array<any>
 }
 
-export const HotNovel: React.SFC<IHotNovelProps> = observer(({
+export const HotNovelBar: React.SFC<IHotNovelBarProps> = observer(({
   hotNovels,
 }) => {
   return (

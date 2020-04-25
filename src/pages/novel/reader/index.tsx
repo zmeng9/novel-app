@@ -2,13 +2,12 @@ import React, { useEffect } from 'react'
 import {
   StyleSheet,
   View,
-  Dimensions,
 } from 'react-native'
 import _ from 'lodash'
 import ViewPager from '@react-native-community/viewpager'
 import { useRoute } from '@react-navigation/native'
 import { observer } from 'mobx-react'
-import { useStores, useService, useResetState } from '../../../hooks'
+import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
 import { formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading } from '../../../components'
 import { getDir, getChapter } from '../../../services'
@@ -18,15 +17,9 @@ import Footer from './Footer'
 import Dir from './Dir'
 
 
-export interface IChapterProps {
+const { height, width } = useWindowSize()
 
-}
-
-const { height, width } = Dimensions.get('window')
-
-export const Chapter: React.FC<IChapterProps> = observer(({
-
-}) => {
+export const Reader: React.FC = observer(() => {
   // Route params
   const route = useRoute()
   const { id } = route.params as any

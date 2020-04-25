@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './home'
 import { Search } from './search'
-import { Intro, Chapter } from './novel'
+import { Intro, Reader } from './novel'
 
 const Stack = createStackNavigator()
 
@@ -26,8 +26,8 @@ const StackNavigator: React.SFC = () => {
         component={Intro}
       />
       <Stack.Screen
-        name='Chapter'
-        component={Chapter}
+        name='Reader'
+        component={Reader}
       />
       <Stack.Screen
         name='Search'
