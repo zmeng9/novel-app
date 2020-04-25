@@ -25,8 +25,9 @@ export const Reader: React.FC = observer(() => {
   const { id } = route.params as any
 
   // Use store
-  const { chapterStore } = useStores()
-  let {
+  const { readerStore } = useStores()
+  const {
+    isLoading,
     isShowSetting,
     isShowDir,
     fontSize,
@@ -39,20 +40,23 @@ export const Reader: React.FC = observer(() => {
     setDir,
     setChapterId,
     setLines,
-  } = chapterStore
+  } = readerStore
 
   // Reset the state when unmount
-  useResetState(chapterStore)
+  useResetState(readerStore)
 
   // Use service
-  const [dirData, dirDataIsLoading] = useService({
+  const dirData = useService({
+    store: readerStore,
     service: getDir,
     params: [id],
   })
-  const [chapterData, chapterDataIsLoading] = useService({
+
+  const data = useService({
+    store: readerStore,
     service: getChapter,
     params: [id, chapterId],
-    isSend: Boolean(~chapterId),
+    isSubmit: Boolean(~chapterId),
     condition: [chapterId],
     beforeHandle: () => {
       setIsShowSetting(false)
@@ -71,8 +75,8 @@ export const Reader: React.FC = observer(() => {
   }, [dirData])
 
   useEffect(() => {
-    if (chapterData) {
-      const { id = -1, chapterTitle = '', chapterContent = '' } = chapterData
+    if (data) {
+      const { id = -1, chapterTitle = '', chapterContent = '' } = data
       const lineWidth = Math.floor((width - 40) * 2 / fontSize)
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
       const cleanContent = formatContent(chapterContent)
@@ -84,7 +88,7 @@ export const Reader: React.FC = observer(() => {
       setLines(lines)
       setChapterId(id)
     }
-  }, [chapterData])
+  }, [data])
 
   // Get the numbers Of the lines per pages
   const getNumbersOfLinesPerPages = () => {
@@ -139,8 +143,9 @@ export const Reader: React.FC = observer(() => {
   return (
     <View style={styles.root}>
       {
-        (!dirDataIsLoading && !chapterDataIsLoading)
-          ? (
+        isLoading
+          ? <Loading />
+          : (
             <>
               <Header isShowSetting={isShowSetting} />
               <ViewPager style={styles.pager} initialPage={0}>
@@ -162,7 +167,6 @@ export const Reader: React.FC = observer(() => {
               <Dir isShowDir={isShowDir} closeDir={closeDir} dir={dir} switchChapter={switchChapter} />
             </>
           )
-          : <Loading />
       }
     </View>
   )

@@ -1,2 +1,2 @@
 export * from './novel'
-export * from './chapter'
+export * from './reader'

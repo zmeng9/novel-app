@@ -1,2 +1,2 @@
 export * from './intro'
-export * from './chapter'
+export * from './reader'

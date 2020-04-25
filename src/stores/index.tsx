@@ -1,19 +1,19 @@
 import React from 'react'
 import { types, Instance } from 'mobx-state-tree'
 import { RecommendStore } from './home'
-import { ChapterStore, IntroStore } from './novel'
+import { ReaderStore, IntroStore } from './novel'
 import { SearchStore } from './search'
 
 export const stores = types
   .model({
     recommendStore: RecommendStore,
-    chapterStore: ChapterStore,
+    readerStore: ReaderStore,
     searchStore: SearchStore,
     introStore: IntroStore,
   })
   .create({
     recommendStore: RecommendStore.create(),
-    chapterStore: ChapterStore.create(),
+    readerStore: ReaderStore.create(),
     searchStore: SearchStore.create(),
     introStore: IntroStore.create(),
   })

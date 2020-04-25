@@ -6,7 +6,7 @@ const Dir = types.model({
   chapterTitle: '',
 })
 
-export const ChapterStore = types
+export const ReaderStore = types
   .model({
     ...CommonState,
 
@@ -15,11 +15,11 @@ export const ChapterStore = types
     dir: types.optional(types.array(Dir), []),
     fontSize: 16,
     page: 1,
-    chapterId: types.optional(types.identifierNumber, -1),
+    chapterId: -1,
     lines: types.optional(types.array(types.string), []),
   })
   .actions(self => ({
-    ...CommonActions,
+    ...CommonActions(self),
     
     setIsShowSetting(isShowSetting: boolean) {
       self.isShowSetting = isShowSetting
