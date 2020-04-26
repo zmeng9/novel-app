@@ -9,7 +9,9 @@ import { useStores, useService } from '../../../hooks'
 import { Loading } from '../../../components'
 import { getNovel } from '../../../services'
 import { Header } from './Header'
+import { InformationCard } from './InformationCard'
 import { InfoCard } from './InfoCard'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export interface IIntroProps {
 
@@ -43,7 +45,10 @@ export const Intro: React.FC<IIntroProps> = observer(({
         isLoading
           ? <Loading />
           : (
-            <InfoCard novel={novel} />
+            <ScrollView contentContainerStyle={styles.container}>
+              <InformationCard novel={novel} />
+              {novel && novel.info && <InfoCard info={novel.info} />}
+            </ScrollView>
           )
       }
     </View>
@@ -53,5 +58,9 @@ export const Intro: React.FC<IIntroProps> = observer(({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  container: {
+    paddingTop: 5,
+    paddingBottom: 15,
   },
 })

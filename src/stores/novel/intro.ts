@@ -32,6 +32,7 @@ export const Novel = types.model({
   cover: '',
   info: types.maybeNull(types.string),
   announcement: types.maybeNull(types.string),
+  wordsNum: 0,
   clickNum: 0,
   likeNum: 0,
   collectionNum: 0,
