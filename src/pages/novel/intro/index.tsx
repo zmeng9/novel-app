@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import {
   StyleSheet,
   View,
+  ScrollView,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { useRoute } from '@react-navigation/native'
@@ -11,7 +12,6 @@ import { getNovel } from '../../../services'
 import { Header } from './Header'
 import { InformationCard } from './InformationCard'
 import { InfoCard } from './InfoCard'
-import { ScrollView } from 'react-native-gesture-handler'
 
 export interface IIntroProps {
 
@@ -45,7 +45,10 @@ export const Intro: React.FC<IIntroProps> = observer(({
         isLoading
           ? <Loading />
           : (
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView
+              contentContainerStyle={styles.container}
+              scrollIndicatorInsets={{ right: 1 }}
+            >
               <InformationCard novel={novel} />
               {novel && novel.info && <InfoCard info={novel.info} />}
             </ScrollView>

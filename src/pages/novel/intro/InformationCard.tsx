@@ -33,12 +33,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   return (
     <Card>
       <View style={styles.root}>
-        <View style={styles.leftContainer}>
+        <TouchableOpacity style={styles.leftContainer} onPress={handleGoToReader}>
           <Img uri={cover} height={200} width={150} />
           <View>
-            <Btn text='点击阅读' handle={handleGoToReader} />
+            <Btn text='点击阅读' />
           </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
             <Icon name='ios-book' size={20} />

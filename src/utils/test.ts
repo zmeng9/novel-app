@@ -2,8 +2,8 @@ import stripAnsi from 'strip-ansi'
 import isFullwidthCodePoint from 'is-fullwidth-code-point'
 
 
-const str: any = '        我今年三十七岁。现在，我正坐在波'
-console.log('print', str.length)
+// const str: any = '        我今年三十七岁。现在，我正坐在波'
+// console.log('print', str.length)
 
 // for (let i in str) {
 
@@ -14,3 +14,5 @@ console.log('print', str.length)
 //   console.log('print', code)
 //   console.log(isFullwidthCodePoint(code))
 // }
+
+console.log('print', '\u201C')

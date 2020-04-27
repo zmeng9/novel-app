@@ -2,6 +2,7 @@ import React from 'react'
 import {
   StyleSheet,
   View,
+  Keyboard,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { Title, Btn } from '../../components'
@@ -19,6 +20,7 @@ export const SearchHistoryBar: React.SFC<ISearchHistoryBarProps> = observer(({
 }) => {
   const handle = (searchText: string) => {
     setSearchText(searchText)
+    Keyboard.dismiss()
     handleSubmit()
   }
   return (

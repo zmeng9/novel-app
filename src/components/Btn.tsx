@@ -10,7 +10,7 @@ import { themeColor, IIhemeColorColor } from '../utils'
 export interface IBtnProps {
   text: string
   color?: IIhemeColorColor
-  handle: (...params: any) => void
+  handle?: (...params: any) => void
 }
 
 export const Btn: React.SFC<IBtnProps> = observer(({
@@ -26,6 +26,7 @@ export const Btn: React.SFC<IBtnProps> = observer(({
           backgroundColor: themeColor[color],
         }
       ]} 
+      disabled={typeof handle !== `function`}
       onPress={handle}
     >
       <Text style={[styles.btnText, styles[color]]} numberOfLines={4} ellipsizeMode='tail' >{text}</Text>

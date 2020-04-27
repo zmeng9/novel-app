@@ -13,10 +13,11 @@ export const ReaderStore = types
     isShowSetting: false,
     isShowDir: false,
     dir: types.optional(types.array(Dir), []),
-    fontSize: 16,
+    fontSize: 24,
     page: 1,
     chapterId: -1,
     lines: types.optional(types.array(types.string), []),
+    chunks: types.optional(types.array(types.string), []),
   })
   .actions(self => ({
     ...CommonActions(self),
@@ -35,5 +36,8 @@ export const ReaderStore = types
     },
     setLines(lines: Array<string>) {
       self.lines = cast(lines)
+    },
+    setChunks(chunks: Array<string>) {
+      self.chunks = cast(chunks)
     },
   }))

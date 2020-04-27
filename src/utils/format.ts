@@ -61,7 +61,7 @@ const stringWidth = (str: string) => {
   return width
 }
 
-export const parseContent = (str: string, width: number) => {
+export const parseContentToArray = (str: string, width: number) => {
   if (!str || str.trim() === '' || typeof str !== 'string')
     return []
 
@@ -108,3 +108,48 @@ export const parseContent = (str: string, width: number) => {
   return lines
 }
 
+export const parseContentToChunk = (str: string, width: number, num: number) => {
+  if (!str || str.trim() === '' || typeof str !== 'string')
+    return []
+
+  // Two indent 
+  const cleanStr = indentText(str)
+  const chunkWidth = width * num
+
+  let chunks = []
+  let currentChunk = ''
+  let currentChunkWidth = 0
+
+  for (let i in cleanStr) {
+    try {
+      const s = cleanStr[i]
+      let code = s.charCodeAt()
+
+      // Push the current line when meet the `\n` or `\r`
+      if (code === 10 || code === 13) {
+        const fillWidth = width - (currentChunkWidth - Math.floor(currentChunkWidth / width) * width)
+        currentChunkWidth += fillWidth
+      }
+
+      // Computed the width of the word
+      const sWidth = stringWidth(s)
+
+      // Push the current line when width of current line will wider then line width
+      if (currentChunkWidth + sWidth > chunkWidth) {
+        chunks.push(currentChunk)
+        currentChunk = ''
+        currentChunkWidth = 0
+      }
+
+      currentChunk += s
+      currentChunkWidth += sWidth
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Push the last line 
+  chunks.push(currentChunk)
+
+  return chunks
+}

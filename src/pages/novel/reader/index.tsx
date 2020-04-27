@@ -8,7 +8,7 @@ import ViewPager from '@react-native-community/viewpager'
 import { useRoute } from '@react-navigation/native'
 import { observer } from 'mobx-react'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
-import { formatContent, parseContent, isEvenNumber } from '../../../utils'
+import { formatContent, parseContentToChunk, isEvenNumber } from '../../../utils'
 import { Loading } from '../../../components'
 import { getDir, getChapter } from '../../../services'
 import Page from './Page'
@@ -35,11 +35,13 @@ export const Reader: React.FC = observer(() => {
     dir,
     chapterId,
     lines,
+    chunks,
     setIsShowSetting,
     setIsShowDir,
     setDir,
     setChapterId,
     setLines,
+    setChunks,
   } = readerStore
 
   // Reset the state when unmount
@@ -80,13 +82,16 @@ export const Reader: React.FC = observer(() => {
       const { id = -1, chapterTitle = '', chapterContent = '' } = data
       const lineWidth = Math.floor((width - 40) * 2 / fontSize)
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
+      console.log('print', evenLineWidth)
       const cleanContent = formatContent(chapterContent)
-      const lines = parseContent(cleanContent, evenLineWidth)
-      lines.unshift("\n")
-      lines.unshift(chapterTitle)
+      const chunks = parseContentToChunk(cleanContent, evenLineWidth, getNumbersOfLinesPerPages())
+      
+      // chunks.unshift("\n")
+      // chunks.unshift(chapterTitle)
 
       // Update state
-      setLines(lines)
+      setChunks(chunks)
+      // setLines(lines)
       setChapterId(id)
     }
   }, [data])
@@ -101,17 +106,17 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Get the chunks of lines
-  const chunks = () => {
-    const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-    return _.chunk(lines, numbersOfLinesPerPages)
-  }
+  // const chunks = () => {
+  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
+  //   return _.chunk(lines, numbersOfLinesPerPages)
+  // }
 
   // Get the lines Of the current page
-  const linesOfCurrentPage = () => {
-    const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-    const linesStart = (page - 1) * numbersOfLinesPerPages
-    return lines.slice(linesStart, linesStart + numbersOfLinesPerPages)
-  }
+  // const linesOfCurrentPage = () => {
+  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
+  //   const linesStart = (page - 1) * numbersOfLinesPerPages
+  //   return lines.slice(linesStart, linesStart + numbersOfLinesPerPages)
+  // }
 
   // Handlers of Clicking the content
   const pageHandle = (e: any) => {
@@ -136,10 +141,10 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Get the page count
-  const getPageCount = () => {
-    const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-    return Math.ceil(lines.length * 1.0 / numbersOfLinesPerPages)
-  }
+  // const getPageCount = () => {
+  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
+  //   return Math.ceil(lines.length * 1.0 / numbersOfLinesPerPages)
+  // }
 
   return (
     <View style={styles.root}>
@@ -151,7 +156,7 @@ export const Reader: React.FC = observer(() => {
               <Header isShowSetting={isShowSetting} />
               <ViewPager style={styles.pager} initialPage={0}>
                 {
-                  chunks().map((chunk, idx) => {
+                  chunks.map((chunk, idx) => {
                     return (
                       <Page
                         key={idx}

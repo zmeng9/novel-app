@@ -9,7 +9,7 @@ import {
 import { observer } from 'mobx-react'
 
 export interface IPageProps {
-  chunk: Array<string>
+  chunk: string
   chunkIdx: number
   fontSize: number
   handle: (e: any) => void
@@ -26,27 +26,45 @@ const Page: React.SFC<IPageProps> = observer(({
   return (
     <TouchableWithoutFeedback onPress={handle}>
       <View style={styles.root}>
-        {
-          chunk.map((val, idx) => {
-            return (
-              <Text
-                key={idx}
-                style={{
-                  fontSize,
-                  lineHeight: Math.ceil(fontSize + 15),
-                  height: Math.ceil(fontSize + 15),
-                  fontWeight: `300`,
-                  fontVariant: ['tabular-nums'],
-                }}
-              >
-                {val}
-              </Text>
-            )
-          })
-        }
+        <Text
+          style={{
+            backgroundColor: `#ccc`,
+            fontSize,
+            lineHeight: Math.ceil(fontSize + 15),
+            fontWeight: `300`,
+            letterSpacing: 4,
+            fontVariant: ['tabular-nums'],
+          }}
+        >
+          {chunk}
+        </Text>
         <Text style={styles.pageCount}>{chunkIdx + 1}</Text>
       </View>
     </TouchableWithoutFeedback>
+
+    // <TouchableWithoutFeedback onPress={handle}>
+    //   <View style={styles.root}>
+    //     {
+    //       chunk.map((val, idx) => {
+    //         return (
+    //           <Text
+    //             key={idx}
+    //             style={{
+    //               fontSize,
+    //               lineHeight: Math.ceil(fontSize + 15),
+    //               height: Math.ceil(fontSize + 15),
+    //               fontWeight: `300`,
+    //               fontVariant: ['tabular-nums'],
+    //             }}
+    //           >
+    //             {val}
+    //           </Text>
+    //         )
+    //       })
+    //     }
+    //     <Text style={styles.pageCount}>{chunkIdx + 1}</Text>
+    //   </View>
+    // </TouchableWithoutFeedback>
   )
 })
 
