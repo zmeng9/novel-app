@@ -17,7 +17,7 @@ export interface IPageProps {
 
 const { height, width } = Dimensions.get('window')
 
-const Page: React.SFC<IPageProps> = observer(({
+export const Page: React.SFC<IPageProps> = observer(({
   chunk,
   chunkIdx,
   fontSize,
@@ -84,5 +84,3 @@ const styles = StyleSheet.create({
     color: '#747d8c',
   },
 })
-
-export default Page

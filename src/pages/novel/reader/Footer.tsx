@@ -9,12 +9,14 @@ import { useHeaderHeight } from '@react-navigation/stack'
 
 export interface IFooterProps {
   isShowSetting: boolean
-  openDir: () => void
+  switchDir: () => void
+  switchSettingBar: () => void
 }
 
-const Footer: React.SFC<IFooterProps> = observer(({
+export const Footer: React.SFC<IFooterProps> = observer(({
   isShowSetting,
-  openDir,
+  switchDir,
+  switchSettingBar,
 }) => {
   const headerHeight = useHeaderHeight()
 
@@ -22,7 +24,8 @@ const Footer: React.SFC<IFooterProps> = observer(({
     <View style={styles.root}>
       <Silde direction='bottom' isSilde={isShowSetting} distance={headerHeight}>
         <Header type='footer'>
-          <Icon name='ios-menu' handle={openDir} />
+          <Icon name='ios-menu' handle={switchDir} />
+          <Icon name='ios-options' handle={switchSettingBar} />
         </Header>
       </Silde>
     </View>
@@ -34,5 +37,3 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
 })
-
-export default Footer

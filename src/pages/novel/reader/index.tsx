@@ -11,10 +11,11 @@ import { useStores, useService, useResetState, useWindowSize } from '../../../ho
 import { formatContent, parseContentToChunk, isEvenNumber } from '../../../utils'
 import { Loading } from '../../../components'
 import { getDir, getChapter } from '../../../services'
-import Page from './Page'
-import Header from './Header'
-import Footer from './Footer'
-import Dir from './Dir'
+import { Page } from './Page'
+import { Header } from './Header'
+import { Footer } from './Footer'
+import { Dir } from './Dir'
+import { SettingBar } from './SettingBar'
 
 
 const { height, width } = useWindowSize()
@@ -30,6 +31,7 @@ export const Reader: React.FC = observer(() => {
     isLoading,
     isShowSetting,
     isShowDir,
+    isShowSettingBar,
     fontSize,
     page,
     dir,
@@ -38,6 +40,8 @@ export const Reader: React.FC = observer(() => {
     chunks,
     setIsShowSetting,
     setIsShowDir,
+    setIsShowSettingBar,
+    setFontSize,
     setDir,
     setChapterId,
     setLines,
@@ -85,7 +89,7 @@ export const Reader: React.FC = observer(() => {
       console.log('print', evenLineWidth)
       const cleanContent = formatContent(chapterContent)
       const chunks = parseContentToChunk(cleanContent, evenLineWidth, getNumbersOfLinesPerPages())
-      
+
       // chunks.unshift("\n")
       // chunks.unshift(chapterTitle)
 
@@ -128,7 +132,7 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Handler of show dir
-  const openDir = () => {
+  const switchDir = () => {
     setIsShowDir(!isShowDir)
   }
 
@@ -138,6 +142,19 @@ export const Reader: React.FC = observer(() => {
 
   const switchChapter = (chapterId: number) => {
     setChapterId(chapterId)
+  }
+
+  // Handler of show setting bar
+  const switchSettingBar = () => {
+    setIsShowSettingBar(!isShowSettingBar)
+  }
+
+  const closeSettingBar = () => {
+    setIsShowSettingBar(false)
+  }
+
+  const handleFontSize = (fontSize: number) => {
+    setFontSize(fontSize)
   }
 
   // Get the page count
@@ -169,8 +186,19 @@ export const Reader: React.FC = observer(() => {
                   })
                 }
               </ViewPager>
-              <Footer isShowSetting={isShowSetting} openDir={openDir} />
-              <Dir isShowDir={isShowDir} closeDir={closeDir} dir={dir} switchChapter={switchChapter} />
+              <Footer isShowSetting={isShowSetting} switchDir={switchDir} switchSettingBar={switchSettingBar} />
+              <Dir
+                isShowDir={isShowDir}
+                closeDir={closeDir}
+                dir={dir}
+                switchChapter={switchChapter}
+              />
+              <SettingBar
+                isShowSettingBar={isShowSettingBar}
+                closeSettingBar={closeSettingBar}
+                fontSize={fontSize}
+                handleFontSize={handleFontSize}
+              />
             </>
           )
       }

@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
 import {
-  Header as HeaderComp,
+  Header as RnHeader,
   SearchBar,
   ISearchBarProps,
 } from '../../components'
@@ -15,9 +15,9 @@ export const Header: React.FC<IHeaderProps> = observer(({
   ...SearchBarProps
 }) => {
   return (
-    <HeaderComp isEmpty >
+    <RnHeader isEmpty >
       <SearchBar {...SearchBarProps} />
-    </HeaderComp>
+    </RnHeader>
   )
 })
 

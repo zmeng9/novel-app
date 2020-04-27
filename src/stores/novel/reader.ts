@@ -12,6 +12,7 @@ export const ReaderStore = types
 
     isShowSetting: false,
     isShowDir: false,
+    isShowSettingBar: false,
     dir: types.optional(types.array(Dir), []),
     fontSize: 24,
     page: 1,
@@ -28,8 +29,14 @@ export const ReaderStore = types
     setIsShowDir(isShowDir: boolean) {
       self.isShowDir = isShowDir
     },
+    setIsShowSettingBar(isShowSettingBar: boolean) {
+      self.isShowSettingBar = isShowSettingBar
+    },
     setDir(dir: Array<any>) {
       self.dir = cast(dir)
+    },
+    setFontSize(fontSize: number) {
+      self.fontSize = fontSize
     },
     setChapterId(chapterId: number) {
       self.chapterId = chapterId

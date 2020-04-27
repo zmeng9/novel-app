@@ -4,22 +4,22 @@ import {
   View,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { Header as HeaderComp, Silde } from '../../../components'
+import { Header as RnHeader, Silde } from '../../../components'
 import { useHeaderHeight } from '@react-navigation/stack'
 
 export interface IHeaderProps {
   isShowSetting: boolean
 }
 
-const Header: React.SFC<IHeaderProps> = observer(({
+export const Header: React.SFC<IHeaderProps> = observer(({
   isShowSetting,
 }) => {
   const headerHeight = useHeaderHeight()
   return (
     <View style={styles.root}>
       <Silde isSilde={isShowSetting} distance={headerHeight} >
-        <HeaderComp>
-        </HeaderComp>
+        <RnHeader>
+        </RnHeader>
       </Silde>
     </View>
   )
@@ -30,5 +30,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 })
-
-export default Header

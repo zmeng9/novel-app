@@ -1,17 +1,17 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
   FlatList,
   Text,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
+import { useWindowSize } from '../../../hooks'
 
-const { height, width } = Dimensions.get('window')
+const { height } = useWindowSize()
 
 export interface IDirProps {
   dir: Array<any>
@@ -20,7 +20,7 @@ export interface IDirProps {
   switchChapter: (chapterId: number) => void
 }
 
-const Dir: React.FC<IDirProps> = observer(({
+export const Dir: React.FC<IDirProps> = observer(({
   isShowDir,
   closeDir,
   dir,
@@ -103,5 +103,3 @@ const styles = StyleSheet.create({
     color: `#333`,
   },
 })
-
-export default Dir

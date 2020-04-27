@@ -34,6 +34,7 @@ export const Header: React.SFC<IHeaderProps> = observer(({
         height: headerHeight,
         paddingTop: isHeader ? statusBarHeight : 0,
         paddingBottom: isFooter ? 20 : 0,
+        paddingHorizontal: isFooter ? 10 : 0,
       }
     ]}>
       {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
