@@ -9,22 +9,22 @@ import { observer } from 'mobx-react'
 import { useWindowSize } from '../../../hooks'
 
 export interface IPageProps {
-  chunk: string
-  chunkIdx: number
+  page: string
+  pageIdx: number
   fontSize: number
-  handle: (e: any) => void
+  handle: (e: any, index: number) => void
 }
 
 const { height, width } = useWindowSize()
 
 export const Page: React.SFC<IPageProps> = observer(({
-  chunk,
-  chunkIdx,
+  page,
+  pageIdx,
   fontSize,
   handle,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={handle}>
+    <TouchableWithoutFeedback onPress={(e: any) => handle(e, pageIdx)}>
       <View style={styles.root}>
         <Text
           style={{
@@ -34,9 +34,9 @@ export const Page: React.SFC<IPageProps> = observer(({
             fontVariant: ['tabular-nums'],
           }}
         >
-          {chunk}
+          {page}
         </Text>
-        <Text style={styles.pageCount}>{chunkIdx + 1}</Text>
+        <Text style={styles.pageCount}>{pageIdx + 1}</Text>
       </View>
     </TouchableWithoutFeedback>
   )

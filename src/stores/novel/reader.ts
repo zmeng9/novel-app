@@ -15,10 +15,14 @@ export const ReaderStore = types
     isShowSettingBar: false,
     dir: types.optional(types.array(Dir), []),
     fontSize: 17,
-    page: 1,
     chapterId: -1,
-    chunks: types.optional(types.array(types.string), []),
+    pages: types.optional(types.array(types.string), []),
   })
+  .views(self => ({
+    get totalPage() {
+      return self.pages.length
+    },
+  }))
   .actions(self => ({
     ...CommonActions(self),
     
@@ -40,7 +44,7 @@ export const ReaderStore = types
     setChapterId(chapterId: number) {
       self.chapterId = chapterId
     },
-    setChunks(chunks: Array<string>) {
-      self.chunks = cast(chunks)
+    setPages(pages: Array<string>) {
+      self.pages = cast(pages)
     },
   }))

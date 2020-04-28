@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute } from '@react-navigation/native'
 import { observer } from 'mobx-react'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
-import { formatContent, parseContentToChunk, isEvenNumber } from '../../../utils'
+import { formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
 import { getDir, getChapter } from '../../../services'
 import { Page } from './Page'
@@ -17,6 +17,8 @@ import { SettingBar } from './SettingBar'
 const { height, width } = useWindowSize()
 
 export const Reader: React.FC = observer(() => {
+  const flatListRef = useRef()
+
   // Route params
   const route = useRoute()
   const { id = -1 } = route.params as any
@@ -29,17 +31,17 @@ export const Reader: React.FC = observer(() => {
     isShowDir,
     isShowSettingBar,
     fontSize,
-    page,
     dir,
     chapterId,
-    chunks,
+    pages,
+    totalPage,
     setIsShowSetting,
     setIsShowDir,
     setIsShowSettingBar,
     setFontSize,
     setDir,
     setChapterId,
-    setChunks,
+    setPages,
   } = readerStore
 
   // Reset the state when unmount
@@ -83,11 +85,11 @@ export const Reader: React.FC = observer(() => {
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
       const cleanContent = formatContent(newChapterContent)
       const linesNum = getNumbersOfLinesPerPages()
-      const chunks = parseContentToChunk(cleanContent, evenLineWidth, linesNum)
+      const pages = parseContent(cleanContent, evenLineWidth, linesNum)
 
       // Update state
 
-      setChunks(chunks)
+      setPages(pages)
       setChapterId(id)
     }
   }, [data, fontSize])
@@ -101,20 +103,23 @@ export const Reader: React.FC = observer(() => {
     return Math.floor(windowHeight / lineHeight)
   }
 
-  // Get the lines Of the current page
-  // const linesOfCurrentPage = () => {
-  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-  //   const linesStart = (page - 1) * numbersOfLinesPerPages
-  //   return lines.slice(linesStart, linesStart + numbersOfLinesPerPages)
-  // }
-
   // Handlers of Clicking the content
-  const pageHandle = (e: any) => {
-    const { pageX, pageY } = e.nativeEvent
+  const pageHandle = (e: any, index: number) => {
+    const { pageX } = e.nativeEvent
+
     if (isShowSetting)
       return setIsShowSetting(false)
-    if (pageY > height / 3 && pageY < height * 2 / 3 && pageX > width / 3 && pageX < width * 2 / 3)
+    if (pageX > width / 3 && pageX < width * 2 / 3)
       return setIsShowSetting(true)
+
+    else if (pageX < width / 3) {
+      if (index - 1 >= 0)
+        (flatListRef.current as any).scrollToIndex({ animated: false, index: index - 1 })
+    }
+    else if (pageX > width * 2 / 3) {
+      if (index + 1 < totalPage)
+        (flatListRef.current as any).scrollToIndex({ animated: false, index: index + 1 })
+    }
   }
 
   // Handler of show dir
@@ -140,17 +145,11 @@ export const Reader: React.FC = observer(() => {
     setIsShowSetting(false)
   }
 
-  // Get the page count
-  // const getPageCount = () => {
-  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-  //   return Math.ceil(lines.length * 1.0 / numbersOfLinesPerPages)
-  // }
-
   const renderItem = ({ item, index }: any) => (
     <Page
       key={index}
-      chunk={item}
-      chunkIdx={index}
+      page={item}
+      pageIdx={index}
       fontSize={fontSize}
       handle={pageHandle}
     />
@@ -165,10 +164,10 @@ export const Reader: React.FC = observer(() => {
             <>
               <Header isShowSetting={isShowSetting} />
               <HorizontalFlatList
-                data={chunks}
+                ref={flatListRef}
+                data={pages}
                 renderItem={renderItem}
               />
-              <Footer isShowSetting={isShowSetting} switchDir={switchDir} switchSettingBar={switchSettingBar} />
               <Dir
                 isShowDir={isShowDir}
                 closeDir={closeDir}
@@ -180,6 +179,11 @@ export const Reader: React.FC = observer(() => {
                 closeSettingBar={closeSettingBar}
                 fontSize={fontSize}
                 setFontSize={setFontSize}
+              />
+              <Footer
+                isShowSetting={isShowSetting}
+                switchDir={switchDir}
+                switchSettingBar={switchSettingBar}
               />
             </>
           )

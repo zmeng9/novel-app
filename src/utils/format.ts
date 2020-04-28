@@ -61,54 +61,7 @@ const stringWidth = (str: string) => {
   return width
 }
 
-export const parseContentToArray = (str: string, width: number) => {
-  if (!str || str.trim() === '' || typeof str !== 'string')
-    return []
-
-  // Two indent 
-  const cleanStr = indentText(str)
-
-  let lines = []
-  let currentLine = ''
-  let currentLineWidth = 0
-
-  for (let i in cleanStr) {
-    try {
-      const s = cleanStr[i]
-      let code = s.charCodeAt()
-
-      // Push the current line when meet the `\n` or `\r`
-      if (code === 10 || code === 13) {
-        lines.push(currentLine)
-        currentLine = ''
-        currentLineWidth = 0
-        continue
-      }
-
-      // Computed the width of the word
-      const sWidth = stringWidth(s)
-
-      // Push the current line when width of current line will wider then line width
-      if (currentLineWidth + sWidth > width) {
-        lines.push(currentLine)
-        currentLine = ''
-        currentLineWidth = 0
-      }
-
-      currentLine += s
-      currentLineWidth += sWidth
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // Push the last line 
-  lines.push(currentLine)
-
-  return lines
-}
-
-export const parseContentToChunk = (str: string, width: number, linesNum: number) => {
+export const parseContent = (str: string, width: number, linesNum: number) => {
   const startTime: any = new Date()
 
   if (!str || str.trim() === '' || typeof str !== 'string')

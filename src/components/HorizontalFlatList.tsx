@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useImperativeHandle, forwardRef } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import { observer } from 'mobx-react'
 import { useWindowSize } from '../hooks'
@@ -10,10 +10,17 @@ export interface IHorizontalFlatListProps {
   renderItem: ({ item }: any) => React.ReactElement | null
 }
 
-export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps> = observer(({
-  data,
-  renderItem,
-}) => {
+type IRef = { ref: any }
+
+export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = observer(forwardRef((
+  {
+    data,
+    renderItem,
+  },
+  ref,
+) => {
+  const flatListReg = useRef()
+
   const keyExtractor = (item: any, index: number) => {
     return String(item.id ? item.id : index)
   }
@@ -24,20 +31,27 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps> = observer(
     index,
   })
 
+  useImperativeHandle(ref, () => ({
+    scrollToIndex: ({ animated, index }: any) => {
+      (flatListReg.current as any).scrollToIndex({ animated, index })
+    }
+  }))
+
   return (
     <FlatList
+      horizontal
+      removeClippedSubviews
       contentContainerStyle={styles.root}
       data={data}
+      ref={(ref: any) => { flatListReg.current = ref }}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
-      horizontal
       initialNumToRender={1}
-      removeClippedSubviews={true}
       getItemLayout={getItemLayout}
       pagingEnabled
     />
   )
-})
+}))
 
 const styles = StyleSheet.create({
   root: {
