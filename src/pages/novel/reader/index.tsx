@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  StyleSheet,
-  View,
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import ViewPager from '@react-native-community/viewpager'
 import { useRoute } from '@react-navigation/native'
@@ -36,7 +33,6 @@ export const Reader: React.FC = observer(() => {
     page,
     dir,
     chapterId,
-    lines,
     chunks,
     setIsShowSetting,
     setIsShowDir,
@@ -44,7 +40,6 @@ export const Reader: React.FC = observer(() => {
     setFontSize,
     setDir,
     setChapterId,
-    setLines,
     setChunks,
   } = readerStore
 
@@ -84,36 +79,28 @@ export const Reader: React.FC = observer(() => {
   useEffect(() => {
     if (data) {
       const { id = -1, chapterTitle = '', chapterContent = '' } = data
-      const lineWidth = Math.floor((width - 40) * 2 / fontSize)
-      const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
-      console.log('print', evenLineWidth)
-      const cleanContent = formatContent(chapterContent)
-      const chunks = parseContentToChunk(cleanContent, evenLineWidth, getNumbersOfLinesPerPages())
-
-      // chunks.unshift("\n")
-      // chunks.unshift(chapterTitle)
+      const newChapterContent = `${chapterTitle}\n${chapterContent}`
+      const lineWidth = Math.floor((width - 35) * 2 / fontSize) - 1
+      // const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
+      const cleanContent = formatContent(newChapterContent)
+      const linesNum = getNumbersOfLinesPerPages()
+      const chunks = parseContentToChunk(cleanContent, lineWidth, linesNum)
 
       // Update state
+
       setChunks(chunks)
-      // setLines(lines)
       setChapterId(id)
     }
-  }, [data])
+  }, [data, fontSize])
 
   // Get the numbers Of the lines per pages
   const getNumbersOfLinesPerPages = () => {
     let windowHeight = height
-    const margin = 40
-    windowHeight -= margin * 2
+    const paddingVertical = 40
+    windowHeight -= paddingVertical * 2
     const lineHeight = fontSize + 15
     return Math.floor(windowHeight / lineHeight)
   }
-
-  // Get the chunks of lines
-  // const chunks = () => {
-  //   const numbersOfLinesPerPages = getNumbersOfLinesPerPages()
-  //   return _.chunk(lines, numbersOfLinesPerPages)
-  // }
 
   // Get the lines Of the current page
   // const linesOfCurrentPage = () => {
@@ -151,10 +138,7 @@ export const Reader: React.FC = observer(() => {
 
   const closeSettingBar = () => {
     setIsShowSettingBar(false)
-  }
-
-  const handleFontSize = (fontSize: number) => {
-    setFontSize(fontSize)
+    setIsShowSetting(false)
   }
 
   // Get the page count
@@ -197,7 +181,7 @@ export const Reader: React.FC = observer(() => {
                 isShowSettingBar={isShowSettingBar}
                 closeSettingBar={closeSettingBar}
                 fontSize={fontSize}
-                handleFontSize={handleFontSize}
+                setFontSize={setFontSize}
               />
             </>
           )

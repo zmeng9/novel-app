@@ -35,6 +35,8 @@ export const Header: React.SFC<IHeaderProps> = observer(({
         paddingTop: isHeader ? statusBarHeight : 0,
         paddingBottom: isFooter ? 20 : 0,
         paddingHorizontal: isFooter ? 10 : 0,
+        borderBottomWidth: isHeader ? 0.5 : 0,
+        borderTopWidth: isFooter ? 0.5 : 0,
       }
     ]}>
       {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
@@ -50,5 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: `space-between`,
     alignItems: `center`,
+    borderBottomColor: `#ddd`,
+    borderTopColor: `#ddd`,
   },
 })

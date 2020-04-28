@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { useHeaderHeight } from '@react-navigation/stack'
@@ -14,25 +13,32 @@ export interface ISettingBarProps {
   isShowSettingBar: boolean
   closeSettingBar: () => void
   fontSize: number
-  handleFontSize: (fontSize: number) => void
+  setFontSize: (fontSize: number) => void
 }
+
+const fontSizeRange = [15, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 30]
+const minFontSize = fontSizeRange[0]
+const maxFontSize = fontSizeRange.slice(-1)[0]
+const step = 1
 
 export const SettingBar: React.FC<ISettingBarProps> = observer(({
   isShowSettingBar,
   closeSettingBar,
   fontSize,
-  handleFontSize,
+  setFontSize,
 }) => {
   const headerHeight = useHeaderHeight()
-  const maxFontSize = 30
-  const minFontSize = 16
-  const step = 2
+
+  const handleFontSize = (value: number) => {
+    setFontSize(fontSizeRange[value])
+  }
 
   return (
     <Modal
       isVisible={isShowSettingBar}
-      animationInTiming={300}
-      animationOutTiming={300}
+      animationInTiming={500}
+      animationOutTiming={1000}
+      backdropOpacity={0}
       onBackdropPress={closeSettingBar}
       onSwipeComplete={closeSettingBar}
       swipeDirection={['down']}
@@ -44,10 +50,10 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
         <View style={styles.sliderContainer}>
           <Text style={styles.minFontSizeText}>A</Text>
           <Slider
-            maximumValue={maxFontSize}
-            minimumValue={minFontSize}
+            minimumValue={0}
+            maximumValue={fontSizeRange.length - 1}
             step={step}
-            value={fontSize}
+            value={fontSizeRange.indexOf(fontSize)}
             onChange={handleFontSize}
           />
           <Text style={styles.maxFontSizeText}>A</Text>
@@ -70,6 +76,8 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     justifyContent: `center`,
     paddingTop: 30,
+    borderColor: `#ddd`,
+    borderWidth: 0.5,
   },
   sliderContainer: {
     flexDirection: `row`,
@@ -77,15 +85,11 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   minFontSizeText: {
-    fontSize: 16,
+    fontSize: minFontSize,
     marginRight: 5,
   },
   maxFontSizeText: {
-    fontSize: 30,
+    fontSize: maxFontSize,
     marginLeft: 5,
-  },
-  text: {
-    fontSize: 18,
-    color: `#333`,
   },
 })

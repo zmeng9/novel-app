@@ -45,6 +45,8 @@ const stringWidth = (str: string) => {
 
   if (stringMap[code])
     return stringMap[code]
+  else if (isFullwidthCodePoint(code))
+    width = 2
   else if (isLorI(stripAnsiStr))
     width = 0.5
   else if (isThinCode(stripAnsiStr))
@@ -53,8 +55,6 @@ const stringWidth = (str: string) => {
     width = 1.05
   else if (isUpper(stripAnsiStr))
     width = 1.5
-  else if (isFullwidthCodePoint(code))
-    width = 2
   else
     width = 0.5
 
@@ -108,17 +108,21 @@ export const parseContentToArray = (str: string, width: number) => {
   return lines
 }
 
-export const parseContentToChunk = (str: string, width: number, num: number) => {
+export const parseContentToChunk = (str: string, width: number, linesNum: number) => {
+  const startTime: any = new Date()
+
   if (!str || str.trim() === '' || typeof str !== 'string')
     return []
 
+  console.log('print', width, linesNum)
+
   // Two indent 
   const cleanStr = indentText(str)
-  const chunkWidth = width * num
 
   let chunks = []
   let currentChunk = ''
-  let currentChunkWidth = 0
+  let currentLineWidth = 0
+  let currentLinesNum = 0
 
   for (let i in cleanStr) {
     try {
@@ -127,22 +131,32 @@ export const parseContentToChunk = (str: string, width: number, num: number) => 
 
       // Push the current line when meet the `\n` or `\r`
       if (code === 10 || code === 13) {
-        const fillWidth = width - (currentChunkWidth - Math.floor(currentChunkWidth / width) * width)
-        currentChunkWidth += fillWidth
+        currentChunk += '\n'
+        currentLinesNum++
+        currentLineWidth = 0
+        continue
       }
 
       // Computed the width of the word
       const sWidth = stringWidth(s)
 
-      // Push the current line when width of current line will wider then line width
-      if (currentChunkWidth + sWidth > chunkWidth) {
+      // Push the `\n` to the current chunk when width of current line will wider then line width
+      if (currentLineWidth + sWidth > width) {
+        currentChunk += '\n'
+        currentLinesNum++
+        currentLineWidth = 0
+      }
+
+      // Push the curretn chunk to the chunks when currnet lines num will more than the lines num
+      if (currentLinesNum + 1 > linesNum) {
         chunks.push(currentChunk)
         currentChunk = ''
-        currentChunkWidth = 0
+        currentLineWidth = 0
+        currentLinesNum = 0
       }
 
       currentChunk += s
-      currentChunkWidth += sWidth
+      currentLineWidth += sWidth
     } catch (error) {
       console.log(error)
     }
@@ -150,6 +164,8 @@ export const parseContentToChunk = (str: string, width: number, num: number) => 
 
   // Push the last line 
   chunks.push(currentChunk)
+  const endTime: any = new Date()
+  console.log('time diff', endTime - startTime)
 
   return chunks
 }
