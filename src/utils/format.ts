@@ -164,8 +164,10 @@ export const parseContentToChunk = (str: string, width: number, linesNum: number
 
   // Push the last line 
   chunks.push(currentChunk)
+
   const endTime: any = new Date()
-  console.log('time diff', endTime - startTime)
+  const diff = endTime.getTime() - startTime
+  console.log('time diff', diff)
 
   return chunks
 }

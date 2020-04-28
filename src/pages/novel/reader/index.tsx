@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 import _ from 'lodash'
-import ViewPager from '@react-native-community/viewpager'
 import { useRoute } from '@react-navigation/native'
 import { observer } from 'mobx-react'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
 import { formatContent, parseContentToChunk, isEvenNumber } from '../../../utils'
-import { Loading } from '../../../components'
+import { Loading, HorizontalFlatList } from '../../../components'
 import { getDir, getChapter } from '../../../services'
 import { Page } from './Page'
 import { Header } from './Header'
@@ -81,10 +80,10 @@ export const Reader: React.FC = observer(() => {
       const { id = -1, chapterTitle = '', chapterContent = '' } = data
       const newChapterContent = `${chapterTitle}\n${chapterContent}`
       const lineWidth = Math.floor((width - 35) * 2 / fontSize) - 1
-      // const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
+      const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
       const cleanContent = formatContent(newChapterContent)
       const linesNum = getNumbersOfLinesPerPages()
-      const chunks = parseContentToChunk(cleanContent, lineWidth, linesNum)
+      const chunks = parseContentToChunk(cleanContent, evenLineWidth, linesNum)
 
       // Update state
 
@@ -147,6 +146,16 @@ export const Reader: React.FC = observer(() => {
   //   return Math.ceil(lines.length * 1.0 / numbersOfLinesPerPages)
   // }
 
+  const renderItem = ({ item, index }: any) => (
+    <Page
+      key={index}
+      chunk={item}
+      chunkIdx={index}
+      fontSize={fontSize}
+      handle={pageHandle}
+    />
+  )
+
   return (
     <View style={styles.root}>
       {
@@ -155,21 +164,10 @@ export const Reader: React.FC = observer(() => {
           : (
             <>
               <Header isShowSetting={isShowSetting} />
-              <ViewPager style={styles.pager} initialPage={0}>
-                {
-                  chunks.map((chunk, idx) => {
-                    return (
-                      <Page
-                        key={idx}
-                        chunk={chunk}
-                        chunkIdx={idx}
-                        fontSize={fontSize}
-                        handle={pageHandle}
-                      />
-                    )
-                  })
-                }
-              </ViewPager>
+              <HorizontalFlatList
+                data={chunks}
+                renderItem={renderItem}
+              />
               <Footer isShowSetting={isShowSetting} switchDir={switchDir} switchSettingBar={switchSettingBar} />
               <Dir
                 isShowDir={isShowDir}
@@ -192,9 +190,6 @@ export const Reader: React.FC = observer(() => {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-  },
-  pager: {
     flex: 1,
   },
 })
