@@ -6,28 +6,38 @@ import { useWindowSize } from '../hooks'
 const { width } = useWindowSize()
 
 export interface IHorizontalFlatListProps {
+  store?: any
   data: Array<any>
   renderItem: ({ item }: any) => React.ReactElement | null
+  snapToInterval?: number
 }
 
-type IRef = { ref: any }
+type IRef = { ref?: any }
 
 export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = observer(forwardRef((
   {
+    store,
     data,
     renderItem,
+    snapToInterval,
   },
   ref,
 ) => {
   const flatListReg = useRef()
+
+  let itemWidth = width
+  if (store) {
+    const { itemSize } = store
+    itemWidth = itemSize.width
+  }
 
   const keyExtractor = (item: any, index: number) => {
     return String(item.id ? item.id : index)
   }
 
   const getItemLayout = (data: any, index: number) => ({
-    length: width,
-    offset: width * index,
+    length: itemWidth,
+    offset: itemWidth * index,
     index,
   })
 
@@ -41,19 +51,23 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
     <FlatList
       horizontal
       removeClippedSubviews
-      contentContainerStyle={styles.root}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 }]}
       data={data}
       ref={(ref: any) => { flatListReg.current = ref }}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       initialNumToRender={1}
       getItemLayout={getItemLayout}
-      pagingEnabled
+      snapToInterval={snapToInterval || width}
+      snapToAlignment='start'
+      decelerationRate='fast'
     />
   )
 }))
 
 const styles = StyleSheet.create({
   root: {
+
   },
 })

@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { useStores, useService } from '../../../../hooks'
 import { getRecommends } from '../../../../services'
-import { FlatList } from '../../../../components'
+import { FlatList, HorizontalFlatList } from '../../../../components'
 import { Novel } from './Novel'
 
 export const Recommend: React.FC = observer(() => {
@@ -16,6 +16,7 @@ export const Recommend: React.FC = observer(() => {
     offset,
     refreshLimit,
     isRefreshing,
+    itemSize,
   } = recommendStore
 
   const data = useService({
@@ -33,8 +34,17 @@ export const Recommend: React.FC = observer(() => {
     condition: [isRefreshing, refreshLimit],
   })
 
-  const renderItem = useCallback((item: any) => (
-    <Novel novel={item} setHeight={recommendStore.setItemHeight} />
+  const renderItem = useCallback(({ item }: any) => (
+    <Novel novel={item} setSize={recommendStore.setItemSize} />
+  ), [])
+
+  const renderHorizontalFlatListItem = useCallback(({ item }: any) => (
+    <HorizontalFlatList
+      store={recommendStore}
+      data={item.novels}
+      renderItem={renderItem}
+      snapToInterval={itemSize.width}
+    />
   ), [])
 
   return (
@@ -43,7 +53,7 @@ export const Recommend: React.FC = observer(() => {
         store={recommendStore}
         data={data}
         refreshData={refreshData}
-        renderItem={renderItem}
+        renderItem={renderHorizontalFlatListItem}
       />
     </View>
   )

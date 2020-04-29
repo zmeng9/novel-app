@@ -12,6 +12,10 @@ export interface IFlatListState {
   immedate?: boolean,
 }
 
+export const ItemSize = types.model({
+  width: 0,
+  height: 0,
+})
 
 export const FlatListState = ({
   subtype,
@@ -24,7 +28,10 @@ export const FlatListState = ({
   offset: 0,
   refreshLimit: 0,
   isRefreshing: false,
-  itemHeight: 0,
+  itemSize: types.optional(ItemSize, {
+    width: 0,
+    height: 0,
+  }),
 
   // Some options
   immedate,
@@ -36,7 +43,7 @@ export const FlatListViews = (self: any) => ({
   },
   get totalHeight() {
     const paddingV = 20
-    const h = self.itemHeight * self.listData.length
+    const h = self.itemSize.height * self.listData.length
     return Boolean(h) ? h + paddingV : `100%`
   },
 })
@@ -61,7 +68,7 @@ export const FlatListActions = (self: any) => ({
   setIsRefreshing(isRefreshing: boolean) {
     self.isRefreshing = isRefreshing
   },
-  setItemHeight(itemHeight: number) {
-    self.itemHeight = itemHeight
+  setItemSize(itemSize: any) {
+    self.itemSize = itemSize
   },
 })

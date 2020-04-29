@@ -6,11 +6,11 @@ import {
   View,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { Card, Img, ViewHeight, IViewHeightProps } from '../../../../components'
+import { Card, Img, ViewSize, IViewSizeProps } from '../../../../components'
 import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
-export interface INovelProps extends IViewHeightProps {
+export interface INovelProps extends IViewSizeProps {
   novel: any
 }
 
@@ -18,7 +18,7 @@ const { height, width } = useWindowSize()
 
 export const Novel: React.FC<INovelProps> = observer(({
   novel,
-  setHeight,
+  setSize,
 }) => {
   const {
     id,
@@ -32,7 +32,7 @@ export const Novel: React.FC<INovelProps> = observer(({
   }, [])
 
   return (
-    <ViewHeight setHeight={setHeight}>
+    <ViewSize setSize={setSize}>
       <View style={styles.root}>
         <Card handle={handle}>
           <View style={styles.container}>
@@ -44,12 +44,13 @@ export const Novel: React.FC<INovelProps> = observer(({
           </View>
         </Card>
       </View>
-    </ViewHeight>
+    </ViewSize>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
+    width: width - 30,
     marginVertical: 5,
   },
   container: {

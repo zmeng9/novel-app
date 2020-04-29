@@ -10,7 +10,7 @@ export interface IFlatListProps {
   store: any
   data: any
   refreshData?: any
-  renderItem: (item: any) => React.ReactElement | null
+  renderItem: ({ item }: any) => React.ReactElement | null
 }
 
 export const FlatList: React.FC<IFlatListProps> = observer(({
@@ -31,7 +31,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     listData,
     count,
     totalCount,
-    itemHeight,
+    itemSize,
     totalHeight,
     setListData,
     setOffset,
@@ -108,14 +108,10 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
   }, [])
 
   const getItemLayout = (data: any, index: number) => ({
-    length: itemHeight,
-    offset: itemHeight * index,
+    length: itemSize.height,
+    offset: itemSize.height * index,
     index,
   })
-
-  const _renderItem = useCallback(({ item }: any) => {
-    return renderItem(item)
-  }, [])
 
   return (
     <RnFlatList
@@ -127,7 +123,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       refreshing={isRefreshing}
       onRefresh={refreshData === undefined ? null : handleRefreshing}
       keyExtractor={keyExtractor}
-      renderItem={_renderItem}
+      renderItem={renderItem}
       initialNumToRender={limit}
       numColumns={1}
       onEndReachedThreshold={0.1}
@@ -139,6 +135,6 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    padding: 10,
+    paddingVertical: 10,
   },
 })
