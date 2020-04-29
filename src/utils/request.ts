@@ -3,10 +3,11 @@ import { loadToken } from './storage'
 import { logger, consoleTheme } from './logger'
 import { toast } from './toast'
 
-const baseURL = `http://localhost:8000`
+const localBaseURL = `http://localhost:8000`
+const apiURL = `https://api.tuscanyyy.top`
 
 const request = axios.create({
-  baseURL,
+  baseURL: apiURL,
   headers: {
     'Content-Type': `application/json`,
   },

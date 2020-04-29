@@ -43,6 +43,17 @@ const stringWidth = (str: string) => {
 
   const code = stripAnsiStr.charCodeAt(0)
 
+
+  /* 
+   * 1. Returns the corresponding value in stringMap when the string is  ``“”——`
+   * 2. The width is 2    when the string is full width, they are usually words and symbols
+   * 3. The width is 0.5  when the string is `L `or `I` or `i`
+   * 4. The width is 0.80 when the string is thin code, like `f, t, r` 
+   * 5. The width is 1.05 when the string is lower word
+   * 6. The width is 1.5  when the string is upper words or number
+   * 7. The Others width is 0.5 
+   */
+
   if (stringMap[code])
     return stringMap[code]
   else if (isFullwidthCodePoint(code))
@@ -53,7 +64,7 @@ const stringWidth = (str: string) => {
     width = 0.80
   else if (isLower(stripAnsiStr))
     width = 1.05
-  else if (isUpper(stripAnsiStr))
+  else if (isUpper(stripAnsiStr) || Number(stripAnsiStr) !== NaN)
     width = 1.5
   else
     width = 0.5

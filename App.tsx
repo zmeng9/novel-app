@@ -1,6 +1,6 @@
-import 'react-native-gesture-handler'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
+import SplashScreen from 'react-native-splash-screen'
 import { storesContext, stores } from './src/stores'
 import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
@@ -20,6 +20,10 @@ if (__DEV__) {
 }
 
 const App: React.SFC = () => {
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+
   return (
     <storesContext.Provider value={stores}>
       <NavigationContainer>

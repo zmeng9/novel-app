@@ -1,53 +1,73 @@
 {
   "images" : [
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneNotification_20pt@2x.png",
       "idiom" : "iphone",
-      "size" : "20x20",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneNotification_20pt@3x.png",
       "idiom" : "iphone",
-      "size" : "20x20",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "20x20"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneSpootlight5_29pt@2x.png",
       "idiom" : "iphone",
-      "size" : "29x29",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneSpootlight5_29pt@3x.png",
       "idiom" : "iphone",
-      "size" : "29x29",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "29x29"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneSpootlight7_40pt@2x.png",
       "idiom" : "iphone",
-      "size" : "40x40",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "40x40"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneSpootlight7_40pt@3x.png",
       "idiom" : "iphone",
-      "size" : "40x40",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "40x40"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneApp_60pt@2x.png",
       "idiom" : "iphone",
-      "size" : "60x60",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "60x60"
     },
     {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467iPhoneApp_60pt@3x.png",
       "idiom" : "iphone",
-      "size" : "60x60",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "60x60"
     },
     {
       "idiom" : "ios-marketing",
-      "size" : "1024x1024",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "1024x1024"
+    },
+    {
+      "filename" : "beautiful-blue-sky-carnival-1307929store_1024pt.png",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "size" : "1024x1024"
+    },
+    {
+      "filename" : "photography-of-beer-bottles-on-buckets-1413467store_1024pt.png",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "size" : "1024x1024"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

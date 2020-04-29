@@ -31,7 +31,7 @@ export const Search: React.FC = observer(() => {
     setIsSubmit,
     setListData,
     setOffset,
-    setItemHeight,
+    setItemSize,
   } = searchStore
 
   useResetState(searchStore)
@@ -90,8 +90,10 @@ export const Search: React.FC = observer(() => {
     })()
   }, [searchText])
 
-  const renderItem = useCallback((item: any) => (
-    <Novel novel={item} setHeight={setItemHeight} />
+  const renderItem = useCallback(({ item }: any) => (
+    <View style={styles.novel}>
+      <Novel novel={item} setSize={setItemSize} />
+    </View>
   ), [])
 
   return (
@@ -133,5 +135,8 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     marginBottom: 10,
+  },
+  novel: {
+    marginLeft: 15,
   },
 })

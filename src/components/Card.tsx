@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react'
 import { shadow } from '../utils'
 
 export interface ICardProps {
   children?: React.ReactNode
+  margin?: number
   handle?: () => void
 }
 
@@ -14,18 +15,20 @@ export interface ICardHeaderProps {
 
 export const Card: React.SFC<ICardProps> = observer(({
   children,
+  margin = 5,
   handle,
 }) => {
   const THandle = typeof handle === 'function'
 
   return (
-    <TouchableOpacity
-      style={styles.root}
+    <TouchableWithoutFeedback
       disabled={!THandle}
       onPress={THandle ? handle : undefined}
     >
-      {children}
-    </TouchableOpacity>
+      <View style={[styles.root, { margin }]}>
+        {children}
+      </View>
+    </TouchableWithoutFeedback>
   )
 })
 
@@ -42,10 +45,9 @@ export const CardHeader: React.SFC<ICardHeaderProps> = observer(({
 const styles = StyleSheet.create({
   root: {
     ...shadow,
-    
+
     backgroundColor: `#fff`,
     borderRadius: 15,
-    margin: 5,
     padding: 10,
   },
   cardHeader: {

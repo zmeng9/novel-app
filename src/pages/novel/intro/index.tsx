@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 5,
     paddingBottom: 15,
+    paddingHorizontal: 10,
   },
 })
