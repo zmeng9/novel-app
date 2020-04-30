@@ -4,6 +4,8 @@ import {
   View,
   Text,
 } from 'react-native'
+import { useStores } from '../../../../hooks'
+import { Login } from '../login'
 
 export interface IMineProps {
 
@@ -12,9 +14,18 @@ export interface IMineProps {
 const Mine: React.FC<IMineProps> = ({
 
 }) => {
+  const { mineStore } = useStores()
+  const {
+    authToken,
+  } = mineStore
+
   return (
     <View style={styles.root}>
-      <Text>Mine</Text>
+      {
+        authToken
+          ? <Text>Mine</Text>
+          : <Login />
+      }
     </View>
   )
 }

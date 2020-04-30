@@ -1,5 +1,6 @@
 export * from './Icon'
 export * from './Card'
+export * from './Input'
 export * from './Btn'
 export * from './Header'
 export * from './Loading'

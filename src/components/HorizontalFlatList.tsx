@@ -6,29 +6,34 @@ import { useWindowSize } from '../hooks'
 const { width } = useWindowSize()
 
 export interface IHorizontalFlatListProps {
-  store?: any
   data: Array<any>
+  itemWidth?: number
   renderItem: ({ item }: any) => React.ReactElement | null
-  snapToInterval?: number
+  onScrollBeginDrag?: () => void
+  setCurrentPageNum?: (currentPageNum: number) => void
 }
 
 type IRef = { ref?: any }
 
 export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = observer(forwardRef((
   {
-    store,
     data,
+    itemWidth = width,
     renderItem,
-    snapToInterval,
+    onScrollBeginDrag,
+    setCurrentPageNum,
   },
   ref,
 ) => {
   const flatListReg = useRef()
 
-  let itemWidth = width
-  if (store) {
-    const { itemSize } = store
-    itemWidth = itemSize.width
+  // Set current number of per page
+  const onMomentumScrollEnd = (e: any) => {
+    const { contentOffset: { x }, layoutMeasurement: { width } } = e.nativeEvent
+    if (setCurrentPageNum) {
+      const currentPageNum = Math.floor((x + width) / width)
+      setCurrentPageNum(currentPageNum)
+    }
   }
 
   const keyExtractor = (item: any, index: number) => {
@@ -42,7 +47,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
   })
 
   useImperativeHandle(ref, () => ({
-    scrollToIndex: ({ animated, index }: any) => {
+    scrollToIndex: ({ animated = false, index }: any = {}) => {
       (flatListReg.current as any).scrollToIndex({ animated, index })
     }
   }))
@@ -51,6 +56,8 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
     <FlatList
       horizontal
       removeClippedSubviews
+      onScrollBeginDrag={onScrollBeginDrag}
+      onMomentumScrollEnd={onMomentumScrollEnd}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={[styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 }]}
       data={data}
@@ -59,7 +66,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
       renderItem={renderItem}
       initialNumToRender={1}
       getItemLayout={getItemLayout}
-      snapToInterval={snapToInterval || width}
+      snapToInterval={itemWidth}
       snapToAlignment='start'
       decelerationRate='fast'
     />

@@ -4,6 +4,7 @@ import Home from './home'
 import { Search } from './search'
 import { Intro, Reader } from './novel'
 
+
 const Stack = createStackNavigator()
 
 const StackNavigator: React.SFC = () => {
@@ -28,6 +29,10 @@ const StackNavigator: React.SFC = () => {
       <Stack.Screen
         name='Reader'
         component={Reader}
+        options={({ route }: any) => {
+          const { params: { gestureEnabled } } = route
+          return { gestureEnabled }
+        }}
       />
       <Stack.Screen
         name='Search'

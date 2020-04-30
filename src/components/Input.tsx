@@ -8,6 +8,7 @@ import { observer } from 'mobx-react'
 export interface IInputProps {
   value: string
   type?: `outline` | `input`
+  size?: `large` | `small`
   placeholder?: string
   autoFocus?: boolean
   clearButtonMode?: `never` | `while-editing`
@@ -19,6 +20,7 @@ export interface IInputProps {
 export const Input: React.SFC<IInputProps> = observer(({
   value,
   type = `outline`,
+  size = `small`,
   placeholder = ``,
   autoFocus = false,
   clearButtonMode = `never`,
@@ -29,7 +31,11 @@ export const Input: React.SFC<IInputProps> = observer(({
 
   return (
     <TextInput
-      style={[styles.root, styles[type]]}
+      style={[
+        styles.root,
+        styles[type],
+        styles[size],
+      ]}
       value={value}
       onChangeText={onChangeText}
       onSubmitEditing={onSubmitEditing}
@@ -44,18 +50,28 @@ export const Input: React.SFC<IInputProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    borderRadius: 8,
-    fontSize: 16,
-    marginHorizontal: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
   },
   outline: {
     borderWidth: 0.7,
+    borderColor: `#ccc`,
+    backgroundColor: `#fff`,
   },
   input: {
     paddingLeft: 40,
     backgroundColor: `#eee`,
+  },
+  large: {
+    padding: 10,
+    marginHorizontal: 15,
+    marginVertical: 10,
+    fontSize: 18,
+    borderRadius: 15,
+  },
+  small: {
+    padding: 5,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    fontSize: 16,
+    borderRadius: 8,
   },
 })

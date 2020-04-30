@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     justifyContent: `center`,
-    paddingVertical: 5,
     position: `relative`,
   },
   iconContainer: {

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { loadToken } from './storage'
+import { loadAuthToken } from './storage'
 import { logger, consoleTheme } from './logger'
 import { toast } from './toast'
 
@@ -14,7 +14,7 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(async (config: any) => {
-  const authToken = await loadToken()
+  const authToken = await loadAuthToken()
 
   if (authToken)
     config.headers.common['Authorization'] = `bearer ${authToken}`

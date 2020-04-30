@@ -9,18 +9,18 @@ const searchHistoryLimit = 8
  * Auth token
  */
 
-export const loadToken = async () => {
+export const loadAuthToken = async () => {
   return await AsyncStorage.getItem(tokenKeyName)
 }
 
-export const saveToken = async (token: string) => {
+export const saveAuthToken = async (token: string) => {
   if (!token && token.trim() === ``)
     return
 
   await AsyncStorage.setItem(tokenKeyName, token)
 }
 
-export const removeToken = async () => {
+export const removeAuthToken = async () => {
   await AsyncStorage.removeItem(tokenKeyName)
 }
 

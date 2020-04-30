@@ -24,7 +24,7 @@ export const Page: React.SFC<IPageProps> = observer(({
   handle,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={(e: any) => handle(e, pageIdx)}>
+    <TouchableWithoutFeedback onPress={(e: any) => handle(e, pageIdx + 1)}>
       <View style={styles.root}>
         <Text
           style={{

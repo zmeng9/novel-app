@@ -30,7 +30,7 @@ export const Recommend: React.FC = observer(() => {
     store: recommendStore,
     service: getRecommends,
     params: [{ limit: refreshLimit, offset: 0 }],
-    isSubmit: isRefreshing || (refreshLimit > 0),
+    isFetch: isRefreshing || (refreshLimit > 0),
     condition: [isRefreshing, refreshLimit],
   })
 
@@ -40,10 +40,9 @@ export const Recommend: React.FC = observer(() => {
 
   const renderHorizontalFlatListItem = useCallback(({ item }: any) => (
     <HorizontalFlatList
-      store={recommendStore}
       data={item.novels}
+      itemWidth={itemSize.width}
       renderItem={renderItem}
-      snapToInterval={itemSize.width}
     />
   ), [])
 

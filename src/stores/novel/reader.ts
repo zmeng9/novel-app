@@ -8,19 +8,20 @@ const Dir = types.model({
 
 export const ReaderStore = types
   .model({
-    ...CommonState,
+    ...CommonState(),
 
     isShowSetting: false,
     isShowDir: false,
     isShowSettingBar: false,
     dir: types.optional(types.array(Dir), []),
-    fontSize: 17,
+    fontSize: 18,
     chapterId: -1,
-    pages: types.optional(types.array(types.string), []),
+    currentPageNum: 1,
+    contentOfPage: types.optional(types.array(types.string), []),
   })
   .views(self => ({
-    get totalPage() {
-      return self.pages.length
+    get totalPageNum() {
+      return self.contentOfPage.length
     },
   }))
   .actions(self => ({
@@ -44,7 +45,10 @@ export const ReaderStore = types
     setChapterId(chapterId: number) {
       self.chapterId = chapterId
     },
-    setPages(pages: Array<string>) {
-      self.pages = cast(pages)
+    setCurrentPageNum(currentPageNum: number) {
+      self.currentPageNum = currentPageNum
+    },
+    setContentOfPage(contentOfPage: Array<string>) {
+      self.contentOfPage = cast(contentOfPage)
     },
   }))

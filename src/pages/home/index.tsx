@@ -22,7 +22,7 @@ const HomeTab: React.SFC = () => {
         activeTintColor: '#333',
         showLabel: false,
       }}
-      screenOptions={({ route, navigation }) => ({
+      screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           const routeName = route.name
 

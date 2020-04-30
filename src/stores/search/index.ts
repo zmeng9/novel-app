@@ -5,6 +5,8 @@ import {
   FlatListState,
   FlatListViews,
   FlatListActions,
+  FormState,
+  FormActions,
 } from '../common'
 import { Novel } from '../novel'
 
@@ -16,7 +18,8 @@ export const hotNovel = types.model({
 
 export const SearchStore = types
   .model({
-    ...CommonState,
+    ...FormState,
+    ...CommonState(),
     ...FlatListState({
       subtype: Novel,
       immedate: false,
@@ -24,7 +27,6 @@ export const SearchStore = types
 
     searchText: '',
     searchHistory: types.maybeNull(types.array(types.string)),
-    isSubmit: false,
     hotLimit: 8,
     hotNovels: types.optional(types.array(hotNovel), []),
   })
@@ -34,15 +36,13 @@ export const SearchStore = types
   .actions(self => ({
     ...CommonActions(self),
     ...FlatListActions(self),
+    ...FormActions(self),
 
     setSearchText(searchText: string) {
       self.searchText = searchText
     },
     setSearchHistory(searchHistory: Array<string> | null) {
       self.searchHistory = cast(searchHistory)
-    },
-    setIsSubmit(isSubmit: boolean) {
-      self.isSubmit = isSubmit
     },
     setHotNovels(hotNovels: Array<any>) {
       self.hotNovels = cast(hotNovels)

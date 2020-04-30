@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
-import { useRoute } from '@react-navigation/native'
+import { useRoute, useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
 import { formatContent, parseContent, isEvenNumber } from '../../../utils'
@@ -21,6 +21,7 @@ export const Reader: React.FC = observer(() => {
 
   // Route params
   const route = useRoute()
+  const navigation = useNavigation()
   const { id = -1 } = route.params as any
 
   // Use store
@@ -33,15 +34,17 @@ export const Reader: React.FC = observer(() => {
     fontSize,
     dir,
     chapterId,
-    pages,
-    totalPage,
+    contentOfPage,
+    currentPageNum,
+    totalPageNum,
     setIsShowSetting,
     setIsShowDir,
     setIsShowSettingBar,
     setFontSize,
     setDir,
     setChapterId,
-    setPages,
+    setContentOfPage,
+    setCurrentPageNum,
   } = readerStore
 
   // Reset the state when unmount
@@ -58,12 +61,19 @@ export const Reader: React.FC = observer(() => {
     store: readerStore,
     service: getChapter,
     params: [id, chapterId],
-    isSubmit: Boolean(~chapterId),
+    isFetch: Boolean(~chapterId),
     condition: [chapterId],
     beforeHandle: () => {
       setIsShowSetting(false)
     },
   })
+
+  // Set navigation param
+  useEffect(() => {
+    navigation.setParams({
+      gestureEnabled: isShowSetting || (currentPageNum === 1)
+    })
+  }, [isShowSetting, currentPageNum])
 
   useEffect(() => {
     if (dirData) {
@@ -85,16 +95,16 @@ export const Reader: React.FC = observer(() => {
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
       const cleanContent = formatContent(newChapterContent)
       const linesNum = getNumbersOfLinesPerPages()
-      const pages = parseContent(cleanContent, evenLineWidth, linesNum)
+      const contentOfPage = parseContent(cleanContent, evenLineWidth, linesNum)
 
       // Update state
 
-      setPages(pages)
+      setContentOfPage(contentOfPage)
       setChapterId(id)
     }
   }, [data, fontSize])
 
-  // Get the numbers Of the lines per pages
+  // Get the numbers Of the lines per page
   const getNumbersOfLinesPerPages = () => {
     let windowHeight = height
     const paddingVertical = 40
@@ -104,7 +114,7 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Handlers of Clicking the content
-  const pageHandle = (e: any, index: number) => {
+  const pageHandle = (e: any, currentPageNum: number) => {
     const { pageX } = e.nativeEvent
 
     if (isShowSetting)
@@ -113,13 +123,26 @@ export const Reader: React.FC = observer(() => {
       return setIsShowSetting(true)
 
     else if (pageX < width / 3) {
-      if (index - 1 >= 0)
-        (flatListRef.current as any).scrollToIndex({ animated: false, index: index - 1 })
+      const prevPageNum = currentPageNum - 1
+      if (prevPageNum >= 1) {
+        (flatListRef.current as any).scrollToIndex({ index: prevPageNum - 1 })
+        setCurrentPageNum(prevPageNum)
+      }
     }
     else if (pageX > width * 2 / 3) {
-      if (index + 1 < totalPage)
-        (flatListRef.current as any).scrollToIndex({ animated: false, index: index + 1 })
+      const lastPageNum = currentPageNum + 1
+      if (lastPageNum < totalPageNum) {
+        (flatListRef.current as any).scrollToIndex({ index: currentPageNum })
+        setCurrentPageNum(lastPageNum)
+      }
+
     }
+  }
+
+  // Close the setting when begin drag
+  const onScrollBeginDrag = () => {
+    if (isShowSetting)
+      setIsShowSetting(false)
   }
 
   // Handler of show dir
@@ -165,8 +188,10 @@ export const Reader: React.FC = observer(() => {
               <Header isShowSetting={isShowSetting} />
               <HorizontalFlatList
                 ref={flatListRef}
-                data={pages}
+                data={contentOfPage}
                 renderItem={renderItem}
+                onScrollBeginDrag={onScrollBeginDrag}
+                setCurrentPageNum={setCurrentPageNum}
               />
               <Dir
                 isShowDir={isShowDir}

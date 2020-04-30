@@ -42,7 +42,7 @@ export const Search: React.FC = observer(() => {
     store: searchStore,
     service: getNovels,
     params: [{ limit, offset, title: searchText }],
-    isSubmit: (isSubmit || offset > 0) && !isSearchTextEmpty,
+    isFetch: (isSubmit || offset > 0) && !isSearchTextEmpty,
     immedate,
     setDataNull: isSearchTextEmpty,
     condition: [offset, limit, isSubmit, searchText],

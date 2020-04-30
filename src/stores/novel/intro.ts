@@ -40,7 +40,7 @@ export const Novel = types.model({
 
 export const IntroStore = types
   .model({
-    ...CommonState,
+    ...CommonState(),
     novel: types.maybeNull(Novel),
   })
   .actions(self => ({

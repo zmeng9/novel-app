@@ -6,7 +6,7 @@ export interface IService {
   store: any,
   service: any
   params?: any
-  isSubmit?: boolean
+  isFetch?: boolean
   immedate?: boolean
   setDataNull?: boolean
   condition?: Array<any>
@@ -17,7 +17,7 @@ export const useService = ({
   store,
   service,
   params,
-  isSubmit = true,
+  isFetch = true,
   immedate = true,
   setDataNull = false,
   condition = [],
@@ -29,6 +29,9 @@ export const useService = ({
 
   const fetchData = async () => {
     setIsLoading(true)
+
+    const isForm = typeof setIsSubmit === `function`
+
     try {
       const result = await service(...params)
       const { code, data } = result.data
@@ -38,12 +41,15 @@ export const useService = ({
         setError(null)
         setIsLoading(false)
 
-        // If it's submit list
-        if (typeof setIsSubmit === `function`)
+        if (isForm)
           setIsSubmit(false)
       }
     } catch (error) {
       setError(error.message)
+      setIsLoading(false)
+
+      if (isForm)
+        setIsSubmit(false)
 
       switch (error.message) {
         case `Network Error`:
@@ -62,7 +68,7 @@ export const useService = ({
       if (beforeHandle)
         beforeHandle()
 
-      if (isSubmit)
+      if (isFetch)
         fetchData()
     }
     if (setDataNull)

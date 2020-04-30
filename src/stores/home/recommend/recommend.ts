@@ -16,7 +16,7 @@ export const Types = types.model({
 
 export const RecommendStore = types
   .model({
-    ...CommonState,
+    ...CommonState(),
     ...FlatListState({ subtype: Types }),
   })
   .views(self => {

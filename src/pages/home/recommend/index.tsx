@@ -1,7 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { BlurView } from 'expo-blur'
 import { Recommend } from './recommend'
 import { Plaza } from './plaza'
 import { Icon } from '../../../components'
@@ -13,14 +11,8 @@ const RecommendStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        cardStyle: {
-          backgroundColor: `#eee`,
-        },
         headerTintColor: '#333',
-        // headerTransparent: true,
-        // headerBackground: () => (
-        //   <BlurView intensity={100} style={StyleSheet.absoluteFill} />
-        // ),
+        headerBackTitleVisible: false,
       }}
     >
       <Stack.Screen
