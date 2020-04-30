@@ -38,7 +38,7 @@
 		<string>Ionicons.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchImage</string>
+	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

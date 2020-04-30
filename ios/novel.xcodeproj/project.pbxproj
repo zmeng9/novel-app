@@ -10,7 +10,6 @@
 		00E356F31AD99517003FC87E /* novelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* novelTests.m */; };
 		10FA3BE8434F8B07598F7C60 /* libPods-novel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987033106BF6095B7B515B97 /* libPods-novel.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		683D16E821F5E2E0284D2E80 /* libPods-novelTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4134A69230A31A5E64339FB1 /* libPods-novelTests.a */; };
@@ -19,6 +18,7 @@
 		C41CB0DE2459B8BF008FFFE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41CB0DD2459B8BF008FFFE3 /* UIKit.framework */; };
 		C41CB0E12459B8BF008FFFE3 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0E02459B8BF008FFFE3 /* BroadcastSetupViewController.swift */; };
 		C41CB0ED2459B8F7008FFFE3 /* novel_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */; };
+		C49371292459FD8A002AFE50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49371282459FD8A002AFE50 /* Launch Screen.storyboard */; };
 		E00B4A64424D210A3082A3D2 /* libPods-novel-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3AD4A1A6C13896BA5C5C94 /* libPods-novel-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +41,6 @@
 		13B07F961A680F5B00A75B9A /* 图书馆.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "图书馆.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = novel/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = novel/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = novel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = novel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = novel/main.m; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		C41CB0EA2459B8F7008FFFE3 /* novel-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "novel-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = novel_tvOSTests.swift; sourceTree = "<group>"; };
 		C41CB0EE2459B8F7008FFFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C49371282459FD8A002AFE50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D401A5766636201585683676 /* Pods-novel-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-novel-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-novel-tvOSTests/Pods-novel-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		EC15FAF47F2F271B6AA702EB /* Pods-novel-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-novel-tvOS.release.xcconfig"; path = "Target Support Files/Pods-novel-tvOS/Pods-novel-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -131,8 +131,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C49371282459FD8A002AFE50 /* Launch Screen.storyboard */,
 			);
 			name = novel;
 			sourceTree = "<group>";
@@ -361,8 +361,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C49371292459FD8A002AFE50 /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,18 +597,6 @@
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = novel;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {

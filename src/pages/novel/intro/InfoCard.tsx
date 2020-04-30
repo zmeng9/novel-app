@@ -5,7 +5,8 @@ import {
   Text,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { Card, CardHeader, Title, Icon } from '../../../components'
+import { useNumerOfLines } from '../../../hooks'
+import { Card, CardHeader, Title, CollapsibleIcon, ViewSize } from '../../../components'
 
 export interface IInfoCardProps {
   info: string
@@ -14,20 +15,27 @@ export interface IInfoCardProps {
 export const InfoCard: React.SFC<IInfoCardProps> = observer(({
   info,
 }) => {
-  const [numberOfLines, setNumberOfLines] = useState<number | undefined>(8)
-
-  const handleNumberOfLines = () => {
-    setNumberOfLines(numberOfLines ? undefined : 8)
-  }
+  const {
+    numberOfLines,
+    handleNumberOfLines,
+    size,
+    setSize,
+    maxHeight,
+  } = useNumerOfLines({
+    initialNumberOfLines: 8,
+    lineHeight: 20,
+  })
 
   return (
-    <Card>
+    <Card handle={handleNumberOfLines}>
       <View style={styles.root}>
         <CardHeader>
           <Title title='简介' fontSize={18} />
-          <Icon name={`ios-arrow-${numberOfLines ? `back` : `down`}`} size={22} handle={handleNumberOfLines} />
+          <CollapsibleIcon height={size.height} maxHeight={maxHeight} numberOfLines={numberOfLines} />
         </CardHeader>
-        <Text style={styles.text} numberOfLines={numberOfLines} >{info}</Text>
+        <ViewSize setSize={setSize}>
+          <Text style={styles.text} numberOfLines={numberOfLines}>{info}</Text>
+        </ViewSize>
       </View>
     </Card>
   )
