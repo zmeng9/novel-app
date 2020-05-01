@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { observer } from 'mobx-react'
 import {
   StyleSheet,
@@ -7,10 +7,11 @@ import {
 import { useStores, useService } from '../../../../hooks'
 import { getRecommends } from '../../../../services'
 import { FlatList, HorizontalFlatList } from '../../../../components'
+import { loadAuthToken } from '../../../../utils'
 import { Novel } from './Novel'
 
 export const Recommend: React.FC = observer(() => {
-  const { recommendStore } = useStores()
+  const { recommendStore, mineStore: { authToken, setAuthToken } } = useStores()
   const {
     limit,
     offset,
@@ -18,6 +19,14 @@ export const Recommend: React.FC = observer(() => {
     isRefreshing,
     itemSize,
   } = recommendStore
+
+  // Load the auth token
+  useEffect(() => {
+    (async () => {
+      const authToken = await loadAuthToken()
+      setAuthToken(authToken)
+    })()
+  }, [authToken])
 
   const data = useService({
     store: recommendStore,

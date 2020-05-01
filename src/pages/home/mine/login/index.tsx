@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   StyleSheet,
   View,
@@ -11,9 +11,10 @@ import { useHeaderHeight } from '@react-navigation/stack'
 import { useStores, useWindowSize, useService } from '../../../../hooks'
 import { login } from '../../../../services'
 import { Input, Btn } from '../../../../components'
+import { saveAuthToken, removeAuthToken } from '../../../../utils'
 
 
-const { width, height } = useWindowSize()
+const { height } = useWindowSize()
 
 export interface ILoginProps {
 
@@ -23,10 +24,12 @@ export const Login: React.FC<ILoginProps> = observer(({
 
 }) => {
   const headerHeight = useHeaderHeight()
-  const { loginStore } = useStores()
+  const { loginStore, mineStore: { setAuthToken } } = useStores()
   const {
+    isLoading,
     username,
     password,
+    unameOrPwdIsEmpty,
     isSubmit,
     setUsername,
     setPassword,
@@ -36,7 +39,24 @@ export const Login: React.FC<ILoginProps> = observer(({
   const data = useService({
     store: loginStore,
     service: login,
+    params: [{ username, password }],
+    immedate: false,
+    condition: [isSubmit],
   })
+
+  useEffect(() => {
+    if (data) {
+      (async () => {
+        await saveAuthToken(data)
+        setAuthToken(data)
+      })()
+    }
+    else {
+      (async () => {
+        await removeAuthToken()
+      })()
+    }
+  }, data)
 
   const handleLogin = () => {
     setIsSubmit(true)
@@ -46,6 +66,7 @@ export const Login: React.FC<ILoginProps> = observer(({
     <KeyboardAvoidingView behavior={'padding'}>
       <ScrollView
         contentContainerStyle={[styles.root, { height: height - headerHeight * 2 }]}
+        keyboardShouldPersistTaps='handled'
         scrollEnabled={false}
       >
         <Input
@@ -55,12 +76,20 @@ export const Login: React.FC<ILoginProps> = observer(({
           size='large'
         />
         <Input
+          secureTextEntry
           placeholder='密码'
           value={password}
           onChangeText={setPassword}
           size='large'
         />
-        <Btn text='登陆' color='primary' size='large' handle={handleLogin} />
+        <Btn
+          text='登陆'
+          color='primary'
+          size='large'
+          disabled={unameOrPwdIsEmpty || isLoading}
+          isLoading={isLoading}
+          handle={handleLogin}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   )

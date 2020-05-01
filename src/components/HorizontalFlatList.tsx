@@ -75,6 +75,5 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
 
 const styles = StyleSheet.create({
   root: {
-
   },
 })

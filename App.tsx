@@ -20,6 +20,7 @@ if (__DEV__) {
 }
 
 const App: React.SFC = () => {
+  // Hide the screen image
   useEffect(() => {
     SplashScreen.hide()
   }, [])

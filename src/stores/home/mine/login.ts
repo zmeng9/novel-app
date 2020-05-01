@@ -11,6 +11,11 @@ export const LoginStore = types
     username: '',
     password: '',
   })
+  .views(self => ({
+    get unameOrPwdIsEmpty() {
+      return !Boolean(self.username.length && self.password.length)
+    }
+  }))
   .actions(self => ({
     ...CommonActions(self),
     ...FormActions(self),

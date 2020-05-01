@@ -27,10 +27,10 @@ export const useService = ({
   const [data, setData] = useState(null)
   const { setIsLoading, setError, setIsSubmit } = store
 
+  const isForm = typeof setIsSubmit === `function`
+
   const fetchData = async () => {
     setIsLoading(true)
-
-    const isForm = typeof setIsSubmit === `function`
 
     try {
       const result = await service(...params)
@@ -40,16 +40,9 @@ export const useService = ({
         setData(data)
         setError(null)
         setIsLoading(false)
-
-        if (isForm)
-          setIsSubmit(false)
       }
     } catch (error) {
       setError(error.message)
-      setIsLoading(false)
-
-      if (isForm)
-        setIsSubmit(false)
 
       switch (error.message) {
         case `Network Error`:
@@ -59,11 +52,18 @@ export const useService = ({
           toast(`发生意外性错误`)
           break
       }
+    } finally {
+      if (isForm)
+        setIsSubmit(false)
     }
   }
 
   useEffect(() => {
+    if (setDataNull)
+      setData(null)
+
     if (immedate || !isFirstRender) {
+
       // Do something before 
       if (beforeHandle)
         beforeHandle()
@@ -71,8 +71,6 @@ export const useService = ({
       if (isFetch)
         fetchData()
     }
-    if (setDataNull)
-      setData(null)
   }, condition)
 
   return data

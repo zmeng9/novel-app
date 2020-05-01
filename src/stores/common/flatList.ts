@@ -6,10 +6,10 @@ import { uniqueById } from '../../utils'
  * Flat list state, views and actions
  */
 
+
 export interface IFlatListState {
   subtype: any
   limit?: number
-  immedate?: boolean,
 }
 
 export const ItemSize = types.model({
@@ -20,7 +20,6 @@ export const ItemSize = types.model({
 export const FlatListState = ({
   subtype,
   limit = 3,
-  immedate = true,
 }: IFlatListState) => ({
   listData: types.optional(types.array(subtype), []),
   totalCount: 0,
@@ -32,9 +31,6 @@ export const FlatListState = ({
     width: 0,
     height: 0,
   }),
-
-  // Some options
-  immedate,
 })
 
 export const FlatListViews = (self: any) => ({

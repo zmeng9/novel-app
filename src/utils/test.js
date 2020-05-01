@@ -86,3 +86,7 @@
 // }, f)
 
 // console.log('print', a)
+
+// if (3 > 2)
+//   if (5 > 2)
+//     console.log('print')

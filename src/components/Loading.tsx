@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator,
-} from 'react-native'
+import { StyleSheet, ActivityIndicator } from 'react-native'
 import { observer } from 'mobx-react'
 
-const { height } = Dimensions.get('window')
 
 export const Loading: React.SFC = observer(({
 

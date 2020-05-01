@@ -1,19 +1,11 @@
 import { types } from 'mobx-state-tree'
-import { loadAuthToken } from '../../../utils'
 
 export const MineStore = types
   .model({
+    authToken: types.maybeNull(types.string),
   })
-  .views(self => ({
-    get authToken() {
-      let authToken = null
-      loadAuthToken()
-        .then(result => {
-          authToken = result
-        })
-        .catch(e => {
-          authToken = null
-        })
-      return authToken
-    }
+  .actions(self => ({
+    setAuthToken(authToken: string | null) {
+      self.authToken = authToken
+    },
   }))

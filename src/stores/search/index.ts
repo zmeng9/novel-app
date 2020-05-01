@@ -20,10 +20,7 @@ export const SearchStore = types
   .model({
     ...FormState,
     ...CommonState(),
-    ...FlatListState({
-      subtype: Novel,
-      immedate: false,
-    }),
+    ...FlatListState({ subtype: Novel }),
 
     searchText: '',
     searchHistory: types.maybeNull(types.array(types.string)),

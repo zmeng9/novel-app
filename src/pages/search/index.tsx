@@ -19,7 +19,6 @@ export const Search: React.FC = observer(() => {
     isLoading,
     searchText,
     searchHistory,
-    immedate,
     isSubmit,
     limit,
     offset,
@@ -43,7 +42,7 @@ export const Search: React.FC = observer(() => {
     service: getNovels,
     params: [{ limit, offset, title: searchText }],
     isFetch: (isSubmit || offset > 0) && !isSearchTextEmpty,
-    immedate,
+    immedate: false,
     setDataNull: isSearchTextEmpty,
     condition: [offset, limit, isSubmit, searchText],
   })
@@ -134,7 +133,7 @@ export const Search: React.FC = observer(() => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   novel: {
     marginLeft: 15,

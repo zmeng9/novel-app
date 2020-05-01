@@ -8,6 +8,7 @@ import {
 import { observer } from 'mobx-react'
 import { Card, Icon, Img, Btn } from '../../../components'
 import { goToReader } from '../../../utils'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 export interface IInformationCardProps {
   novel: any
@@ -33,12 +34,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   return (
     <Card>
       <View style={styles.root}>
-        <TouchableOpacity style={styles.leftContainer} onPress={handleGoToReader}>
-          <Img uri={cover} height={200} width={150} />
-          <View>
-            <Btn text='点击阅读' />
+        <TouchableWithoutFeedback onPress={handleGoToReader}>
+          <View style={styles.leftContainer}>
+            <Img uri={cover} height={200} width={150} />
+            <Btn text='点击阅读' handle={handleGoToReader} />
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
             <Icon name='ios-book' size={20} />
@@ -54,11 +55,11 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-hourglass' size={20} />
-            <Text style={styles.text}>{wordsNum}</Text>
+            <Text style={styles.text}>{wordsNum}字</Text>
           </TouchableOpacity>
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />
-            <Text style={styles.text}>{clickNum}</Text>
+            <Text style={styles.text}>{clickNum}次点击</Text>
           </View>
         </View>
       </View>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 40,
   },
   line: {
     margin: 5,

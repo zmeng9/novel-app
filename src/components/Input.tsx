@@ -10,6 +10,7 @@ export interface IInputProps {
   type?: `outline` | `input`
   size?: `large` | `small`
   placeholder?: string
+  secureTextEntry?: boolean
   autoFocus?: boolean
   clearButtonMode?: `never` | `while-editing`
   returnKeyType?: `done` | `search` | `go`
@@ -22,6 +23,7 @@ export const Input: React.SFC<IInputProps> = observer(({
   type = `outline`,
   size = `small`,
   placeholder = ``,
+  secureTextEntry = false,
   autoFocus = false,
   clearButtonMode = `never`,
   returnKeyType = `done`,
@@ -43,6 +45,7 @@ export const Input: React.SFC<IInputProps> = observer(({
       placeholder={placeholder}
       clearButtonMode={clearButtonMode}
       enablesReturnKeyAutomatically
+      secureTextEntry={secureTextEntry}
       returnKeyType={returnKeyType}
     />
   )

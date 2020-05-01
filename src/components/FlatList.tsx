@@ -94,10 +94,10 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     }
   }, [error, isRefreshing])
 
-  const loadMoreData = useCallback(({ distanceFromEnd }: any) => {
-    if (!isFirstRender && !isLoading && distanceFromEnd && (totalCount > limit))
+  const loadMoreData = useCallback(() => {
+    if (!isLoading && (offset < count) && (totalCount > limit))
       setOffset(offset + limit)
-  }, [isFirstRender, offset, limit, totalCount, isLoading])
+  }, [offset, limit, isLoading, count, totalCount])
 
   const handleRefreshing = useCallback(() => {
     setIsRefreshing(true)

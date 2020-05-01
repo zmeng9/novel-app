@@ -3,25 +3,28 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
+  View,
 } from 'react-native'
 import { observer } from 'mobx-react'
-import { useWindowSize } from '../hooks'
 import { themeColor, IIhemeColorColor } from '../utils'
 
-
-const { width } = useWindowSize()
 
 export interface IBtnProps {
   text: string
   color?: IIhemeColorColor
   size?: `large` | `small`
-  handle?: (...params: any) => void
+  disabled?: boolean
+  isLoading?: boolean
+  handle: (...params: any) => void
 }
 
 export const Btn: React.SFC<IBtnProps> = observer(({
   text,
   color = `default`,
   size = `small`,
+  disabled = false,
+  isLoading = false,
   handle,
 }) => {
   return (
@@ -29,15 +32,25 @@ export const Btn: React.SFC<IBtnProps> = observer(({
       style={[
         styles.root,
         styles[size],
-        { backgroundColor: themeColor[color] },
+        { backgroundColor: disabled ? `#ccc` : themeColor[color] },
       ]}
-      disabled={typeof handle !== `function`}
+      disabled={disabled}
       onPress={handle}
     >
-      <Text style={[
-        styles[color],
-        size === `large` ? styles.largeBtnText : styles.smallBtnText
-      ]}>{text}</Text>
+      {
+        isLoading
+          ? <ActivityIndicator />
+          : (
+            <Text
+              style={[
+                styles.text,
+                styles[color],
+                size === `large` ? styles.largeBtnText : styles.smallBtnText
+              ]}>
+              {text}
+            </Text>
+          )
+      }
     </TouchableOpacity>
   )
 })
@@ -66,12 +79,13 @@ const styles = StyleSheet.create({
   secondary: {
     color: `#fff`,
   },
+  text: {
+    textAlign: `center`,
+  },
   largeBtnText: {
     fontSize: 18,
-    textAlign: `center`,
   },
   smallBtnText: {
     fontSize: 15,
-    textAlign: `center`,
   },
 })
