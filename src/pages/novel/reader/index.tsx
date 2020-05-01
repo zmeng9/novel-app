@@ -131,7 +131,7 @@ export const Reader: React.FC = observer(() => {
     }
     else if (pageX > width * 2 / 3) {
       const lastPageNum = currentPageNum + 1
-      if (lastPageNum < totalPageNum) {
+      if (lastPageNum <= totalPageNum) {
         (flatListRef.current as any).scrollToIndex({ index: currentPageNum })
         setCurrentPageNum(lastPageNum)
       }
