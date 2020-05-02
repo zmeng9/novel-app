@@ -1,12 +1,12 @@
 ## 技术栈 
-  react native + typescript + mobx + mst
+  `react native` + `typescript` + `mobx` + `mst`
 
 ### 主要实现的功能
   小说阅读器，实现滑动翻页和点击翻页，双向滚动列表
 
 ### 项目的目录结构 （ `src` ）
-    `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`
-    `hooks` - 封装公用的 `hook` 函数，`services` - 网络请求的 `api`，`utils` - 存放工具和帮助的函数
+  `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`
+  `hooks` - 封装公用的 `hook` 函数，`services` - 网络请求的 `api`，`utils` - 存放工具和帮助的函数
 
 ### 使用 `typescript`
   添加 `tsconfig.json`，设定默认规则，将原本的 `js` 组件文件全改成 `tsx` 结尾的文件，如果不是组件可以改成以 `ts` 结尾，
