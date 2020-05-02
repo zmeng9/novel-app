@@ -135,7 +135,6 @@ export const Reader: React.FC = observer(() => {
         (flatListRef.current as any).scrollToIndex({ index: currentPageNum })
         setCurrentPageNum(lastPageNum)
       }
-
     }
   }
 
