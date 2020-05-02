@@ -4,7 +4,7 @@
 ### 主要实现的功能
   小说阅读器，实现滑动翻页和点击翻页，双向滚动列表
 
-### 项目的目录结构 ####（ `/src` ）
+### 项目的目录结构 `/src`
   `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`
   `hooks` - 封装公用的 `hook` 函数，`services` - 网络请求的 `api`，`utils` - 存放工具和帮助的函数
 
@@ -14,11 +14,11 @@
   文件引用的时候不用找那么深，尽量使用 `export const ...` 代替 `export default ...`，可以配合 `export * from ...` 导出
   全部
 
-### 使用 #### `typescript`
+### 使用 `typescript`
   添加 `tsconfig.json`，设定默认规则，将原本的 `js` 组件文件全改成 `tsx` 结尾的文件，如果不是组件可以改成以 `ts` 结尾，
   注意定义 `props` 的参数类型，一般是组件。
 
-### 使用最新的 #### `hook`
+### 使用最新的 `hook`
   注意 `useEffect` 在初始化会执行一次，如果有参数，在参数的变化也会执行，相当于以前的 `componentDidMount` 和 `componentWillUpdate` 结合
   在里面返回一个函数可以相当于 `componentWillUnMount`
   封装 `hook` 可以带来很大的便利，比如 `hooks` 文件夹下的 `useService`，只需要在要进行网络请求的地方使用，传递相应的参数便能获得结果，`loading`
@@ -29,7 +29,7 @@
   使用上 `reactotron` 观测 `state` 变化是很值得的。记得在所有页面和组件添加 `observer` 以用于使其观测得到 `state` 的变化，尽量把所有 `state`
   存放在 `store` 里面，像是数据库般使用它。配合 `hook` 的 `createContext` 和 `usContext` 可以很方便地使用 `store`。 
 
-### 观测 #### `state` ### 变化 
+### 观测 `state` ### 变化 
   下载 `reactotron` 桌面软件 ( https://github.com/infinitered/reactotron )，按照教程下载和安装，在项目安装 `reactotron-react-native`
   和 `reactotron-mst` 插件，添加 `RactotronConfig.js`，官网都写的很清楚。
   需要特币注意的是 `import ReactotronConfig.js` 后才可以使用 `trackMstNode`函数，在 `App.tsx` 文件里有相应代码
