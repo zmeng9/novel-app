@@ -32,7 +32,15 @@
 ### 观测 `state` ### 变化 
   下载 `reactotron` 桌面软件 ( https://github.com/infinitered/reactotron )，按照教程下载和安装，在项目安装 `reactotron-react-native`
   和 `reactotron-mst` 插件，添加 `RactotronConfig.js`，官网都写的很清楚。
-  需要特币注意的是 `import ReactotronConfig.js` 后才可以使用 `trackMstNode`函数，在 `App.tsx` 文件里有相应代码
+  需要特币注意的是 `import ReactotronConfig.js` 后才可以使用 `trackMstNode`函数
+  ```
+  if (__DEV__) {
+  import('./ReactotronConfig')
+    .then(() => {
+      Reactotron.trackMstNode!(stores)
+    })
+  }
+  ```
 
 ### 观测网络请求
   `utils` 文件夹下的 `request` 和 `logger.debug` 函数打印在控制台，下载 `react-native-debugger` 配合更好
