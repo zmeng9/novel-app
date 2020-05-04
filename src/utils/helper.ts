@@ -1,3 +1,12 @@
+export const isEmptyObj = (obj: Object) => {
+  for (let prop in obj) {
+    if (obj.hasOwnProperty(prop))
+      return false
+  }
+  
+  return true
+}
+
 export const isUpper = (code: string) => {
   return /[A-Z]/.test(code)
 }

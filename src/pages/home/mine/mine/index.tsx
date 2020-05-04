@@ -36,6 +36,7 @@ const Mine: React.FC = observer(() => {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
   },
 })
 

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { loadAuthToken } from './storage'
 import { logger, consoleTheme } from './logger'
+import { isEmptyObj } from './helper'
 import { toast } from './toast'
 
 const localBaseURL = `http://localhost:8000`
@@ -21,10 +22,10 @@ request.interceptors.request.use(async (config: any) => {
 
   const { url, method, params, data } = config
 
-  if (params && params !== {})
-    logger.debug(url as string, method as string, `Params: `, consoleTheme.testing, params)
-  if (data && data !== {})
-    logger.debug(url as string, method as string, `Data: `, consoleTheme.testing, data)
+  if (!isEmptyObj(params))
+    logger.debug(url as string, method as string, `Query: `, consoleTheme.testing, params)
+  if (!isEmptyObj(data))
+    logger.debug(url as string, method as string, `Body: `, consoleTheme.testing, data)
 
   return config
 }, error => {
@@ -59,17 +60,14 @@ request.interceptors.response.use((res: AxiosResponse) => {
 
     switch (status) {
       case 400:
-        logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
-        break
+      case 404:
+        return logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
       case 401:
-        logger.debug(reqUrl, method as string, `Unauthorized error: `, consoleTheme.error, data)
-        break
+        return logger.debug(reqUrl, method as string, `Unauthorized error: `, consoleTheme.error, data)
       case 500:
-        logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)
-        break
+        return logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)
       default:
-        logger.debug(reqUrl, method as string, `Unexpected error: `, consoleTheme.error, data)
-        break
+        return logger.debug(reqUrl, method as string, `Unexpected error: `, consoleTheme.error, data)
     }
   }
 

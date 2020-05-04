@@ -29,7 +29,7 @@
   使用上 `reactotron` 观测 `state` 变化是很值得的。记得在所有页面和组件添加 `observer` 以用于使其观测得到 `state` 的变化，尽量把所有 `state`
   存放在 `store` 里面，像是数据库般使用它。配合 `hook` 的 `createContext` 和 `usContext` 可以很方便地使用 `store`。 
 
-### 观测 `state` ### 变化 
+### 观测 `state` 变化 
   下载 `reactotron` 桌面软件 ( https://github.com/infinitered/reactotron )，按照教程下载和安装，在项目安装 `reactotron-react-native`
   和 `reactotron-mst` 插件，添加 `RactotronConfig.js`，官网都写的很清楚。
   需要特别注意的是 `import ReactotronConfig.js` 后才可以使用 `trackMstNode`函数
