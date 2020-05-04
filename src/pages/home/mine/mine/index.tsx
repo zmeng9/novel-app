@@ -3,41 +3,30 @@ import {
   StyleSheet,
   View,
   Text,
+  ScrollView,
 } from 'react-native'
 import { observer } from 'mobx-react'
 import { useStores } from '../../../../hooks'
-import { Btn } from '../../../../components'
-import { removeAuthToken } from '../../../../utils'
-import { Login } from '../login'
+import { Card } from '../../../../components'
+import { ListHeader } from './ListHeader'
 
 
-const Mine: React.FC = observer(() => {
+export const Mine: React.FC = observer(() => {
   const { mineStore } = useStores()
   const {
     authToken,
-    setAuthToken,
+    userInfo,
   } = mineStore
 
-  const logout = async () => {
-    await removeAuthToken()
-    setAuthToken(null)
-  }
-
   return (
-    <View style={styles.root}>
-      {
-        authToken
-          ? <Btn text='退出登陆' handle={logout} />
-          : <Login />
-      }
-    </View>
+    <ScrollView contentContainerStyle={styles.root}>
+      <ListHeader authToken={authToken} userInfo={userInfo} />
+    </ScrollView>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
+    flexGrow: 1,
   },
 })
-
-export default Mine

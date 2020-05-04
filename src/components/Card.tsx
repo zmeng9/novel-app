@@ -18,12 +18,10 @@ export const Card: React.SFC<ICardProps> = observer(({
   margin = 5,
   handle,
 }) => {
-  const THandle = typeof handle === 'function'
-
   return (
     <TouchableWithoutFeedback
-      disabled={!THandle}
-      onPress={THandle ? handle : undefined}
+      disabled={!(typeof handle === 'function')}
+      onPress={handle}
     >
       <View style={[styles.root, { margin }]}>
         {children}
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
 
     backgroundColor: `#fff`,
     borderRadius: 15,
-    padding: 10,
+    padding: 5,
   },
   cardHeader: {
     flexDirection: `row`,

@@ -4,8 +4,8 @@ import { toast } from '../utils'
 
 export interface IService {
   store: any,
-  service: any
-  params?: any
+  service: (params?: any) => any
+  params?: Array<any>
   isFetch?: boolean
   immedate?: boolean
   setDataNull?: boolean
@@ -16,7 +16,7 @@ export interface IService {
 export const useService = ({
   store,
   service,
-  params,
+  params = [],
   isFetch = true,
   immedate = true,
   setDataNull = false,
@@ -39,8 +39,9 @@ export const useService = ({
       if (code) {
         setData(data)
         setError(null)
-        setIsLoading(false)
       }
+      
+      setIsLoading(false)
     } catch (error) {
       setError(error.message)
 

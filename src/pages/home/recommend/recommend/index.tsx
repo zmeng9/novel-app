@@ -5,13 +5,13 @@ import {
   View,
 } from 'react-native'
 import { useStores, useService } from '../../../../hooks'
-import { getRecommends } from '../../../../services'
+import { getRecommends, getUserInfo } from '../../../../services'
 import { FlatList, HorizontalFlatList } from '../../../../components'
 import { loadAuthToken } from '../../../../utils'
 import { Novel } from './Novel'
 
 export const Recommend: React.FC = observer(() => {
-  const { recommendStore, mineStore: { authToken, setAuthToken } } = useStores()
+  const { recommendStore, mineStore } = useStores()
   const {
     limit,
     offset,
@@ -19,14 +19,7 @@ export const Recommend: React.FC = observer(() => {
     isRefreshing,
     itemSize,
   } = recommendStore
-
-  // Load the auth token
-  useEffect(() => {
-    (async () => {
-      const authToken = await loadAuthToken()
-      setAuthToken(authToken)
-    })()
-  }, [authToken])
+  const { authToken, setAuthToken, setUserInfo } = mineStore
 
   const data = useService({
     store: recommendStore,
@@ -42,6 +35,27 @@ export const Recommend: React.FC = observer(() => {
     isFetch: isRefreshing || (refreshLimit > 0),
     condition: [isRefreshing, refreshLimit],
   })
+
+  const userInfoData = useService({
+    store: mineStore,
+    service: getUserInfo,
+    isFetch: Boolean(authToken),
+    immedate: false,
+    condition: [authToken],
+  })
+
+  useEffect(() => {
+    if (userInfoData)
+      setUserInfo(userInfoData)
+  }, [userInfoData])
+
+  // Load the auth token
+  useEffect(() => {
+    (async () => {
+      const authToken = await loadAuthToken()
+      setAuthToken(authToken)
+    })()
+  }, [])
 
   const renderItem = useCallback(({ item }: any) => (
     <Novel novel={item} setSize={recommendStore.setItemSize} />

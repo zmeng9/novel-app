@@ -10,7 +10,7 @@ export const Type = types.model({
   name: '',
 })
 
-export const Author = types.model({
+export const UserInfo = types.model({
   id: types.identifierNumber,
   mobile: '',
   username: '',
@@ -26,7 +26,7 @@ export const Novel = types.model({
   id: -1,
   title: '',
   authorId: -1,
-  author: types.maybeNull(Author),
+  author: types.maybeNull(UserInfo),
   typeId: -1,
   type: types.maybeNull(Type),
   cover: '',

@@ -1,20 +1,14 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useNavigation } from '@react-navigation/native'
 import { Icon } from '../../components'
-import Mine from './mine'
-import Recommend from './recommend'
-import Write from './write'
-import { setNavigation } from '../../utils'
+import { MineStackNavigator as Mine } from './mine'
+import { RecommendStackNavigator as Recommend } from './recommend'
+import { WriteStackNavigator as Write } from './write'
+
 
 const Tab = createBottomTabNavigator()
 
-const HomeTab: React.SFC = () => {
-  
-  // Set navigation
-  const navigation = useNavigation()
-  setNavigation(navigation)
-  
+export const HomeTab: React.SFC = () => {
   return (
     <Tab.Navigator
       initialRouteName='Recommend'
@@ -45,5 +39,3 @@ const HomeTab: React.SFC = () => {
     </Tab.Navigator>
   )
 }
-
-export default HomeTab

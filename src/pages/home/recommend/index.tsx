@@ -7,7 +7,7 @@ import { goToPlaza, goToSearch } from '../../../utils'
 
 const Stack = createStackNavigator()
 
-const RecommendStackNavigator: React.SFC = () => {
+export const RecommendStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -34,5 +34,3 @@ const RecommendStackNavigator: React.SFC = () => {
     </Stack.Navigator>
   )
 }
-
-export default RecommendStackNavigator

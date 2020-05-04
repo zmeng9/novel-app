@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { loadAuthToken } from './storage'
+import { loadAuthToken, removeAuthToken } from './storage'
 import { logger, consoleTheme } from './logger'
 import { isEmptyObj } from './helper'
 import { toast } from './toast'
@@ -49,7 +49,7 @@ request.interceptors.response.use((res: AxiosResponse) => {
     logger.debug(reqUrl, method as string, `Result: `, consoleTheme.important, data.data || data)
 
   return res
-}, (error: any) => {
+}, async (error: any) => {
   const { response, config } = error
 
   if (response) {
@@ -63,6 +63,7 @@ request.interceptors.response.use((res: AxiosResponse) => {
       case 404:
         return logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
       case 401:
+        await removeAuthToken()
         return logger.debug(reqUrl, method as string, `Unauthorized error: `, consoleTheme.error, data)
       case 500:
         return logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)

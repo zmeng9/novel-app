@@ -1,24 +1,14 @@
-import React, { useEffect } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native'
+import React, { useEffect, useCallback } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react'
 import { useStores, useService } from '../../../../hooks'
-import { login } from '../../../../services'
-import { KeyboardAvoidingScrollView, Input, Btn, ViewSize } from '../../../../components'
-import { saveAuthToken, removeAuthToken } from '../../../../utils'
+import { login, getUserInfo } from '../../../../services'
+import { KeyboardAvoidingScrollView, Input, Btn } from '../../../../components'
+import { saveAuthToken, goBack, goToReg } from '../../../../utils'
 
 
-export interface ILoginProps {
-
-}
-
-export const Login: React.FC<ILoginProps> = observer(({
-
-}) => {
-  const { loginStore, mineStore: { setAuthToken } } = useStores()
+export const Login: React.FC = observer(() => {
+  const { loginStore, mineStore } = useStores()
   const {
     isLoading,
     username,
@@ -29,64 +19,85 @@ export const Login: React.FC<ILoginProps> = observer(({
     setPassword,
     setIsSubmit,
   } = loginStore
+  const { authToken, setAuthToken, setUserInfo } = mineStore
 
   const data = useService({
     store: loginStore,
     service: login,
     params: [{ username, password }],
+    isFetch: isSubmit,
     immedate: false,
     condition: [isSubmit],
+  })
+
+  const userInfoData = useService({
+    store: mineStore,
+    service: getUserInfo,
+    isFetch: Boolean(authToken),
+    immedate: false,
+    condition: [authToken],
   })
 
   useEffect(() => {
     if (data) {
       (async () => {
-        await saveAuthToken(data)
-        setAuthToken(data)
+        const { token = '' } = data
+        await saveAuthToken(token)
+        setAuthToken(token)
       })()
     }
-    else {
-      (async () => {
-        await removeAuthToken()
-      })()
-    }
-  }, data)
+  }, [data])
 
-  const handleLogin = () => {
+  useEffect(() => {
+    if (userInfoData) {
+      setUserInfo(userInfoData)
+      goBack()
+    }
+  }, [userInfoData])
+
+  const handleLogin = useCallback(() => {
     setIsSubmit(true)
-  }
+  }, [])
 
   return (
-    <KeyboardAvoidingScrollView hasHeader centerContent>
+    <KeyboardAvoidingScrollView centerContent>
       <Input
         placeholder='用户名'
+        size='large'
         value={username}
         onChangeText={setUsername}
-        size='large'
+
       />
       <Input
         secureTextEntry
+        size='large'
         placeholder='密码'
         value={password}
         onChangeText={setPassword}
-        size='large'
       />
+      <View style={styles.loginBtn}>
+        <Btn
+          fullWidth
+          text='登陆'
+          color='primary'
+          size='large'
+          disabled={unameOrPwdIsEmpty || isLoading}
+          isLoading={isLoading}
+          handle={handleLogin}
+        />
+      </View>
       <Btn
-        text='登陆'
-        color='primary'
+        text='去注册'
+        type='text'
         size='large'
-        disabled={unameOrPwdIsEmpty || isLoading}
-        isLoading={isLoading}
-        handle={handleLogin}
+        handle={goToReg}
       />
     </KeyboardAvoidingScrollView>
   )
 })
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: `#ccc`,
-    flex: 1,
-    justifyContent: `center`,
+  loginBtn: {
+    marginHorizontal: 15,
   },
 })

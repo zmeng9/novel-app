@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import Home from './home'
+import { HomeTab as Home } from './home'
 import { Search } from './search'
 import { Intro, Reader } from './novel'
 

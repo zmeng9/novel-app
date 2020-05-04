@@ -12,8 +12,10 @@ import { themeColor, IIhemeColorColor } from '../utils'
 
 export interface IBtnProps {
   text: string
+  type?: `solid` | `outline` | `text`
   color?: IIhemeColorColor
   size?: `large` | `small`
+  fullWidth?: boolean
   disabled?: boolean
   isLoading?: boolean
   handle: (...params: any) => void
@@ -21,8 +23,10 @@ export interface IBtnProps {
 
 export const Btn: React.SFC<IBtnProps> = observer(({
   text,
+  type = `solid`,
   color = `default`,
   size = `small`,
+  fullWidth = false,
   disabled = false,
   isLoading = false,
   handle,
@@ -32,7 +36,8 @@ export const Btn: React.SFC<IBtnProps> = observer(({
       style={[
         styles.root,
         styles[size],
-        { backgroundColor: disabled ? `#ccc` : themeColor[color] },
+        fullWidth ? { width: `100%` } : {},
+        type === `solid` ? { backgroundColor: disabled ? `#ccc` : themeColor[color] } : {},
       ]}
       disabled={disabled}
       onPress={handle}
@@ -45,7 +50,13 @@ export const Btn: React.SFC<IBtnProps> = observer(({
               style={[
                 styles.text,
                 styles[color],
-                size === `large` ? styles.largeBtnText : styles.smallBtnText
+                size === `large` && styles.largeBtnText,
+                type === `text`
+                && {
+                  color: color === `secondary`
+                    ? themeColor.secondary
+                    : themeColor.primary
+                }
               ]}>
               {text}
             </Text>
@@ -59,12 +70,15 @@ const styles = StyleSheet.create({
   root: {
   },
   large: {
+    alignSelf: `center`,
     marginVertical: 10,
     marginHorizontal: 15,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   small: {
+    alignSelf: `center`,
     margin: 5,
     borderRadius: 15,
     paddingVertical: 5,
@@ -81,11 +95,9 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: `center`,
+    fontSize: 16,
   },
   largeBtnText: {
     fontSize: 18,
-  },
-  smallBtnText: {
-    fontSize: 15,
   },
 })

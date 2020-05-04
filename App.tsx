@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { storesContext, stores } from './src/stores'
 import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
+import { navigationRef, isMountedRef } from './src/utils'
 
 console.disableYellowBox = true
 
@@ -25,9 +26,18 @@ const App: React.SFC = () => {
     SplashScreen.hide()
   }, [])
 
+  // Set the mounted ref
+  useEffect(() => {
+    isMountedRef.current = true
+
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
+
   return (
     <storesContext.Provider value={stores}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <StackNavigator />
       </NavigationContainer>
     </storesContext.Provider>

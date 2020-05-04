@@ -6,7 +6,7 @@ import Write from './write'
 
 const Stack = createStackNavigator()
 
-const WriteStackNavigator: React.SFC = () => {
+export const WriteStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
       initialRouteName='WriteIndex'
@@ -30,5 +30,3 @@ const WriteStackNavigator: React.SFC = () => {
     </Stack.Navigator>
   )
 }
-
-export default WriteStackNavigator
