@@ -12,7 +12,8 @@ export interface IPageProps {
   page: string
   pageIdx: number
   fontSize: number
-  handle: (e: any, index: number) => void
+  handlePageClick: (e: any, index: number) => void
+  handleBack: (e: any) => void
 }
 
 const { height, width } = useWindowSize()
@@ -21,10 +22,16 @@ export const Page: React.SFC<IPageProps> = observer(({
   page,
   pageIdx,
   fontSize,
-  handle,
+  handlePageClick,
+  handleBack,
 }) => {
+
+
   return (
-    <TouchableWithoutFeedback onPress={(e: any) => handle(e, pageIdx + 1)}>
+    <TouchableWithoutFeedback
+      onPress={(e: any) => handlePageClick(e, pageIdx + 1)}
+      onPressIn={handleBack}
+    >
       <View style={styles.root}>
         <Text
           style={{

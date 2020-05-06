@@ -1,32 +1,18 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { BlurView } from 'expo-blur'
-import Write from './write'
+import { Write } from './write'
 
 const Stack = createStackNavigator()
 
 export const WriteStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
-      initialRouteName='WriteIndex'
       screenOptions={{
-        cardStyle: {
-          backgroundColor: `#eee`,
-        },
-        headerTransparent: true,
-        headerTintColor: '#333',
-        headerTitleStyle: {
-          flexGrow: 1,
-          textAlign: 'center',
-          alignSelf: 'center',
-        },
-        headerBackground: () => (
-          <BlurView intensity={100} style={StyleSheet.absoluteFill} />
-        ),
+        headerTintColor: `#333`,
+        headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name="WriteIndex" component={Write} />
+      <Stack.Screen name="Write" component={Write} />
     </Stack.Navigator>
   )
 }

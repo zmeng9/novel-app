@@ -32,14 +32,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   }, [])
 
   return (
-    <Card>
+    <Card handle={handleGoToReader}>
       <View style={styles.root}>
-        <TouchableWithoutFeedback onPress={handleGoToReader}>
-          <View style={styles.leftContainer}>
-            <Img uri={cover} height={200} width={150} />
-            <Btn text='点击阅读' handle={handleGoToReader} />
-          </View>
-        </TouchableWithoutFeedback>
+        <View style={styles.leftContainer}>
+          <Img uri={cover} height={200} width={150} />
+          <Btn text='点击阅读' handle={handleGoToReader} />
+        </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
             <Icon name='ios-book' size={20} />

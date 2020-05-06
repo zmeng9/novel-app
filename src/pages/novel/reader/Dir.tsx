@@ -26,6 +26,8 @@ export const Dir: React.FC<IDirProps> = observer(({
   dir,
   switchChapter,
 }) => {
+  
+
   const headerHeight = useHeaderHeight()
 
   const keyExtractor = (item: any) => {

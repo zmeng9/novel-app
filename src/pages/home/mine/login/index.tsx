@@ -66,7 +66,6 @@ export const Login: React.FC = observer(() => {
         size='large'
         value={username}
         onChangeText={setUsername}
-
       />
       <Input
         secureTextEntry

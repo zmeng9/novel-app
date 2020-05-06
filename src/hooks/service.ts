@@ -4,7 +4,7 @@ import { toast } from '../utils'
 
 export interface IService {
   store: any,
-  service: (params?: any) => any
+  service: (...params: any) => any
   params?: Array<any>
   isFetch?: boolean
   immedate?: boolean

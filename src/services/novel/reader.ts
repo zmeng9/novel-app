@@ -7,3 +7,7 @@ export const getDir = (novelId: number) => {
 export const getChapter = (novelId: number, chapterId: number) => {
   return request.get(`/chapters/${novelId}/${chapterId}`)
 }
+
+export const addToCollections = (novelId: number) => {
+  return request.post(`/collections`, { novelId })
+}

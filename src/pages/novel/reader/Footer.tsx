@@ -18,6 +18,8 @@ export const Footer: React.SFC<IFooterProps> = observer(({
   switchDir,
   switchSettingBar,
 }) => {
+  
+
   const headerHeight = useHeaderHeight()
 
   return (

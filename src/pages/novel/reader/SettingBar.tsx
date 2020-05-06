@@ -27,6 +27,8 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
   fontSize,
   setFontSize,
 }) => {
+  
+
   const headerHeight = useHeaderHeight()
 
   const handleFontSize = (value: number) => {

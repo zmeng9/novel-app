@@ -30,7 +30,6 @@ export const Input: React.SFC<IInputProps> = observer(({
   onChangeText,
   onSubmitEditing,
 }) => {
-
   return (
     <TextInput
       style={[

@@ -1,27 +1,18 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import { observer } from 'mobx-react'
 
-export interface IWriteProps {
 
-}
 
-const Write: React.FC<IWriteProps> = ({
-
-}) => {
+export const Write: React.FC = observer(() => {
   return (
     <View style={styles.root}>
       <Text>Write</Text>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   root: {
   },
 })
-
-export default Write

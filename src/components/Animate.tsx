@@ -1,10 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  Animated,
-} from 'react-native'
+import { StyleSheet, Animated } from 'react-native'
 import { observer } from 'mobx-react'
 
 /* 
@@ -20,7 +15,7 @@ export interface IFadeProps extends ICommon {
 }
 
 export interface ISildeProps extends ICommon {
-  direction?: 'top' | 'bottom' | 'left' | 'right'
+  direction?: `top` | `bottom` | `left` | `right`
   distance: number
   isSilde: boolean | null
 }
@@ -35,7 +30,8 @@ export const Fade: React.SFC<IFadeProps> = observer(({
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 700
+      duration: 700,
+      useNativeDriver: true,
     }).start()
   }
 
@@ -43,7 +39,8 @@ export const Fade: React.SFC<IFadeProps> = observer(({
     // Will change fadeAnim value to 0 in 5 seconds
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 700
+      duration: 700,
+      useNativeDriver: true,
     }).start()
   }
 
@@ -77,22 +74,26 @@ export const Fade: React.SFC<IFadeProps> = observer(({
 export const Silde: React.SFC<ISildeProps> = observer(({
   children,
   isSilde,
-  direction = 'top',
+  direction = `top`,
   distance = 0,
 }) => {
+  
+
   const sildeAnim = useRef(new Animated.Value(-distance)).current
 
   const sildeIn = () => {
     Animated.timing(sildeAnim, {
       toValue: 0,
-      duration: 300
+      duration: 300,
+      useNativeDriver: false,
     }).start()
   }
 
   const sildeOut = () => {
     Animated.timing(sildeAnim, {
       toValue: -distance,
-      duration: 300
+      duration: 300,
+      useNativeDriver: false,
     }).start()
   }
 
@@ -105,35 +106,11 @@ export const Silde: React.SFC<ISildeProps> = observer(({
       sildeOut()
   }, [isSilde])
 
-  const getDirectionStyle = () => {
-    let directionStyle = {}
-    switch (direction) {
-      case 'top':
-        directionStyle = { top: sildeAnim }
-        break
-      case 'bottom':
-        directionStyle = { bottom: sildeAnim }
-        break
-      case 'left':
-        directionStyle = { left: sildeAnim }
-        break
-      case 'right':
-        directionStyle = { right: sildeAnim }
-        break
-      default:
-        directionStyle = { top: sildeAnim }
-        break
-    }
-    return directionStyle
-  }
-
   return (
-    <Animated.View
-      style={{
-        position: `absolute`,
-        ...getDirectionStyle(),
-      }}
-    >
+    <Animated.View style={{
+      position: `absolute`,
+      [direction]: sildeAnim,
+    }}>
       {children}
     </Animated.View>
   )

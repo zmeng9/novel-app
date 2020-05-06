@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute, useNavigation } from '@react-navigation/native'
@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
 import { formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
-import { getDir, getChapter } from '../../../services'
+import { getDir, getChapter, addToCollections } from '../../../services'
 import { Page } from './Page'
 import { Header } from './Header'
 import { Footer } from './Footer'
@@ -28,6 +28,7 @@ export const Reader: React.FC = observer(() => {
   const { readerStore } = useStores()
   const {
     isLoading,
+    isScrollEnabled,
     isShowSetting,
     isShowDir,
     isShowSettingBar,
@@ -37,6 +38,7 @@ export const Reader: React.FC = observer(() => {
     contentOfPage,
     currentPageNum,
     totalPageNum,
+    setIsScrollEnabled,
     setIsShowSetting,
     setIsShowDir,
     setIsShowSettingBar,
@@ -114,7 +116,7 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Handlers of Clicking the content
-  const pageHandle = (e: any, currentPageNum: number) => {
+  const handlePageClick = (e: any, currentPageNum: number) => {
     const { pageX } = e.nativeEvent
 
     if (isShowSetting)
@@ -138,34 +140,47 @@ export const Reader: React.FC = observer(() => {
     }
   }
 
+  // Handle whether the page can be back
+  const handleBack = useCallback((e: any) => {
+    const { pageX } = e.nativeEvent
+    if ((isShowSetting || currentPageNum === 1) && pageX < 50)
+      setIsScrollEnabled(false)
+    else
+      setIsScrollEnabled(true)
+  }, [isShowSetting])
+
   // Close the setting when begin drag
-  const onScrollBeginDrag = () => {
+  const onScrollBeginDrag = useCallback(() => {
     if (isShowSetting)
       setIsShowSetting(false)
-  }
+  }, [isShowSetting])
 
   // Handler of show dir
-  const switchDir = () => {
+  const switchDir = useCallback(() => {
     setIsShowDir(!isShowDir)
-  }
+  }, [isShowDir])
 
-  const closeDir = () => {
+  const closeDir = useCallback(() => {
     setIsShowDir(false)
-  }
+  }, [])
 
-  const switchChapter = (chapterId: number) => {
+  const switchChapter = useCallback((chapterId: number) => {
     setChapterId(chapterId)
-  }
+  }, [chapterId])
 
   // Handler of show setting bar
-  const switchSettingBar = () => {
+  const switchSettingBar = useCallback(() => {
     setIsShowSettingBar(!isShowSettingBar)
-  }
+  }, [isShowSettingBar])
 
-  const closeSettingBar = () => {
+  const closeSettingBar = useCallback(() => {
     setIsShowSettingBar(false)
     setIsShowSetting(false)
-  }
+  }, [])
+
+  const handleAddToCollections = useCallback(() => {
+    return addToCollections(id)
+  }, [])
 
   const renderItem = ({ item, index }: any) => (
     <Page
@@ -173,7 +188,8 @@ export const Reader: React.FC = observer(() => {
       page={item}
       pageIdx={index}
       fontSize={fontSize}
-      handle={pageHandle}
+      handlePageClick={handlePageClick}
+      handleBack={handleBack}
     />
   )
 
@@ -184,10 +200,14 @@ export const Reader: React.FC = observer(() => {
           ? <Loading />
           : (
             <>
-              <Header isShowSetting={isShowSetting} />
+              <Header
+                isShowSetting={isShowSetting}
+                handleAddToCollections={handleAddToCollections}
+              />
               <HorizontalFlatList
                 ref={flatListRef}
                 data={contentOfPage}
+                scrollEnabled={isScrollEnabled}
                 renderItem={renderItem}
                 onScrollBeginDrag={onScrollBeginDrag}
                 setCurrentPageNum={setCurrentPageNum}
