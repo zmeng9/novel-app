@@ -25,7 +25,7 @@ export const Page: React.SFC<IPageProps> = observer(({
   handlePageClick,
   handleBack,
 }) => {
-
+  console.log(`render Page`, pageIdx, Page)
 
   return (
     <TouchableWithoutFeedback

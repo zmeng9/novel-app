@@ -2,11 +2,11 @@ import { useRef, useEffect } from "react"
 
 export const usePrevState = <T>(
   value: T,
-  condition: Array<any> = [],
+  deps: Array<any> = [],
 ): T => {
   const ref: any = useRef()
   useEffect(() => {
     ref.current = value
-  }, condition)
+  }, deps)
   return ref.current
 }

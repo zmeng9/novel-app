@@ -3,15 +3,25 @@ import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
-import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
-import { formatContent, parseContent, isEvenNumber } from '../../../utils'
-import { Loading, HorizontalFlatList } from '../../../components'
-import { getDir, getChapter, addToCollections } from '../../../services'
 import { Page } from './Page'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Dir } from './Dir'
 import { SettingBar } from './SettingBar'
+import { formatContent, parseContent, isEvenNumber } from '../../../utils'
+import { Loading, HorizontalFlatList } from '../../../components'
+import {
+  getDir,
+  getChapter,
+  addToCollections,
+} from '../../../services'
+import {
+  useStores,
+  useService,
+  useResetState,
+  useWindowSize,
+  useEcb,
+} from '../../../hooks'
 
 
 const { height, width } = useWindowSize()
@@ -64,7 +74,7 @@ export const Reader: React.FC = observer(() => {
     service: getChapter,
     params: [id, chapterId],
     isFetch: Boolean(~chapterId),
-    condition: [chapterId],
+    deps: [chapterId],
     beforeHandle: () => {
       setIsShowSetting(false)
     },
@@ -116,7 +126,7 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Handlers of Clicking the content
-  const handlePageClick = useCallback((e: any, currentPageNum: number) => {
+  const handlePageClick = useEcb((e: any, currentPageNum: number) => {
     const { pageX } = e.nativeEvent
 
     if (isShowSetting)
@@ -141,7 +151,7 @@ export const Reader: React.FC = observer(() => {
   }, [isShowSetting, totalPageNum])
 
   // Handle whether the page can be back
-  const handleBack = useCallback((e: any) => {
+  const handleBack = useEcb((e: any) => {
     const { pageX } = e.nativeEvent
     if ((isShowSetting || currentPageNum === 1) && pageX < 50)
       setIsScrollEnabled(false)
@@ -150,13 +160,13 @@ export const Reader: React.FC = observer(() => {
   }, [isShowSetting])
 
   // Close the setting when begin drag
-  const onScrollBeginDrag = useCallback(() => {
+  const onScrollBeginDrag = useEcb(() => {
     if (isShowSetting)
       setIsShowSetting(false)
   }, [isShowSetting])
 
   // Handler of show dir
-  const switchDir = useCallback(() => {
+  const switchDir = useEcb(() => {
     setIsShowDir(!isShowDir)
   }, [isShowDir])
 
@@ -164,12 +174,12 @@ export const Reader: React.FC = observer(() => {
     setIsShowDir(false)
   }, [])
 
-  const switchChapter = useCallback((chapterId: number) => {
+  const switchChapter = useEcb((chapterId: number) => {
     setChapterId(chapterId)
   }, [chapterId])
 
   // Handler of show setting bar
-  const switchSettingBar = useCallback(() => {
+  const switchSettingBar = useEcb(() => {
     setIsShowSettingBar(!isShowSettingBar)
   }, [isShowSettingBar])
 
@@ -182,7 +192,7 @@ export const Reader: React.FC = observer(() => {
     return addToCollections(id)
   }, [])
 
-  const renderItem = useCallback(({ item, index }: any) => (
+  const renderItem = useEcb(({ item, index }: any) => (
     <Page
       key={index}
       page={item}

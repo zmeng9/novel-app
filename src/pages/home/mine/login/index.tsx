@@ -27,7 +27,7 @@ export const Login: React.FC = observer(() => {
     params: [{ username, password }],
     isFetch: isSubmit,
     immedate: false,
-    condition: [isSubmit],
+    deps: [isSubmit],
   })
 
   const userInfoData = useService({
@@ -35,7 +35,7 @@ export const Login: React.FC = observer(() => {
     service: getUserInfo,
     isFetch: Boolean(authToken),
     immedate: false,
-    condition: [authToken],
+    deps: [authToken],
   })
 
   useEffect(() => {

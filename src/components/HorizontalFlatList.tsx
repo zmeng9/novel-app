@@ -28,7 +28,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
   ref,
 ) => {
   console.log(`render HorizontalFlatList`, HorizontalFlatList)
-  
+
   const flatListReg = useRef()
 
   // Set current number of per page
@@ -58,14 +58,14 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
 
   return (
     <FlatList
+      data={data}
       horizontal
       removeClippedSubviews
       scrollEnabled={scrollEnabled}
       onScrollBeginDrag={onScrollBeginDrag}
       onMomentumScrollEnd={onMomentumScrollEnd}
+      alwaysBounceHorizontal={false}
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={[styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 }]}
-      data={data}
       ref={(ref: any) => { flatListReg.current = ref }}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
@@ -74,6 +74,9 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
       snapToInterval={itemWidth}
       snapToAlignment='start'
       decelerationRate='fast'
+      contentContainerStyle={[
+        styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 }
+      ]}
     />
   )
 }, { forwardRef: true })

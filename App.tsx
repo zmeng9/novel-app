@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import 'mobx-react-lite/batchingForReactNative'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
 import { storesContext, stores } from './src/stores'

@@ -44,7 +44,7 @@ export const Search: React.FC = observer(() => {
     isFetch: (isSubmit || offset > 0) && !isSearchTextEmpty,
     immedate: false,
     setDataNull: isSearchTextEmpty,
-    condition: [offset, limit, isSubmit, searchText],
+    deps: [offset, limit, isSubmit, searchText],
   })
 
   const hotNovelsData = useService({

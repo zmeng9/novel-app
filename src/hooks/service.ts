@@ -9,7 +9,7 @@ export interface IService {
   isFetch?: boolean
   immedate?: boolean
   setDataNull?: boolean
-  condition?: Array<any>
+  deps?: Array<any>
   beforeHandle?: () => void
 }
 
@@ -20,7 +20,7 @@ export const useService = ({
   isFetch = true,
   immedate = true,
   setDataNull = false,
-  condition = [],
+  deps = [],
   beforeHandle,
 }: IService): any => {
   const isFirstRender = useIsFirstRender()
@@ -72,7 +72,7 @@ export const useService = ({
       if (isFetch)
         fetchData()
     }
-  }, condition)
+  }, deps)
 
   return data
 }

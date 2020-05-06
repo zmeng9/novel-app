@@ -22,7 +22,7 @@ export const Recommend: React.FC = observer(() => {
     store: recommendStore,
     service: getRecommends,
     params: [{ limit, offset }],
-    condition: [offset, limit],
+    deps: [offset, limit],
   })
 
   const refreshData = useService({
@@ -30,7 +30,7 @@ export const Recommend: React.FC = observer(() => {
     service: getRecommends,
     params: [{ limit: refreshLimit, offset: 0 }],
     isFetch: isRefreshing || (refreshLimit > 0),
-    condition: [isRefreshing, refreshLimit],
+    deps: [isRefreshing, refreshLimit],
   })
 
   const userInfoData = useService({
@@ -38,7 +38,7 @@ export const Recommend: React.FC = observer(() => {
     service: getUserInfo,
     isFetch: Boolean(authToken),
     immedate: false,
-    condition: [authToken],
+    deps: [authToken],
   })
 
   useEffect(() => {

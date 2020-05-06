@@ -18,8 +18,6 @@ export const Header: React.SFC<IHeaderProps> = observer(({
   isShowSetting,
   handleAddToCollections,
 }) => {
-  console.log(`render Header`, Header)
-  
   const headerHeight = useHeaderHeight()
   return (
     <View style={styles.root}>
