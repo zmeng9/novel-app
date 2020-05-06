@@ -4,7 +4,7 @@ import {
   View,
   ScrollView,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useRoute } from '@react-navigation/native'
 import { useStores, useService } from '../../../hooks'
 import { Loading } from '../../../components'

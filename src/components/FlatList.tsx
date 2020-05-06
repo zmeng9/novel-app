@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { StyleSheet, FlatList as RnFlatList } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Loading } from './Loading'
 import { NoData } from './NoData'
 import { useIsFirstRender } from '../hooks'

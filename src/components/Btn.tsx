@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { themeColor, IIhemeColorColor } from '../utils'
 
 

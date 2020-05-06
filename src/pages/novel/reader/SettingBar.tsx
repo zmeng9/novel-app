@@ -4,7 +4,7 @@ import {
   View,
   Text,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
 import { Slider } from '../../../components'

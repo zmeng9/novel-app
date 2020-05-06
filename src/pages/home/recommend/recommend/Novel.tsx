@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Card, Img, ViewSize, IViewSizeProps } from '../../../../components'
 import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'

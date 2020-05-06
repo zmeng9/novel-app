@@ -3,7 +3,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 export interface IInputProps {
   value: string

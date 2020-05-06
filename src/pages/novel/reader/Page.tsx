@@ -5,7 +5,7 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useWindowSize } from '../../../hooks'
 
 export interface IPageProps {

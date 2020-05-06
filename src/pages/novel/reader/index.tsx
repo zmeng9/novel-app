@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute, useNavigation } from '@react-navigation/native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useStores, useService, useResetState, useWindowSize } from '../../../hooks'
 import { formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
@@ -116,7 +116,7 @@ export const Reader: React.FC = observer(() => {
   }
 
   // Handlers of Clicking the content
-  const handlePageClick = (e: any, currentPageNum: number) => {
+  const handlePageClick = useCallback((e: any, currentPageNum: number) => {
     const { pageX } = e.nativeEvent
 
     if (isShowSetting)
@@ -138,7 +138,7 @@ export const Reader: React.FC = observer(() => {
         setCurrentPageNum(lastPageNum)
       }
     }
-  }
+  }, [isShowSetting, totalPageNum])
 
   // Handle whether the page can be back
   const handleBack = useCallback((e: any) => {
@@ -182,7 +182,7 @@ export const Reader: React.FC = observer(() => {
     return addToCollections(id)
   }, [])
 
-  const renderItem = ({ item, index }: any) => (
+  const renderItem = useCallback(({ item, index }: any) => (
     <Page
       key={index}
       page={item}
@@ -191,7 +191,11 @@ export const Reader: React.FC = observer(() => {
       handlePageClick={handlePageClick}
       handleBack={handleBack}
     />
-  )
+  ), [isShowSetting, totalPageNum])
+
+  const hanldeSetCurrentPageNum = useCallback((currentPageNum: number) => {
+    setCurrentPageNum(currentPageNum)
+  }, [])
 
   return (
     <View style={styles.root}>
@@ -210,7 +214,7 @@ export const Reader: React.FC = observer(() => {
                 scrollEnabled={isScrollEnabled}
                 renderItem={renderItem}
                 onScrollBeginDrag={onScrollBeginDrag}
-                setCurrentPageNum={setCurrentPageNum}
+                setCurrentPageNum={hanldeSetCurrentPageNum}
               />
               <Dir
                 isShowDir={isShowDir}

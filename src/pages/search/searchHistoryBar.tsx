@@ -4,7 +4,7 @@ import {
   View,
   Keyboard,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Title, Btn } from '../../components'
 
 export interface ISearchHistoryBarProps {

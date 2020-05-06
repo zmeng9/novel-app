@@ -4,7 +4,7 @@ import {
   View,
   Text,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useNumerOfLines } from '../../../hooks'
 import { Card, CardHeader, Title, CollapsibleIcon, ViewSize } from '../../../components'
 

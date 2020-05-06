@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Icon } from './Icon'
 import { goBack } from '../utils'
 

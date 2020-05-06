@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Input, IInputProps } from './Input'
 import { goBack } from '../utils'
 import { Icon } from './Icon'

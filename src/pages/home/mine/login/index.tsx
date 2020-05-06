@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useStores, useService } from '../../../../hooks'
 import { login, getUserInfo } from '../../../../services'
 import { KeyboardAvoidingScrollView, Input, Btn } from '../../../../components'

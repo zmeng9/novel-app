@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, Animated } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 /* 
  * Fade

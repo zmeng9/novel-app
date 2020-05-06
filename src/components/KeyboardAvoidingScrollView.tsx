@@ -5,7 +5,7 @@ import {
   ScrollView,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 export interface IKeyboardAvoidingScrollViewProps {
   children: React.ReactNode

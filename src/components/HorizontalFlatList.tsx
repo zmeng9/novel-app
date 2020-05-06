@@ -1,6 +1,6 @@
 import React, { useRef, useImperativeHandle, forwardRef, useCallback } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useWindowSize } from '../hooks'
 
 const { width } = useWindowSize()
@@ -16,17 +16,19 @@ export interface IHorizontalFlatListProps {
 
 type IRef = { ref?: any }
 
-export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = observer(forwardRef((
+export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = observer((
   {
     data,
     itemWidth = width,
-    scrollEnabled = false,
+    scrollEnabled = true,
     renderItem,
     onScrollBeginDrag,
     setCurrentPageNum,
   },
   ref,
 ) => {
+  console.log(`render HorizontalFlatList`, HorizontalFlatList)
+  
   const flatListReg = useRef()
 
   // Set current number of per page
@@ -74,7 +76,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
       decelerationRate='fast'
     />
   )
-}))
+}, { forwardRef: true })
 
 const styles = StyleSheet.create({
   root: {

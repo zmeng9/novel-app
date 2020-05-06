@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 export interface ITitleProps {
   title: string

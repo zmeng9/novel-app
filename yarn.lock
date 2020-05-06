@@ -5038,17 +5038,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mobx-react-lite@^1.4.2:
-  version "1.5.1"
-  resolved "https://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-1.5.1.tgz#8eac90985b4d2bee475dd90a0d4d903be578f154"
-  integrity sha1-jqyQmFtNK+5HXdkKDU2QO+V48VQ=
-
-mobx-react@^6.1.4:
-  version "6.1.4"
-  resolved "https://registry.npm.taobao.org/mobx-react/download/mobx-react-6.1.4.tgz#818e7991c321c05bd9b8156d94be17dad165501e"
-  integrity sha1-gY55kcMhwFvZuBVtlL4X2tFlUB4=
-  dependencies:
-    mobx-react-lite "^1.4.2"
+mobx-react-lite@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-2.0.6.tgz#e1307a2b271c6a6016c8ad815a25014b7f95997d"
+  integrity sha1-4TB6KyccamAWyK2BWiUBS3+VmX0=
 
 mobx-state-tree@^3.16.0:
   version "3.16.0"

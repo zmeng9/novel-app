@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Title, Btn } from '../../components'
 import { goToIntro } from '../../utils'
 

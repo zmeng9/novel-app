@@ -2,7 +2,7 @@ import React from 'react'
 import {
   StyleSheet,
 } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import RnSlider from '@react-native-community/slider'
 import { useWindowSize } from '../hooks'
 import { themeColor } from '../utils'

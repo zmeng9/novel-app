@@ -1,9 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
-import { observer } from 'mobx-react'
-import {
-  StyleSheet,
-  View,
-} from 'react-native'
+import { observer } from 'mobx-react-lite'
+import { StyleSheet, View } from 'react-native'
 import { useStores, useService } from '../../../../hooks'
 import { getRecommends, getUserInfo } from '../../../../services'
 import { FlatList, HorizontalFlatList } from '../../../../components'

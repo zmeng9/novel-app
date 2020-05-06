@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import FastImage from 'react-native-fast-image'
 
 export interface IImgProps {
