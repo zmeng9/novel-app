@@ -27,7 +27,7 @@ export const ListHeader: React.SFC<IListHeaderProps> = observer(({
           : (
             <View style={styles.root}>
               <Icon name='ios-contact' size={55} />
-              <ColorfulText type='primary' text='去登陆' />
+              <ColorfulText text='去登陆' />
             </View>
           )
       }

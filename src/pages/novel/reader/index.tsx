@@ -201,7 +201,7 @@ export const Reader: React.FC = observer(() => {
       handlePageClick={handlePageClick}
       handleBack={handleBack}
     />
-  ), [isShowSetting, totalPageNum])
+  ), [isShowSetting, totalPageNum, fontSize])
 
   const hanldeSetCurrentPageNum = useCallback((currentPageNum: number) => {
     setCurrentPageNum(currentPageNum)

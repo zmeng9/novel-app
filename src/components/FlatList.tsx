@@ -107,11 +107,11 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     return String(item.id)
   }, [])
 
-  const getItemLayout = (data: any, index: number) => ({
+  const getItemLayout = useCallback((data: any, index: number) => ({
     length: itemSize.height,
     offset: itemSize.height * index,
     index,
-  })
+  }), [])
 
   return (
     <RnFlatList
