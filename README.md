@@ -14,7 +14,7 @@
 - [x] ios
 - [ ] Android
 
-### 项目的目录结构 `/src`
+### 目录结构
 
   `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`
   `hooks` - 封装公用的 `hook` 函数，`services` - 网络请求的 `api`，`utils` - 存放工具和帮助的函数
