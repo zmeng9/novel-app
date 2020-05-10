@@ -1,11 +1,11 @@
-import { request } from '../../utils'
+import { request } from '../utils'
 
 export const getDir = (novelId: number) => {
-  return request.get(`/chapters/dir/${novelId}`)
+  return request.get(`/novels/${novelId}/dir`)
 }
 
 export const getChapter = (novelId: number, chapterId: number) => {
-  return request.get(`/chapters/${novelId}/${chapterId}`)
+  return request.get(`/novels/${novelId}/${chapterId}`)
 }
 
 export const addToCollections = (novelId: number) => {

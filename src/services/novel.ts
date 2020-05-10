@@ -1,5 +1,5 @@
-import { ILimitAndOffset } from '..'
-import { request } from '../../utils'
+import { ILimitAndOffset } from '.'
+import { request } from '../utils'
 
 export interface IGetNovelsParams extends ILimitAndOffset {
   title?: string

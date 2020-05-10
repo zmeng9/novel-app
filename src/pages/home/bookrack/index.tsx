@@ -1,10 +1,10 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Write } from './write'
+import { Bookrack } from './bookrack'
 
 const Stack = createStackNavigator()
 
-export const WriteStackNavigator: React.SFC = () => {
+export const BookrackStackNavigator: React.SFC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -12,7 +12,7 @@ export const WriteStackNavigator: React.SFC = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name="Write" component={Write} />
+      <Stack.Screen name="Bookrack" component={Bookrack} />
     </Stack.Navigator>
   )
 }

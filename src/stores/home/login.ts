@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { CommonState, CommonActions, FormState, FormActions } from '../../common'
+import { CommonState, CommonActions, FormState, FormActions } from '../common'
 
 export const LoginStore = types
   .model({

@@ -46,6 +46,7 @@ export const Intro: React.FC<IIntroProps> = observer(({
           ? <Loading />
           : (
             <ScrollView
+              alwaysBounceVertical={false}
               contentContainerStyle={styles.container}
               scrollIndicatorInsets={{ right: 1 }}
             >

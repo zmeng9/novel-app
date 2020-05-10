@@ -5,8 +5,8 @@ import {
   FlatListState,
   FlatListViews,
   FlatListActions,
-} from '../../common'
-import { Novel } from '../../novel'
+} from '../common'
+import { Novel } from '../novel'
 
 export const Types = types.model({
   id: types.identifierNumber,

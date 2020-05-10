@@ -21,8 +21,8 @@ const debug = (
   const className = objRef instanceof Object ? objRef.constructor.name : objRef
 
   const messageToPrint = displayFormat
-    ? `%c[${className} - ${methodName}] ${msg}`
-    : `[${className} - ${methodName}] ${msg}`
+    ? `%c${className} ${methodName} ${msg}`
+    : `${className} ${methodName} ${msg}`
 
   if (displayFormat) {
     if (data)

@@ -15,6 +15,7 @@ export const Recommend: React.FC = observer(() => {
     refreshLimit,
     isRefreshing,
     itemSize,
+    setItemSize,
   } = recommendStore
   const { authToken, setAuthToken, setUserInfo } = mineStore
 
@@ -41,6 +42,10 @@ export const Recommend: React.FC = observer(() => {
     deps: [authToken],
   })
 
+  const handleSetItemSize = useCallback((itemSize: any) => {
+    setItemSize(itemSize)
+  }, [])
+
   useEffect(() => {
     if (userInfoData)
       setUserInfo(userInfoData)
@@ -55,7 +60,7 @@ export const Recommend: React.FC = observer(() => {
   }, [])
 
   const renderItem = useCallback(({ item }: any) => (
-    <Novel novel={item} setSize={recommendStore.setItemSize} />
+    <Novel novel={item} setSize={handleSetItemSize} />
   ), [])
 
   const renderHorizontalFlatListItem = useCallback(({ item }: any) => (

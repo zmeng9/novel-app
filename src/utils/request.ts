@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { loadAuthToken, removeAuthToken } from './storage'
 import { logger, consoleTheme } from './logger'
 import { isEmptyObj } from './helper'
@@ -18,35 +18,35 @@ request.interceptors.request.use(async (config: any) => {
   const authToken = await loadAuthToken()
 
   if (authToken)
-    config.headers.common['Authorization'] = `bearer ${authToken}`
+    config.headers.common['Authorization'] = `Bearer ${authToken}`
 
-  const { url, method, params, data } = config
+  const { url, params, data } = config
+  const method = config.method.toUpperCase()
 
   if (!isEmptyObj(params))
-    logger.debug(url as string, method as string, `Query: `, consoleTheme.testing, params)
+    logger.debug(`<-- ${method}`, url, `Query: `, consoleTheme.testing, params)
   if (!isEmptyObj(data))
-    logger.debug(url as string, method as string, `Body: `, consoleTheme.testing, data)
+    logger.debug(`<-- ${method}`, url, `Body: `, consoleTheme.testing, data)
 
   return config
 }, error => {
   return Promise.reject(error)
 })
 
-request.interceptors.response.use((res: AxiosResponse) => {
+request.interceptors.response.use((res: any) => {
   const { data, config } = res
-  const { baseURL, url, method } = config
-  const regBaseURL = new RegExp((baseURL as string), '')
-  const reqUrl = (url as string).replace(regBaseURL, '')
+  const { url } = config
+  const method = config.method.toUpperCase()
 
   const { code, msg, error } = data
 
   // Status is 200
   if (!code && !error) {
     toast(msg)
-    logger.debug(reqUrl, method as string, `Opt fail: `, consoleTheme.fail, msg || data)
+    logger.debug(`--> ${method}`, url, `Opt fail: `, consoleTheme.fail, msg || data)
   }
   else
-    logger.debug(reqUrl, method as string, `Result: `, consoleTheme.important, data.data || data)
+    logger.debug(`--> ${method}`, url, `Result: `, consoleTheme.important, data.data || data)
 
   return res
 }, async (error: any) => {
@@ -54,21 +54,20 @@ request.interceptors.response.use((res: AxiosResponse) => {
 
   if (response) {
     const { status, data } = response
-    const { baseURL, url, method } = config
-    const regBaseURL = new RegExp((baseURL as string), '')
-    const reqUrl = (url as string).replace(regBaseURL, '')
+    const { url } = config
+    const method = config.method.toUpperCase()
 
     switch (status) {
       case 400:
       case 404:
-        return logger.debug(reqUrl, method as string, `Client error: `, consoleTheme.error, data)
+        return logger.debug(`--> ${method}`, url, `Client error: `, consoleTheme.error, data)
       case 401:
         await removeAuthToken()
-        return logger.debug(reqUrl, method as string, `Unauthorized error: `, consoleTheme.error, data)
+        return logger.debug(`--> ${method}`, url, `Unauthorized error: `, consoleTheme.error, data)
       case 500:
-        return logger.debug(reqUrl, method as string, `Server error: `, consoleTheme.error, data)
+        return logger.debug(`--> ${method}`, url, `Server error: `, consoleTheme.error, data)
       default:
-        return logger.debug(reqUrl, method as string, `Unexpected error: `, consoleTheme.error, data)
+        return logger.debug(`--> ${method}`, url, `Unexpected error: `, consoleTheme.error, data)
     }
   }
 

@@ -8,7 +8,7 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Dir } from './Dir'
 import { SettingBar } from './SettingBar'
-import { formatContent, parseContent, isEvenNumber } from '../../../utils'
+import { formatContent, parseContent, isEvenNumber, toast } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
 import {
   getDir,
@@ -38,6 +38,7 @@ export const Reader: React.FC = observer(() => {
   const { readerStore } = useStores()
   const {
     isLoading,
+    isCollect,
     isScrollEnabled,
     isShowSetting,
     isShowDir,
@@ -48,6 +49,7 @@ export const Reader: React.FC = observer(() => {
     contentOfPage,
     currentPageNum,
     totalPageNum,
+    setIsCollect,
     setIsScrollEnabled,
     setIsShowSetting,
     setIsShowDir,
@@ -101,7 +103,13 @@ export const Reader: React.FC = observer(() => {
 
   useEffect(() => {
     if (data) {
-      const { id = -1, chapterTitle = '', chapterContent = '' } = data
+      const { id = -1, chapterTitle = ``, chapterContent = ``, isCollect } = data
+
+      setChapterId(id)
+
+      if (typeof isCollect === `boolean`)
+        setIsCollect(isCollect)
+
       const newChapterContent = `${chapterTitle}\n${chapterContent}`
       const lineWidth = Math.floor((width - 35) * 2 / fontSize) - 1
       const evenLineWidth = isEvenNumber(lineWidth) ? lineWidth : lineWidth - 1
@@ -109,10 +117,7 @@ export const Reader: React.FC = observer(() => {
       const linesNum = getNumbersOfLinesPerPages()
       const contentOfPage = parseContent(cleanContent, evenLineWidth, linesNum)
 
-      // Update state
-
       setContentOfPage(contentOfPage)
-      setChapterId(id)
     }
   }, [data, fontSize])
 
@@ -189,10 +194,12 @@ export const Reader: React.FC = observer(() => {
   }, [])
 
   const handleAddToCollections = useCallback(() => {
-    return addToCollections(id)
+    setIsCollect(true)
+    toast(`已收藏到书架`)
+    addToCollections(id)
   }, [])
 
-  const renderItem = useEcb(({ item, index }: any) => (
+  const renderItem = useCallback(({ item, index }: any) => (
     <Page
       key={index}
       page={item}
@@ -201,7 +208,7 @@ export const Reader: React.FC = observer(() => {
       handlePageClick={handlePageClick}
       handleBack={handleBack}
     />
-  ), [isShowSetting, totalPageNum, fontSize])
+  ), [fontSize])
 
   const hanldeSetCurrentPageNum = useCallback((currentPageNum: number) => {
     setCurrentPageNum(currentPageNum)
@@ -215,6 +222,7 @@ export const Reader: React.FC = observer(() => {
           : (
             <>
               <Header
+                isCollect={isCollect}
                 isShowSetting={isShowSetting}
                 handleAddToCollections={handleAddToCollections}
               />

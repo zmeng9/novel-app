@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useIsFirstRender } from './isFirstRender'
 import { toast } from '../utils'
+import _ from 'lodash'
 
 export interface IService {
   store: any,
@@ -34,16 +35,23 @@ export const useService = ({
 
     try {
       const result = await service(...params)
-      const { code, data } = result.data
+      if (result) {
+        const { code, data = null } = result.data
 
-      if (code) {
-        setData(data)
-        setError(null)
+        if (code) {
+          setData(data)
+          setError(null)
+        }
+
+        setIsLoading(false)
       }
-      
-      setIsLoading(false)
+      else {
+        toast(`内部服务器错误`)
+      }
     } catch (error) {
       setError(error.message)
+
+      console.log(error)
 
       switch (error.message) {
         case `Network Error`:

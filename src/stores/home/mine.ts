@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
-import { CommonState, CommonActions } from '../../common'
-import { UserInfo } from '../../novel'
+import { CommonState, CommonActions } from '../common'
+import { UserInfo } from '../novel'
 
 
 export const MineStore = types

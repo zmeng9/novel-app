@@ -10,6 +10,7 @@ export const ReaderStore = types
   .model({
     ...CommonState(),
 
+    isCollect: false,
     isScrollEnabled: true,
     isShowSetting: false,
     isShowDir: false,
@@ -28,6 +29,9 @@ export const ReaderStore = types
   .actions(self => ({
     ...CommonActions(self),
     
+    setIsCollect(isCollect: boolean) {
+      self.isCollect = isCollect
+    },
     setIsScrollEnabled(isScrollEnabled: boolean) {
       self.isScrollEnabled = isScrollEnabled
     },

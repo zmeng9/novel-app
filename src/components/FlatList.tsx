@@ -117,7 +117,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     <RnFlatList
       contentContainerStyle={[styles.root, { height: totalHeight }]}
       data={listData}
-      bounces={count > 0 || isLoading}
+      alwaysBounceVertical={isLoading}
       ListEmptyComponent={isLoading ? <Loading /> : <NoData isSearch />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}
       refreshing={isRefreshing}

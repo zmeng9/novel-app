@@ -10,11 +10,13 @@ import { Header as RnHeader, Silde, Icon } from '../../../components'
 
 
 export interface IHeaderProps {
+  isCollect: boolean
   isShowSetting: boolean
   handleAddToCollections: () => void
 }
 
 export const Header: React.SFC<IHeaderProps> = observer(({
+  isCollect,
   isShowSetting,
   handleAddToCollections,
 }) => {
@@ -23,9 +25,11 @@ export const Header: React.SFC<IHeaderProps> = observer(({
     <View style={styles.root}>
       <Silde isSilde={isShowSetting} distance={headerHeight} >
         <RnHeader>
-          <TouchableOpacity onPress={handleAddToCollections }>
-            <Icon name='ios-add' size={35} />
-          </TouchableOpacity>
+          <View style={styles.rightContainer}>
+            <TouchableOpacity onPress={handleAddToCollections}>
+              {isCollect || <Icon name='ios-add' size={35} />}
+            </TouchableOpacity>
+          </View>
         </RnHeader>
       </Silde>
     </View>
@@ -35,5 +39,10 @@ export const Header: React.SFC<IHeaderProps> = observer(({
 const styles = StyleSheet.create({
   root: {
     zIndex: 1,
+  },
+  rightContainer: {
+    marginRight: 5,
+    flexDirection: `row`,
+    alignItems: `center`,
   },
 })
