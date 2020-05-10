@@ -8,17 +8,20 @@ import {
   FlatListActions,
 } from '../common'
 
-
-export const Type = types.model({
+export const Collection = types.model({
   id: types.identifierNumber,
-  name: '',
-  novels: types.optional(types.array(Novel), [])
+  novel: types.maybeNull(Novel),
+  // createdAt: types.Date,
 })
 
-export const Recommend = types
+
+export const Bookrack = types
   .model({
     ...CommonState(),
-    ...FlatListState({ subtype: Type }),
+    ...FlatListState({
+      limit: 12,
+      subtype: Collection,
+    }),
   })
   .views(self => {
     return FlatListViews(self)

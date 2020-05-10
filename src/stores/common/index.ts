@@ -1,6 +1,6 @@
 import { types, applySnapshot } from 'mobx-state-tree'
-export * from './flatList'
-export * from './form'
+export * from './FlatList'
+export * from './Form'
 
 /* 
  * Common state and action

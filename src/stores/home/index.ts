@@ -1,3 +1,4 @@
-export * from './recommend'
-export * from './mine'
-export * from './login'
+export * from './Recommend'
+export * from './Mine'
+export * from './Login'
+export * from './Bookrack'

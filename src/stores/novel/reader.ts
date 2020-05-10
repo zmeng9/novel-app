@@ -6,7 +6,7 @@ const Dir = types.model({
   chapterTitle: '',
 })
 
-export const ReaderStore = types
+export const Reader = types
   .model({
     ...CommonState(),
 

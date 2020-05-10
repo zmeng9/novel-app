@@ -10,6 +10,9 @@ export interface IFlatListProps {
   store: any
   data: any
   refreshData?: any
+  alwaysBounceVertical?: boolean
+  contentContainerStyle?: Object
+  numColumns?: number
   renderItem: ({ item }: any) => React.ReactElement | null
 }
 
@@ -17,6 +20,9 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
   store,
   data,
   refreshData,
+  alwaysBounceVertical = false,
+  contentContainerStyle = {},
+  numColumns = 1,
   renderItem,
 }) => {
   const isFirstRender = useIsFirstRender()
@@ -115,9 +121,13 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
   return (
     <RnFlatList
-      contentContainerStyle={[styles.root, { height: totalHeight }]}
+      contentContainerStyle={[
+        styles.root, 
+        { height: totalHeight }, 
+        contentContainerStyle,
+      ]}
       data={listData}
-      alwaysBounceVertical={isLoading}
+      alwaysBounceVertical={isLoading || alwaysBounceVertical}
       ListEmptyComponent={isLoading ? <Loading /> : <NoData isSearch />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}
       refreshing={isRefreshing}
@@ -125,7 +135,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       initialNumToRender={limit}
-      numColumns={1}
+      numColumns={numColumns}
       onEndReachedThreshold={0.1}
       onEndReached={loadMoreData}
       getItemLayout={getItemLayout}

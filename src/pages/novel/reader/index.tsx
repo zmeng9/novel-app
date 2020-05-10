@@ -35,7 +35,7 @@ export const Reader: React.FC = observer(() => {
   const { id = -1 } = route.params as any
 
   // Use store
-  const { readerStore } = useStores()
+  const { readerStore, mineStore: { authToken } } = useStores()
   const {
     isLoading,
     isCollect,
@@ -75,7 +75,7 @@ export const Reader: React.FC = observer(() => {
     store: readerStore,
     service: getChapter,
     params: [id, chapterId],
-    isFetch: Boolean(~chapterId),
+    isFetch: !!~chapterId,
     deps: [chapterId],
     beforeHandle: () => {
       setIsShowSetting(false)
@@ -93,7 +93,7 @@ export const Reader: React.FC = observer(() => {
     if (dirData) {
       const { rows = [] } = dirData
       const firstChapterId = _.get(rows, `[0].id`, -1)
-      const newChapterId = Boolean(~chapterId) ? chapterId : firstChapterId
+      const newChapterId = !!~chapterId ? chapterId : firstChapterId
 
       // Update state
       setDir(rows)
@@ -195,8 +195,13 @@ export const Reader: React.FC = observer(() => {
 
   const handleAddToCollections = useCallback(() => {
     setIsCollect(true)
+
+    if (authToken)
+      addToCollections(id)
+    else
+      // Save to local bookrack
+
     toast(`已收藏到书架`)
-    addToCollections(id)
   }, [])
 
   const renderItem = useCallback(({ item, index }: any) => (

@@ -37,7 +37,7 @@ export const Recommend: React.FC = observer(() => {
   const userInfoData = useService({
     store: mineStore,
     service: getUserInfo,
-    isFetch: Boolean(authToken),
+    isFetch: !!authToken,
     immedate: false,
     deps: [authToken],
   })

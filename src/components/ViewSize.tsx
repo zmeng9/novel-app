@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 
 export interface ISzie {
@@ -18,6 +18,7 @@ export const ViewSize: React.FC<IViewSizeProps> = observer(({
 }) => {
   return (
     <View
+      style={styles.root}
       onLayout={(e: any) => {
         const { width = 0, height = 0 } = e.nativeEvent.layout
         setSize({ width, height })
@@ -26,4 +27,9 @@ export const ViewSize: React.FC<IViewSizeProps> = observer(({
       {children}
     </View>
   )
+})
+
+const styles = StyleSheet.create({
+  root: {
+  },
 })

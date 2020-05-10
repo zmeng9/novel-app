@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Img, ViewSize, IViewSizeProps } from '../../../../components'
+import { Img, ViewSize, IViewSizeProps } from '../../../../components'
 import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
@@ -20,12 +20,7 @@ export const Novel: React.FC<INovelProps> = observer(({
   novel,
   setSize,
 }) => {
-  const {
-    id,
-    cover,
-    title,
-    author: { username },
-  } = novel
+  const { id, cover, title } = novel
 
   console.log(`render novel`, id)
 
@@ -36,15 +31,10 @@ export const Novel: React.FC<INovelProps> = observer(({
   return (
     <ViewSize setSize={setSize}>
       <View style={styles.root}>
-        <Card handle={handle}>
-          <View style={styles.container}>
-            <Img uri={cover} height={height / 4} width={width / 2} />
-            <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity>
-              <Text style={styles.username}>{username}</Text>
-            </TouchableOpacity>
-          </View>
-        </Card>
+        <Img uri={cover} height={height / 5.7} width={width / 3.8} resizeMode='stretch' handle={handle} />
+        <TouchableOpacity>
+          <Text style={styles.title}>{title}</Text>
+        </TouchableOpacity>
       </View>
     </ViewSize>
   )
@@ -52,22 +42,16 @@ export const Novel: React.FC<INovelProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    width: width - 30,
+    width: width / 3.8,
+    marginHorizontal: 12,
     marginVertical: 5,
-  },
-  container: {
     alignItems: `center`,
-    paddingTop: 35,
-    paddingBottom: 20,
   },
   title: {
-    marginTop: 20,
-    fontSize: 20,
-  },
-  username: {
     fontSize: 15,
-    fontWeight: `300`,
+    lineHeight: 20,
+    fontWeight: `400`,
     color: `#333`,
-    marginVertical: 10,
+    marginVertical: 8,
   },
 })

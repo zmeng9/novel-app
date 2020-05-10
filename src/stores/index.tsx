@@ -1,25 +1,27 @@
 import React from 'react'
 import { types, Instance } from 'mobx-state-tree'
-import { RecommendStore, MineStore, LoginStore } from './home'
-import { ReaderStore, IntroStore } from './novel'
-import { SearchStore } from './search'
+import { Recommend, Bookrack, Mine, Login } from './home'
+import { Reader, Intro } from './novel'
+import { Search } from './search'
 
 export const stores = types
   .model({
-    recommendStore: RecommendStore,
-    mineStore: MineStore,
-    loginStore: LoginStore,
-    readerStore: ReaderStore,
-    searchStore: SearchStore,
-    introStore: IntroStore,
+    recommendStore: Recommend,
+    bookrackStore: Bookrack,
+    mineStore: Mine,
+    loginStore: Login,
+    readerStore: Reader,
+    searchStore: Search,
+    introStore: Intro,
   })
   .create({
-    recommendStore: RecommendStore.create(),
-    mineStore: MineStore.create(),
-    loginStore: LoginStore.create(),
-    readerStore: ReaderStore.create(),
-    searchStore: SearchStore.create(),
-    introStore: IntroStore.create(),
+    recommendStore: Recommend.create(),
+    bookrackStore: Bookrack.create(),
+    mineStore: Mine.create(),
+    loginStore: Login.create(),
+    readerStore: Reader.create(),
+    searchStore: Search.create(),
+    introStore: Intro.create(),
   })
 
 // Create the stores context

@@ -26,7 +26,7 @@ export const useService = ({
 }: IService): any => {
   const isFirstRender = useIsFirstRender()
   const [data, setData] = useState(null)
-  const { setIsLoading, setError, setIsSubmit } = store
+  const { error, setIsLoading, setError, setIsSubmit } = store
 
   const isForm = typeof setIsSubmit === `function`
 
@@ -40,7 +40,9 @@ export const useService = ({
 
         if (code) {
           setData(data)
-          setError(null)
+
+          if (error)
+            setError(null)
         }
 
         setIsLoading(false)

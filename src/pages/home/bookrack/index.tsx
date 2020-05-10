@@ -12,7 +12,13 @@ export const BookrackStackNavigator: React.SFC = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name="Bookrack" component={Bookrack} />
+      <Stack.Screen
+        name="Bookrack"
+        component={Bookrack}
+        options={{
+          headerTitle: `书架`,
+        }}
+      />
     </Stack.Navigator>
   )
 }

@@ -3,6 +3,7 @@ import { splitByComma, joinByComma, unique } from './helper'
 
 const tokenKeyName = `authToken`
 const searchHistoryKeyName = `searchHistory`
+const localBookrackKeyName = `localBookrack`
 const searchHistoryLimit = 8
 
 /* 
@@ -30,7 +31,7 @@ export const removeAuthToken = async () => {
 
 export const loadSearchHistory = async () => {
   const searchHistory = await AsyncStorage.getItem(searchHistoryKeyName)
-  
+
   if (searchHistory) {
     const eightSearchHistorys = splitByComma(searchHistory).slice(0, searchHistoryLimit)
     return unique(eightSearchHistorys)
@@ -53,5 +54,37 @@ export const saveSearchHistory = async (searchHistory: string) => {
 
 export const removeSearchHistory = async () => {
   await AsyncStorage.removeItem(searchHistoryKeyName)
+}
+
+
+/* 
+ * Local bookrack
+ */
+
+export const loadLocalBookrack = async () => {
+  const localBookrack = await AsyncStorage.getItem(localBookrackKeyName)
+
+  if (localBookrack) {
+    const splitedLocalBookrack = splitByComma(localBookrack)
+    return unique(splitedLocalBookrack)
+  }
+
+  return null
+}
+
+export const saveLocalBookrack = async (localBookrack: string) => {
+  if (!localBookrack && localBookrack.trim() === ``)
+    return
+
+  const currentLocalBookrack = await AsyncStorage.getItem(localBookrackKeyName)
+  const newLocalBookrack = currentLocalBookrack
+    ? joinByComma(localBookrack, currentLocalBookrack)
+    : localBookrack
+
+  await AsyncStorage.setItem(localBookrackKeyName, newLocalBookrack)
+}
+
+export const removeLocalBookrack = async () => {
+  await AsyncStorage.removeItem(localBookrackKeyName)
 }
 

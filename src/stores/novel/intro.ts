@@ -38,7 +38,7 @@ export const Novel = types.model({
   collectionNum: 0,
 })
 
-export const IntroStore = types
+export const Intro = types
   .model({
     ...CommonState(),
     novel: types.maybeNull(Novel),

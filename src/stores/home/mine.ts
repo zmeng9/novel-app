@@ -3,7 +3,7 @@ import { CommonState, CommonActions } from '../common'
 import { UserInfo } from '../novel'
 
 
-export const MineStore = types
+export const Mine = types
   .model({
     ...CommonState(),
 

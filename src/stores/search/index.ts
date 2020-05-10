@@ -16,7 +16,7 @@ export const hotNovel = types.model({
   clickNum: 0,
 })
 
-export const SearchStore = types
+export const Search = types
   .model({
     ...FormState,
     ...CommonState(),

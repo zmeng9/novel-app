@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { CommonState, CommonActions, FormState, FormActions } from '../common'
 
-export const LoginStore = types
+export const Login = types
   .model({
     ...FormState,
     ...CommonState({
@@ -13,7 +13,7 @@ export const LoginStore = types
   })
   .views(self => ({
     get unameOrPwdIsEmpty() {
-      return !Boolean(self.username.length && self.password.length)
+      return !self.username.length && self.password.length
     }
   }))
   .actions(self => ({

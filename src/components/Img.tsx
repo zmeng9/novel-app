@@ -8,6 +8,7 @@ export interface IImgProps {
   height: number
   borderRadius?: number
   uri: string
+  resizeMode?: `contain` | `cover` | `stretch` | `center`
   handle?: () => void
 }
 
@@ -16,6 +17,7 @@ export const Img: React.SFC<IImgProps> = observer(({
   height,
   borderRadius = 0,
   uri,
+  resizeMode = `contain`,
   handle,
 }) => {
   return (
@@ -26,7 +28,7 @@ export const Img: React.SFC<IImgProps> = observer(({
           uri,
           priority: FastImage.priority.normal,
         }}
-        resizeMode={FastImage.resizeMode.contain}
+        resizeMode={FastImage.resizeMode[resizeMode]}
       />
     </TouchableWithoutFeedback>
   )
