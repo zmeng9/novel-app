@@ -14,7 +14,7 @@
 - [x] ios
 - [ ] Android
 
-[![ios 端演示]](https://qiniu.tuscanyyy.top/novel-app-ios.gif)
+<img src='https://qiniu.tuscanyyy.top/novel-app-ios.gif' width='200' height='400' />
 
 ### 目录结构
 
