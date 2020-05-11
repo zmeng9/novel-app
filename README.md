@@ -14,7 +14,7 @@
 - [x] ios
 - [ ] Android
 
-[![IMAGE ALT TEXT HERE]](https://qiniu.tuscanyyy.top/RPReplay_Final1589192405.MP4)
+[![ios 端演示]](https://qiniu.tuscanyyy.top/novel-app-ios.gif)
 
 ### 目录结构
 
