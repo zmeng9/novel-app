@@ -14,6 +14,8 @@
 - [x] ios
 - [ ] Android
 
+[![IMAGE ALT TEXT HERE]](https://qiniu.tuscanyyy.top/RPReplay_Final1589192405.MP4)
+
 ### 目录结构
 
   `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`

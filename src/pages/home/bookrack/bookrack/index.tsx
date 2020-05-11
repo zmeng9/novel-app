@@ -37,7 +37,7 @@ export const Bookrack: React.FC = observer(() => {
   })
 
   const handleSetItemSize = useCallback(({ width, height }: any) => {
-    setItemSize({ width, height: height / 3 })
+    setItemSize({ width, height: Math.ceil(height / 2.6) })
   }, [])
 
   const renderItem = useCallback(({ item }: any) => (
