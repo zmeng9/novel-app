@@ -1,5 +1,6 @@
 export * from './Icon'
 export * from './Card'
+export * from './Rating'
 export * from './ListItem'
 export * from './ColorfulText'
 export * from './Input'

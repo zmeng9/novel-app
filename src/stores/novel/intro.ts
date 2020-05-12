@@ -37,6 +37,7 @@ export const Novel = types.model({
   likeNum: 0,
   collectionNum: 0,
   wordsNum: 0,
+  rating: 0,
   author: types.maybe(UserInfo),
   type: types.maybe(Type),
   ...TimestampsState,
@@ -45,11 +46,15 @@ export const Novel = types.model({
 export const Intro = types
   .model(`Intro`, {
     ...CommonState(),
+    rating: 0,
     novel: types.maybeNull(Novel),
   })
   .actions(self => ({
     ...CommonActions(self),
 
+    setRating(rating: number) {
+      self.rating = rating
+    },
     setNovel(novel: Instance<typeof Novel>) {
       self.novel = novel
     },

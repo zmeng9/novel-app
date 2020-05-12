@@ -1,4 +1,4 @@
-## 技术栈 
+### 技术栈 
   `react native` + `typescript` + `mobx` + `mst`
 
 ### 功能
@@ -14,7 +14,12 @@
 - [x] ios
 - [ ] Android
 
-<img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='200' height='400' />
+<img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='270' height='550' />
+
+
+### 运行
+
+`git clone git@github.com:hauer9/novel-app.git && cd novel-app && yarn && yarn ios`
 
 ### 目录结构
 

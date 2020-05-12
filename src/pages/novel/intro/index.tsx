@@ -1,30 +1,28 @@
 import React, { useEffect, useCallback } from 'react'
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-} from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useRoute } from '@react-navigation/native'
 import { useStores, useService } from '../../../hooks'
 import { Loading } from '../../../components'
-import { getNovel } from '../../../services'
+import { getNovel, createRating } from '../../../services'
 import { Header } from './Header'
 import { InformationCard } from './InformationCard'
+import { Rating } from './Rating'
 import { InfoCard } from './InfoCard'
 
-export interface IIntroProps {
 
-}
-
-export const Intro: React.FC<IIntroProps> = observer(({
-
-}) => {
+export const Intro: React.FC = observer(() => {
   const route = useRoute()
   const { id } = route.params as any
 
   const { introStore } = useStores()
-  const { isLoading, novel, setNovel } = introStore
+  const {
+    isLoading,
+    rating,
+    novel,
+    setRating,
+    setNovel,
+  } = introStore
 
   const data = useService({
     store: introStore,
@@ -33,10 +31,19 @@ export const Intro: React.FC<IIntroProps> = observer(({
   })
 
   useEffect(() => {
-    if (data) {
+    if (data)
       setNovel(data)
-    }
   }, [data])
+
+  const handleStarRating = useCallback(async (rating: number) => {
+    setRating(rating * 2)
+
+    if (novel)
+      await createRating({
+        novelId: novel.id,
+        rating: rating * 2,
+      })
+  }, [rating])
 
   return (
     <View style={styles.root}>
@@ -51,6 +58,7 @@ export const Intro: React.FC<IIntroProps> = observer(({
               scrollIndicatorInsets={{ right: 1 }}
             >
               <InformationCard novel={novel} />
+              <Rating rating={rating / 2} handleStarRating={handleStarRating} />
               {novel && novel.info && <InfoCard info={novel.info} />}
             </ScrollView>
           )

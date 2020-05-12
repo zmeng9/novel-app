@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Icon, Img, Btn } from '../../../components'
+import { Card, Icon, Img, Rating, Title } from '../../../components'
 import { goToReader } from '../../../utils'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import _ from 'lodash'
+
 
 export interface IInformationCardProps {
   novel: any
@@ -19,13 +20,17 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
 }) => {
   const {
     id = -1,
-    cover = '',
-    title = '',
-    author: { username = '' },
-    type,
-    wordsNum,
+    cover = ``,
+    title = ``,
+    chaptersNum = 1,
+    wordsNum = 0,
     clickNum = 0,
+    collectionNum = 0,
+    rating = 0,
   } = novel
+
+  const username = _.get(novel, `author.username`, `无名氏`)
+  const typeName = _.get(novel, `type.name`, `暂无类型`)
 
   const handleGoToReader = useCallback(() => {
     return goToReader(id)
@@ -35,8 +40,11 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
     <Card handle={handleGoToReader}>
       <View style={styles.root}>
         <View style={styles.leftContainer}>
-          <Img uri={cover} height={200} width={150} />
-          <Btn text='开始阅读' handle={handleGoToReader} />
+          <Img uri={cover} height={215} width={150} />
+          <View style={styles.ratingContainer}>
+            <Text style={styles.ratingText}>{rating}</Text>
+            <Rating starSize={26} rating={rating / 2} />
+          </View>
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
@@ -49,8 +57,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-pricetag' size={20} />
-            <Text style={styles.text}>{type.name}</Text>
+            <Text style={styles.text}>{typeName}</Text>
           </TouchableOpacity>
+          <View style={styles.line}>
+            <Icon name='ios-list-box' size={20} />
+            <Text style={styles.text}>{chaptersNum}章</Text>
+          </View>
           <View style={styles.line}>
             <Icon name='ios-hourglass' size={20} />
             <Text style={styles.text}>{wordsNum}字</Text>
@@ -58,6 +70,10 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />
             <Text style={styles.text}>{clickNum}次点击</Text>
+          </View>
+          <View style={styles.line}>
+            <Icon name='ios-filing' size={20} />
+            <Text style={styles.text}>{collectionNum}人收藏</Text>
           </View>
         </View>
       </View>
@@ -67,9 +83,17 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    padding: 5,
     flexDirection: `row`,
     justifyContent: `space-between`,
+  },
+  topContianer: {
+    flexDirection: `row`,
+    justifyContent: `space-around`,
+  },
+  ratingContainer: {
+    flexDirection: `row`,
+    alignItems: `center`,
+    marginVertical: 2,
   },
   leftContainer: {
     flex: 1,
@@ -78,7 +102,13 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     flex: 1,
-    marginLeft: 40,
+    justifyContent: `flex-start`,
+    paddingLeft: 10,
+  },
+  ratingText: {
+    fontSize: 26,
+    color: `#333`,
+    marginRight: 10,
   },
   line: {
     margin: 5,
