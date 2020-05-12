@@ -10,6 +10,7 @@ export interface IFlatListProps {
   store: any
   data: any
   refreshData?: any
+  noDataText?: string
   alwaysBounceVertical?: boolean
   contentContainerStyle?: Object
   numColumns?: number
@@ -20,6 +21,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
   store,
   data,
   refreshData,
+  noDataText,
   alwaysBounceVertical = false,
   contentContainerStyle = {},
   numColumns = 1,
@@ -37,23 +39,32 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     listData,
     count,
     totalCount,
-    itemSize,
     totalHeight,
-    setListData,
+    itemSize,
+    bulkAddToListData,
+    bulkUnshiftToListData,
+    replaceListData,
     setOffset,
     setRefreshLimit,
     setIsRefreshing,
     setTotalCount,
+    setNumColumns,
   } = store
+
+  // Set numColumns
+  useEffect(() => {
+    setNumColumns(numColumns)
+  }, [])
 
   useEffect(() => {
     if (data) {
       const { rows = [], count = 0 } = data
 
-      // Put the data to the behind of array
-      const newListData = [...listData, ...rows]
+      if (offset === 0)
+        replaceListData(rows)
+      else
+        bulkAddToListData(rows)
 
-      setListData(newListData)
       setTotalCount(count)
     }
   }, [data])
@@ -64,11 +75,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       const { rows = [], count = 0 } = refreshData
       // If the count of new listData is more than the pre count of listData 
       if (refreshLimit > 0) {
-
-        // Put the data to the front of array
-        const newListData = [...rows, ...listData]
-
-        setListData(newListData)
+        bulkUnshiftToListData(rows)
         setRefreshLimit(0)
 
         toast(`已更新`)
@@ -122,13 +129,14 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
   return (
     <RnFlatList
       contentContainerStyle={[
-        styles.root, 
-        { height: totalHeight }, 
+        styles.root,
+        { height: totalHeight },
         contentContainerStyle,
       ]}
-      data={listData}
+      data={numColumns > 1 ? listData.slice() : listData}
+      scrollIndicatorInsets={{ right: 1 }}
       alwaysBounceVertical={isLoading || alwaysBounceVertical}
-      ListEmptyComponent={isLoading ? <Loading /> : <NoData isSearch />}
+      ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}
       refreshing={isRefreshing}
       onRefresh={refreshData === undefined ? null : handleRefreshing}

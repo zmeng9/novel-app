@@ -4,7 +4,7 @@ import { UserInfo } from '../novel'
 
 
 export const Mine = types
-  .model({
+  .model(`Mine`, {
     ...CommonState(),
 
     authToken: types.maybeNull(types.string),

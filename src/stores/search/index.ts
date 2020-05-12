@@ -17,7 +17,7 @@ export const hotNovel = types.model({
 })
 
 export const Search = types
-  .model({
+  .model(`types`, {
     ...FormState,
     ...CommonState(),
     ...FlatListState({ subtype: Novel }),

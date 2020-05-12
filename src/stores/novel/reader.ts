@@ -1,13 +1,14 @@
 import { types, cast } from 'mobx-state-tree'
 import { CommonState, CommonActions } from '../common'
+import { Novel } from './Intro'
 
 const Dir = types.model({
   id: types.identifierNumber,
-  chapterTitle: '',
+  chapterTitle: ``,
 })
 
 export const Reader = types
-  .model({
+  .model(`Reader`, {
     ...CommonState(),
 
     isCollect: false,

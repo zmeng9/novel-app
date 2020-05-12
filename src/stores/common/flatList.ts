@@ -1,5 +1,5 @@
-import { types, cast } from 'mobx-state-tree'
-import { uniqueById } from '../../utils'
+import { types } from 'mobx-state-tree'
+import { findById } from '../../utils'
 
 
 /* 
@@ -27,6 +27,7 @@ export const FlatListState = ({
   offset: 0,
   refreshLimit: 0,
   isRefreshing: false,
+  numColumns: 1,
   itemSize: types.optional(ItemSize, {
     width: 0,
     height: 0,
@@ -39,15 +40,51 @@ export const FlatListViews = (self: any) => ({
   },
   get totalHeight() {
     const paddingV = 20
-    const itemTotalHeight = self.itemSize.height * self.count
+    const cloumnCount = Math.ceil(self.count / self.numColumns)
+    const itemTotalHeight = self.itemSize.height * cloumnCount
     return !!itemTotalHeight ? itemTotalHeight + paddingV : `100%`
-  },
+  }
 })
 
 export const FlatListActions = (self: any) => ({
-  setListData(listData: Array<any>) {
-    const cleanListData = uniqueById(listData)
-    self.listData = cast(cleanListData)
+  addToListData(item: any) {
+    // self.ulkRemoveIsExistItemsFromListData(self.listData, item)
+
+    self.listData.push(item)
+  },
+  unshiftToListData(item: any) {
+    // self.ulkRemoveIsExistItemsFromListData(self.listData, item)
+
+    self.listData.unshift(item)
+  },
+  removeFromListData(item: any) {
+    self.listData.remove(item)
+  },
+  bulkAddToListData(listData: Array<any>) {
+    // self.listData.forEach((item: any) => {
+    //   self.ulkRemoveIsExistItemsFromListData(listData, item)
+    // })
+
+    self.listData.push(...listData)
+  },
+  bulkUnshiftToListData(listData: Array<any>) {
+    // self.listData.forEach((item: any) => {
+    //   self.ulkRemoveIsExistItemsFromListData(listData, item)
+    // })
+
+    self.listData.unshift(...listData)
+  },
+  // bulkRemoveIsExistItemsFromListData(listData: Array<any>, item: any) {
+  //   const isFound = findById(listData, item.id)
+
+  //   if (isFound)
+  //     self.removeFromListData(item)
+  // },
+  resetListData() {
+    self.listData.clear()
+  },
+  replaceListData(listData: Array<any>) {
+    self.listData.replace(listData)
   },
   setTotalCount(totalCount: number) {
     self.totalCount = totalCount
@@ -63,6 +100,9 @@ export const FlatListActions = (self: any) => ({
   },
   setIsRefreshing(isRefreshing: boolean) {
     self.isRefreshing = isRefreshing
+  },
+  setNumColumns(numColumns: number) {
+    self.numColumns = numColumns
   },
   setItemSize(itemSize: any) {
     self.itemSize = itemSize

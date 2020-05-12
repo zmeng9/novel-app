@@ -35,7 +35,11 @@ export const Reader: React.FC = observer(() => {
   const { id = -1 } = route.params as any
 
   // Use store
-  const { readerStore, mineStore: { authToken } } = useStores()
+  const {
+    readerStore,
+    bookrackStore: { unshiftToListData },
+    mineStore: { authToken },
+  } = useStores()
   const {
     isLoading,
     isCollect,
@@ -193,15 +197,19 @@ export const Reader: React.FC = observer(() => {
     setIsShowSetting(false)
   }, [])
 
-  const handleAddToCollections = useCallback(() => {
+  const handleAddToCollections = useCallback(async () => {
     setIsCollect(true)
 
-    if (authToken)
-      addToCollections(id)
-    else
-      // Save to local bookrack
-
-    toast(`已收藏到书架`)
+    if (authToken) {
+      const result = await addToCollections(id)
+      const { code, data } = result.data
+      if (code) {
+        unshiftToListData(data)
+        toast(`已收藏到书架`)
+      }
+    }
+    // else
+    // Save to local bookrack
   }, [])
 
   const renderItem = useCallback(({ item, index }: any) => (

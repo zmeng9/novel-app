@@ -1,5 +1,6 @@
 import { types, Instance } from 'mobx-state-tree'
 import {
+  TimestampsState,
   CommonState,
   CommonActions,
 } from '../common'
@@ -7,39 +8,42 @@ import {
 
 export const Type = types.model({
   id: types.identifierNumber,
-  name: '',
+  name: ``,
+  ...TimestampsState,
 })
 
 export const UserInfo = types.model({
   id: types.identifierNumber,
-  mobile: '',
-  username: '',
+  mobile: ``,
+  username: ``,
   avatar: types.maybeNull(types.string),
   email: types.maybeNull(types.string),
   gender: types.maybeNull(types.number),
   age: types.maybeNull(types.number),
-  birthday: types.maybeNull(types.Date),
+  birthday: types.maybeNull(types.string),
   isAdmin: false,
+  ...TimestampsState,
 })
 
 export const Novel = types.model({
   id: -1,
-  title: '',
+  title: ``,
   authorId: -1,
-  author: types.maybeNull(UserInfo),
   typeId: -1,
-  type: types.maybeNull(Type),
-  cover: '',
+  cover: ``,
   info: types.maybeNull(types.string),
   announcement: types.maybeNull(types.string),
-  wordsNum: 0,
   clickNum: 0,
   likeNum: 0,
   collectionNum: 0,
+  wordsNum: 0,
+  author: types.maybe(UserInfo),
+  type: types.maybe(Type),
+  ...TimestampsState,
 })
 
 export const Intro = types
-  .model({
+  .model(`Intro`, {
     ...CommonState(),
     novel: types.maybeNull(Novel),
   })

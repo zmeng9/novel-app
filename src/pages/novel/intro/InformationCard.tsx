@@ -22,7 +22,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
     cover = '',
     title = '',
     author: { username = '' },
-    type: { name = '' },
+    type,
     wordsNum,
     clickNum = 0,
   } = novel
@@ -36,7 +36,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
       <View style={styles.root}>
         <View style={styles.leftContainer}>
           <Img uri={cover} height={200} width={150} />
-          <Btn text='点击阅读' handle={handleGoToReader} />
+          <Btn text='开始阅读' handle={handleGoToReader} />
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
@@ -49,12 +49,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-pricetag' size={20} />
-            <Text style={styles.text}>{name}</Text>
+            <Text style={styles.text}>{type.name}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.line}>
+          <View style={styles.line}>
             <Icon name='ios-hourglass' size={20} />
             <Text style={styles.text}>{wordsNum}字</Text>
-          </TouchableOpacity>
+          </View>
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />
             <Text style={styles.text}>{clickNum}次点击</Text>

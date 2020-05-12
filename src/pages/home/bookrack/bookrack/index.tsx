@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { observer } from 'mobx-react-lite'
 import { StyleSheet, View } from 'react-native'
 import { useStores, useService } from '../../../../hooks'
-import { getCollections } from '../../../../services'
+import { getCollections, removeCollection } from '../../../../services'
 import { FlatList } from '../../../../components'
 import { Novel } from './Novel'
 import _ from 'lodash'
@@ -15,6 +15,7 @@ export const Bookrack: React.FC = observer(() => {
     offset,
     refreshLimit,
     isRefreshing,
+    removeFromListData,
     setItemSize,
   } = bookrackStore
   const { authToken, userInfo } = mineStore
@@ -36,21 +37,33 @@ export const Bookrack: React.FC = observer(() => {
     deps: [isRefreshing, refreshLimit],
   })
 
-  const handleSetItemSize = useCallback(({ width, height }: any) => {
-    setItemSize({ width, height: Math.ceil(height / 2.6) })
+  const handleSetItemSize = useCallback((itemSize: any) => {
+    setItemSize(itemSize)
+  }, [])
+
+  // Rmove the collection
+  const handleRemoveCollection = useCallback((collection: any, id: number) => {
+    removeFromListData(collection)
+    removeCollection(id)
   }, [])
 
   const renderItem = useCallback(({ item }: any) => (
-    <Novel novel={item.novel} setSize={handleSetItemSize} />
+    <Novel
+      collection={item}
+      setSize={handleSetItemSize}
+      handleRemoveCollection={handleRemoveCollection}
+    />
   ), [])
 
   return (
     <View style={styles.root}>
       <FlatList
         alwaysBounceVertical
+        contentContainerStyle={{ paddingHorizontal: 8 }}
         store={bookrackStore}
         data={data}
         refreshData={refreshData}
+        noDataText='暂无收藏'
         numColumns={3}
         renderItem={renderItem}
       />
@@ -61,6 +74,5 @@ export const Bookrack: React.FC = observer(() => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    alignItems: `center`,
   },
 })

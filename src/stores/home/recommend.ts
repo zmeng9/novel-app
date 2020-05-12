@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { Novel } from '../novel'
 import {
+  TimestampsState,
   CommonState,
   CommonActions,
   FlatListState,
@@ -9,10 +10,11 @@ import {
 } from '../common'
 
 
-export const Type = types.model({
+export const Type = types.model(`Type`, {
   id: types.identifierNumber,
-  name: '',
-  novels: types.optional(types.array(Novel), [])
+  name: ``,
+  novels: types.optional(types.array(Novel), []),
+  ...TimestampsState,
 })
 
 export const Recommend = types

@@ -6,6 +6,7 @@ export * from './Form'
  * Common state and action
  */
 
+
 export interface ICommonState {
   isLoading?: boolean
 }
@@ -28,3 +29,15 @@ export const CommonActions = (self: any) => ({
     applySnapshot(self, {})
   },
 })
+
+
+/* 
+ * TimestampsState
+ */
+
+
+export const TimestampsState = {
+  createdAt: types.string,
+  updatedAt: types.string,
+  deletedAt: types.maybeNull(types.string),
+}

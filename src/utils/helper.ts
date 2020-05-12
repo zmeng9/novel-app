@@ -88,3 +88,7 @@ export const splitByComma = (str: string) => {
 export const joinByComma = (str: string, anotherStr: string) => {
   return `${str},${anotherStr}`
 }
+
+export const findById = (array: Array<any>, id: number) => {
+  return array.find((item: any) => item.id === id)
+}

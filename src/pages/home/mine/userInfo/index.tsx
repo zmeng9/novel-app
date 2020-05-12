@@ -7,13 +7,13 @@ import { ListItem } from '../../../../components'
 
 
 export const UserInfo: React.FC = observer(() => {
-  const { mineStore } = useStores()
-  const { setUserInfo, setAuthToken } = mineStore
+  const { mineStore, bookrackStore } = useStores()
 
   const logout = useCallback(async () => {
     await removeAuthToken()
-    setAuthToken(null)
-    setUserInfo(null)
+    
+    mineStore.reset()
+    bookrackStore.reset()
 
     goBack()
   }, [])

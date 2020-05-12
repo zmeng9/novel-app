@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Img, ViewSize, IViewSizeProps } from '../../../../components'
@@ -11,39 +11,41 @@ import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
 export interface INovelProps extends IViewSizeProps {
-  novel: any
+  collection: any
+  handleRemoveCollection: (collection: any, id: number) => void
 }
 
 const { height, width } = useWindowSize()
 
 export const Novel: React.FC<INovelProps> = observer(({
-  novel,
+  collection,
   setSize,
+  handleRemoveCollection,
 }) => {
-  const { id, cover, title } = novel
+  const { id, novel } = collection
+  const { id: novelId, cover, title } = novel
 
   console.log(`render novel`, id)
 
   const handle = useCallback(() => {
-    goToIntro(id)
+    goToIntro(novelId)
   }, [])
 
   return (
     <ViewSize setSize={setSize}>
-      <View style={styles.root}>
-        <Img uri={cover} height={height / 5.7} width={width / 3.8} resizeMode='stretch' handle={handle} />
-        <TouchableOpacity>
+      <TouchableWithoutFeedback onPress={handle} onLongPress={() => handleRemoveCollection(collection, id)}>
+        <View style={styles.root}>
+          <Img uri={cover} height={height / 5.7} width={width / 3.8} resizeMode='stretch' />
           <Text style={styles.title}>{title}</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableWithoutFeedback>
     </ViewSize>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
-    width: width / 3.8,
-    marginHorizontal: 12,
+    width: (width - 16) / 3,
     marginVertical: 5,
     alignItems: `center`,
   },

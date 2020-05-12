@@ -24,11 +24,11 @@ export const Search: React.FC = observer(() => {
     offset,
     hotLimit,
     hotNovels,
+    resetListData,
     setHotNovels,
     setSearchText,
     setSearchHistory,
     setIsSubmit,
-    setListData,
     setOffset,
     setItemSize,
   } = searchStore
@@ -56,7 +56,7 @@ export const Search: React.FC = observer(() => {
   // Set List data is `[]` and offset is `0` when the search text is empty
   useEffect(() => {
     if (isSearchTextEmpty) {
-      setListData([])
+      resetListData()
       setOffset(0)
     }
   }, [searchText])
@@ -80,7 +80,7 @@ export const Search: React.FC = observer(() => {
   }, [searchHistory, isLoading, isSubmit])
 
   const handleSubmit = useCallback(() => {
-    setListData([])
+    resetListData()
     setOffset(0)
     setIsSubmit(true);
 
@@ -123,6 +123,7 @@ export const Search: React.FC = observer(() => {
               store={searchStore}
               data={data}
               renderItem={renderItem}
+              noDataText='暂无搜索结果'
             />
           )
       }

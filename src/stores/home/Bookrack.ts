@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { Novel } from '../novel'
 import {
+  TimestampsState,
   CommonState,
   CommonActions,
   FlatListState,
@@ -10,13 +11,13 @@ import {
 
 export const Collection = types.model({
   id: types.identifierNumber,
-  novel: types.maybeNull(Novel),
-  // createdAt: types.Date,
+  novel: Novel,
+  ...TimestampsState,
 })
 
 
 export const Bookrack = types
-  .model({
+  .model(`Bookrack`, {
     ...CommonState(),
     ...FlatListState({
       limit: 12,
