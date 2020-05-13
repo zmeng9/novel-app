@@ -14,7 +14,7 @@
 - [x] ios
 - [ ] Android
 
-<!-- <img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='270' height='550' /> -->
+<img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='270' height='550' />
 
 
 ### 运行
