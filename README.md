@@ -7,6 +7,7 @@
 - [x] 滑动翻页
 - [x] 双向列表
 - [x] 收藏书籍
+- [x] 评分
 - [ ] 导入本地书籍
 
 ### 平台
@@ -14,7 +15,7 @@
 - [x] ios
 - [ ] Android
 
-<img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='270' height='550' />
+<!-- <img src='https://qiniu.tuscanyyy.top/gif/novel-app-ios.gif' width='270' height='550' /> -->
 
 
 ### 运行
