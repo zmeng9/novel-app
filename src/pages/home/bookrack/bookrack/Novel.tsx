@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import { Img, ViewSize, IViewSizeProps } from '../../../../components'
 import { useWindowSize } from '../../../../hooks'
-import { goToIntro } from '../../../../utils'
+import { goToReader } from '../../../../utils'
 
 export interface INovelProps extends IViewSizeProps {
   collection: any
@@ -27,13 +27,13 @@ export const Novel: React.FC<INovelProps> = observer(({
 
   console.log(`render novel`, id)
 
-  const handle = useCallback(() => {
-    goToIntro(novelId)
+  const handleGoToReader = useCallback(() => {
+    goToReader(novelId)
   }, [])
 
   return (
     <ViewSize setSize={setSize}>
-      <TouchableWithoutFeedback onPress={handle} onLongPress={() => handleRemoveCollection(collection, id)}>
+      <TouchableWithoutFeedback onPress={handleGoToReader} onLongPress={() => handleRemoveCollection(collection, id)}>
         <View style={styles.root}>
           <Img uri={cover} height={height / 5.7} width={width / 3.8} resizeMode='stretch' />
           <Text style={styles.title}>{title}</Text>

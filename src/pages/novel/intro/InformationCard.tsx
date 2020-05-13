@@ -43,7 +43,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           <Img uri={cover} height={215} width={150} />
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingText}>{rating}</Text>
-            <Rating starSize={26} rating={rating / 2} />
+            <Rating starSize={22} rating={rating / 2} />
           </View>
         </View>
         <View style={styles.rightContainer}>
