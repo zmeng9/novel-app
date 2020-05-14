@@ -10,8 +10,12 @@ export const Rating: React.SFC<IRatingProps> = observer(({
   return (
     <Card>
       <View style={styles.root}>
-        <Title fontSize={18} title='评分：' />
-        <RnRating {...ratingProps} />
+        <View style={styles.title}>
+          <Title fontSize={18} title={ratingProps.rating ? `已评分` : `评分：`} />
+        </View>
+        <View style={styles.rating}>
+          <RnRating {...ratingProps} />
+        </View>
       </View>
     </Card>
   )
@@ -23,5 +27,12 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     justifyContent: `space-between`,
     paddingRight: 5,
+  },
+  title: {
+    flex: 1,
+  },
+  rating: {
+    flex: 1,
+    paddingLeft: 40,
   },
 })

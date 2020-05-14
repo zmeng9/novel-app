@@ -27,7 +27,6 @@ export const FlatListState = ({
   offset: 0,
   refreshLimit: 0,
   isRefreshing: false,
-  numColumns: 1,
   itemSize: types.optional(ItemSize, {
     width: 0,
     height: 0,
@@ -38,12 +37,6 @@ export const FlatListViews = (self: any) => ({
   get count() {
     return self.listData.length
   },
-  get totalHeight() {
-    const paddingV = 20
-    const cloumnCount = Math.ceil(self.count / self.numColumns)
-    const itemTotalHeight = self.itemSize.height * cloumnCount
-    return !!itemTotalHeight ? itemTotalHeight + paddingV : `100%`
-  }
 })
 
 export const FlatListActions = (self: any) => ({
@@ -100,9 +93,6 @@ export const FlatListActions = (self: any) => ({
   },
   setIsRefreshing(isRefreshing: boolean) {
     self.isRefreshing = isRefreshing
-  },
-  setNumColumns(numColumns: number) {
-    self.numColumns = numColumns
   },
   setItemSize(itemSize: any) {
     self.itemSize = itemSize

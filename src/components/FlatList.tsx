@@ -39,7 +39,6 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     listData,
     count,
     totalCount,
-    totalHeight,
     itemSize,
     bulkAddToListData,
     bulkUnshiftToListData,
@@ -48,13 +47,15 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     setRefreshLimit,
     setIsRefreshing,
     setTotalCount,
-    setNumColumns,
   } = store
 
-  // Set numColumns
-  useEffect(() => {
-    setNumColumns(numColumns)
-  }, [])
+  const totalHeight = (() => {
+    const paddingV = 20
+    const cloumnCount = Math.ceil(count / numColumns)
+    const itemTotalHeight = itemSize.height * cloumnCount
+    return !!itemTotalHeight ? itemTotalHeight + paddingV : `100%`
+  })()
+
 
   useEffect(() => {
     if (data) {

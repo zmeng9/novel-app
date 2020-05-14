@@ -6,6 +6,7 @@ import { storesContext, stores } from './src/stores'
 import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
 import { navigationRef, isMountedRef } from './src/utils'
+import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet'
 
 console.disableYellowBox = true
 
@@ -21,7 +22,7 @@ if (__DEV__) {
     })
 }
 
-const App: React.SFC = () => {
+const AppContainer: React.SFC = () => {
   // Hide the screen image
   useEffect(() => {
     SplashScreen.hide()
@@ -44,5 +45,13 @@ const App: React.SFC = () => {
     </storesContext.Provider>
   )
 }
+
+const ConnectedApp = connectActionSheet(AppContainer)
+
+const App: React.SFC = () => (
+  <ActionSheetProvider>
+    <ConnectedApp />
+  </ActionSheetProvider>
+)
 
 export default App

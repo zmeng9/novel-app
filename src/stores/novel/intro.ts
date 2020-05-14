@@ -6,6 +6,12 @@ import {
 } from '../common'
 
 
+export const Rating = types.model({
+  source: 0,
+  count: 0,
+  ownSource: types.maybe(types.optional(types.number, 0)),
+})
+
 export const Type = types.model({
   id: types.identifierNumber,
   name: ``,
@@ -37,9 +43,9 @@ export const Novel = types.model({
   likeNum: 0,
   collectionNum: 0,
   wordsNum: 0,
-  rating: 0,
-  author: types.maybe(UserInfo),
-  type: types.maybe(Type),
+  rating: types.maybe(Rating),
+  author: UserInfo,
+  type: Type,
   ...TimestampsState,
 })
 

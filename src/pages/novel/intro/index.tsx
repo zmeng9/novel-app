@@ -9,6 +9,7 @@ import { Header } from './Header'
 import { InformationCard } from './InformationCard'
 import { Rating } from './Rating'
 import { InfoCard } from './InfoCard'
+import _ from 'lodash'
 
 
 export const Intro: React.FC = observer(() => {
@@ -33,6 +34,11 @@ export const Intro: React.FC = observer(() => {
   useEffect(() => {
     if (data)
       setNovel(data)
+
+    // Set rating is `0` when is unmount
+    return () => {
+      setRating(0)
+    }
   }, [data])
 
   const handleStarRating = useCallback(async (rating: number) => {
@@ -44,6 +50,8 @@ export const Intro: React.FC = observer(() => {
         rating: rating * 2,
       })
   }, [rating])
+
+  const rated = _.get(novel, `rating.ownSource`, 0)
 
   return (
     <View style={styles.root}>
@@ -58,7 +66,7 @@ export const Intro: React.FC = observer(() => {
               scrollIndicatorInsets={{ right: 1 }}
             >
               <InformationCard novel={novel} />
-              <Rating rating={rating / 2} handleStarRating={handleStarRating} />
+              <Rating rating={rating / 2 || rated / 2} handleStarRating={handleStarRating} />
               {novel && novel.info && <InfoCard info={novel.info} />}
             </ScrollView>
           )

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Icon, Img, Rating, Title } from '../../../components'
+import { Card, Icon, Img, Rating } from '../../../components'
 import { goToReader } from '../../../utils'
 import _ from 'lodash'
 
@@ -26,11 +26,12 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
     wordsNum = 0,
     clickNum = 0,
     collectionNum = 0,
-    rating = 0,
   } = novel
 
   const username = _.get(novel, `author.username`, `无名氏`)
   const typeName = _.get(novel, `type.name`, `暂无类型`)
+  const rating = _.get(novel, `rating.source`, 0)
+  const ratingCount = _.get(novel, `rating.count`, 0)
 
   const handleGoToReader = useCallback(() => {
     return goToReader(id)
@@ -45,6 +46,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
             <Text style={styles.ratingText}>{rating}</Text>
             <Rating starSize={22} rating={rating / 2} />
           </View>
+          <Text style={styles.ratingCount}>{ratingCount ? `${ratingCount}人点评过` : `暂无人点评`}</Text>
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
@@ -94,6 +96,12 @@ const styles = StyleSheet.create({
     flexDirection: `row`,
     alignItems: `center`,
     marginVertical: 2,
+  },
+  ratingCount: {
+    fontSize: 15,
+    color: `#555`,
+    fontWeight: `300`,
+    marginBottom: 5,
   },
   leftContainer: {
     flex: 1,
