@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '../../components'
 import { MineStackNavigator as Mine } from './mine'
@@ -9,12 +10,18 @@ import { BookrackStackNavigator as Bookrack } from './bookrack'
 const Tab = createBottomTabNavigator()
 
 export const HomeTab: React.SFC = () => {
+  const isDarkMode = useDarkMode()
+
   return (
     <Tab.Navigator
       initialRouteName='Recommend'
       tabBarOptions={{
-        activeTintColor: `#333`,
+        activeTintColor: isDarkMode ? `#fff` : `#333`,
         showLabel: false,
+        style: {
+          backgroundColor: isDarkMode ? `#333` : `#fff`,
+          borderTopColor: isDarkMode ? `#222` : `#ddd`,
+        },
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {

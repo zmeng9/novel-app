@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useRef } from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute, useNavigation } from '@react-navigation/native'
@@ -27,6 +28,7 @@ import {
 const { height, width } = useWindowSize()
 
 export const Reader: React.FC = observer(() => {
+  const isDarkMode = useDarkMode()
   const flatListRef = useRef()
 
   // Route params
@@ -246,14 +248,17 @@ export const Reader: React.FC = observer(() => {
                 renderItem={renderItem}
                 onScrollBeginDrag={onScrollBeginDrag}
                 setCurrentPageNum={hanldeSetCurrentPageNum}
+                contentContainerStyle={{ backgroundColor: isDarkMode ? `#333` : `#fff` }}
               />
               <Dir
+                isDarkMode={isDarkMode}
                 isShowDir={isShowDir}
                 closeDir={closeDir}
                 dir={dir}
                 switchChapter={switchChapter}
               />
               <SettingBar
+                isDarkMode={isDarkMode}
                 isShowSettingBar={isShowSettingBar}
                 closeSettingBar={closeSettingBar}
                 fontSize={fontSize}

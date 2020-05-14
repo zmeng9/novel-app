@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-  StyleSheet,
-  TextInput,
-} from 'react-native'
+import { useDarkMode } from 'react-native-dark-mode'
+import { StyleSheet, TextInput } from 'react-native'
 import { observer } from 'mobx-react-lite'
 
 export interface IInputProps {
@@ -30,12 +28,15 @@ export const Input: React.SFC<IInputProps> = observer(({
   onChangeText,
   onSubmitEditing,
 }) => {
+  const isDarkMode = useDarkMode()
   return (
     <TextInput
       style={[
         styles.root,
         styles[type],
         styles[size],
+        { backgroundColor: isDarkMode ? `#555` : `#eee` },
+        { color: isDarkMode ? `#fff` : `#333` },
       ]}
       value={value}
       onChangeText={onChangeText}
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingLeft: 40,
-    backgroundColor: `#eee`,
   },
   large: {
     padding: 10,

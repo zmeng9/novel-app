@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { shadow } from '../utils'
@@ -18,12 +19,15 @@ export const Card: React.SFC<ICardProps> = observer(({
   margin = 5,
   handle,
 }) => {
+  const isDarkMode = useDarkMode()
+  const backgroundColor = isDarkMode ? `#333` : `#fff`
+
   return (
     <TouchableWithoutFeedback
       disabled={!(typeof handle === 'function')}
       onPress={handle}
     >
-      <View style={[styles.root, { margin }]}>
+      <View style={[styles.root, { margin, backgroundColor }, isDarkMode ? {} : { ...shadow }]}>
         {children}
       </View>
     </TouchableWithoutFeedback>
@@ -42,9 +46,6 @@ export const CardHeader: React.SFC<ICardHeaderProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    ...shadow,
-
-    backgroundColor: `#fff`,
     borderRadius: 15,
     padding: 5,
   },

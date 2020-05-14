@@ -10,6 +10,7 @@ import Modal from 'react-native-modal'
 import { Slider } from '../../../components'
 
 export interface ISettingBarProps {
+  isDarkMode: boolean
   isShowSettingBar: boolean
   closeSettingBar: () => void
   fontSize: number
@@ -22,12 +23,13 @@ const maxFontSize = fontSizeRange.slice(-1)[0]
 const step = 1
 
 export const SettingBar: React.FC<ISettingBarProps> = observer(({
+  isDarkMode,
   isShowSettingBar,
   closeSettingBar,
   fontSize,
   setFontSize,
 }) => {
-  
+
 
   const headerHeight = useHeaderHeight()
 
@@ -48,9 +50,16 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
       useNativeDriver={true}
       style={styles.root}
     >
-      <View style={[styles.container, { paddingBottom: headerHeight }]}>
+      <View style={[
+        styles.container,
+        {
+          paddingBottom: headerHeight,
+          backgroundColor: isDarkMode ? `#333` : `#fff`,
+          borderColor: isDarkMode? `#555` : `#ddd`,
+        }
+      ]}>
         <View style={styles.sliderContainer}>
-          <Text style={styles.minFontSizeText}>A</Text>
+          <Text style={[styles.minFontSizeText, { color: isDarkMode? `#aaa` : `#000` }]}>A</Text>
           <Slider
             minimumValue={0}
             maximumValue={fontSizeRange.length - 1}
@@ -58,7 +67,7 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
             value={fontSizeRange.indexOf(fontSize)}
             onChange={handleFontSize}
           />
-          <Text style={styles.maxFontSizeText}>A</Text>
+          <Text style={[styles.maxFontSizeText, { color: isDarkMode? `#aaa` : `#000` }]}>A</Text>
         </View>
       </View>
     </Modal>
@@ -73,12 +82,10 @@ const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    backgroundColor: `#fff`,
     paddingHorizontal: 20,
     alignItems: `center`,
     justifyContent: `center`,
     paddingTop: 30,
-    borderColor: `#ddd`,
     borderWidth: 0.5,
   },
   sliderContainer: {

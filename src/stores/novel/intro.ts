@@ -41,7 +41,7 @@ export const Novel = types.model({
   announcement: types.maybeNull(types.string),
   clickNum: 0,
   likeNum: 0,
-  collectionNum: 0,
+  collectionsNum: 0,
   wordsNum: 0,
   rating: types.maybe(Rating),
   author: UserInfo,

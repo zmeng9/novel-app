@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet, View, Text } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { IIhemeColorColor, themeColor } from '../utils'
@@ -16,6 +17,7 @@ export const ColorfulText: React.SFC<IColorfulTextProps> = observer(({
   fontSize = 16,
   type = `default`,
 }) => {
+  const isDarkMode = useDarkMode()
   return (
     <View style={[styles.root, { margin }]}>
       <Text
@@ -23,7 +25,7 @@ export const ColorfulText: React.SFC<IColorfulTextProps> = observer(({
           styles.text,
           {
             fontSize,
-            color: type === `default` ? `#000` : themeColor[type]
+            color: type === `default` ? (isDarkMode ? `#fff` : `#000`) : themeColor[type]
           }
         ]}>
         {text}

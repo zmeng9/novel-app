@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   View,
@@ -23,6 +24,7 @@ export const Header: React.SFC<IHeaderProps> = observer(({
   type = `header`,
   isEmpty = false,
 }) => {
+  const isDarkMode = useDarkMode()
   const headerHeight = useHeaderHeight()
   const statusBarHeight = getStatusBarHeight()
   const isHeader = type === `header`
@@ -37,6 +39,9 @@ export const Header: React.SFC<IHeaderProps> = observer(({
         paddingHorizontal: isFooter ? 10 : 0,
         borderBottomWidth: isHeader ? 0.5 : 0,
         borderTopWidth: isFooter ? 0.5 : 0,
+        backgroundColor: isDarkMode ? `#333` : `#fff`,
+        borderBottomColor: isDarkMode ? `#333` : `#ddd`,
+        borderTopColor: isDarkMode ? `#333` : `#ddd`,
       }
     ]}>
       {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
@@ -48,11 +53,8 @@ export const Header: React.SFC<IHeaderProps> = observer(({
 const styles = StyleSheet.create({
   root: {
     width,
-    backgroundColor: `#fff`,
     flexDirection: 'row',
     justifyContent: `space-between`,
     alignItems: `center`,
-    borderBottomColor: `#ddd`,
-    borderTopColor: `#ddd`,
   },
 })

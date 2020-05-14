@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useDarkMode } from 'react-native-dark-mode'
 import { HomeTab as Home } from './home'
 import { Search } from './search'
 import { Intro, Reader } from './novel'
@@ -8,13 +9,15 @@ import { Intro, Reader } from './novel'
 const Stack = createStackNavigator()
 
 const StackNavigator: React.SFC = () => {
+  const isDarkMode = useDarkMode()
+
   return (
     <Stack.Navigator
       initialRouteName='Home'
       headerMode='none'
       screenOptions={{
         cardStyle: {
-          backgroundColor: `#eee`,
+          backgroundColor: isDarkMode ? `#000` : `#eee`,
         },
       }}
     >

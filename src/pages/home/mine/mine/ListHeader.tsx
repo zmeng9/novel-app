@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet, View, Text } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Card, Icon, ColorfulText, Avatar } from '../../../../components'
@@ -13,6 +14,7 @@ export const ListHeader: React.SFC<IListHeaderProps> = observer(({
   authToken,
   userInfo,
 }) => {
+  const isDarkMode = useDarkMode()
   const isLogin = authToken && userInfo
   return (
     <Card handle={isLogin ? goToUserInfo : goToLogin}>
@@ -21,7 +23,7 @@ export const ListHeader: React.SFC<IListHeaderProps> = observer(({
           ? (
             <View style={styles.root}>
               <Avatar size='large' uri={userInfo.avatar} />
-              <Text style={styles.username}>{userInfo.username}</Text>
+              <Text style={[styles.username, { color: isDarkMode ? `#aaa` : `#333` }]}>{userInfo.username}</Text>
             </View>
           )
           : (

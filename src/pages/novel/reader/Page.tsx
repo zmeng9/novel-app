@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   View,
@@ -25,6 +26,7 @@ export const Page: React.SFC<IPageProps> = observer(({
   handlePageClick,
   handleBack,
 }) => {
+  const isDarkMode = useDarkMode()
   console.log(`render Page`, pageIdx, Page)
 
   return (
@@ -39,6 +41,7 @@ export const Page: React.SFC<IPageProps> = observer(({
             lineHeight: Math.ceil(fontSize + 15),
             fontWeight: `300`,
             fontVariant: ['tabular-nums'],
+            color: isDarkMode ? `#aaa` : `#000`,
           }}
         >
           {page}
@@ -55,7 +58,6 @@ const styles = StyleSheet.create({
     height,
     paddingLeft: 20,
     paddingVertical: 40,
-    backgroundColor: `#fff`,
   },
   pageCount: {
     position: 'absolute',

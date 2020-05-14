@@ -9,6 +9,7 @@ export interface IHorizontalFlatListProps {
   data: Array<any>
   itemWidth?: number
   scrollEnabled?: boolean
+  contentContainerStyle?: Object
   renderItem: ({ item }: any) => React.ReactElement | null
   onScrollBeginDrag?: () => void
   setCurrentPageNum?: (currentPageNum: number) => void
@@ -21,6 +22,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
     data,
     itemWidth = width,
     scrollEnabled = true,
+    contentContainerStyle = {},
     renderItem,
     onScrollBeginDrag,
     setCurrentPageNum,
@@ -75,7 +77,8 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
       snapToAlignment='start'
       decelerationRate='fast'
       contentContainerStyle={[
-        styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 }
+        styles.root, itemWidth === width ? {} : { paddingHorizontal: 15 },
+        contentContainerStyle,
       ]}
     />
   )

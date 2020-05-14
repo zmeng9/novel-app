@@ -1,9 +1,7 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import VIcon from 'react-native-vector-icons/Ionicons'
-import {
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 
 export interface IIconProps {
   name: string
@@ -15,9 +13,12 @@ export interface IIconProps {
 export const Icon: React.SFC<IIconProps> = ({
   name,
   size = 28,
-  color = '#333',
+  color = `#333`,
   handle,
 }) => {
+  const isDarkMode = useDarkMode()
+  color = isDarkMode ?  `#aaa` : color
+
   return (
     typeof handle === 'function'
       ? (

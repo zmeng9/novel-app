@@ -1247,6 +1247,11 @@
   resolved "https://registry.npm.taobao.org/@types/eslint-visitor-keys/download/@types/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha1-HuMNeVRMqE1o1LPNsK9PIFZj3S0=
 
+"@types/events@*":
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/@types/events/download/@types/events-3.0.0.tgz?cache=0&sync_timestamp=1588200013267&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fevents%2Fdownload%2F%40types%2Fevents-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
+  integrity sha1-KGLz9Yqaf3w+eNefEw3U1xwlwqc=
+
 "@types/hammerjs@^2.0.36":
   version "2.0.36"
   resolved "https://registry.npm.taobao.org/@types/hammerjs/download/@types/hammerjs-2.0.36.tgz#17ce0a235e9ffbcdcdf5095646b374c2bf615a4c"
@@ -2891,6 +2896,11 @@ eventemitter3@^3.0.0:
   version "3.1.2"
   resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.1.2.tgz?cache=0&sync_timestamp=1560950873670&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feventemitter3%2Fdownload%2Feventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha1-LT1I+cNGaY/Og6hdfWZOmFNd9uc=
+
+events@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/events/download/events-3.1.0.tgz#84279af1b34cb75aa88bf5ff291f6d0bd9b31a59"
+  integrity sha1-hCea8bNMt1qoi/X/KR9tC9mzGlk=
 
 exec-sh@^0.3.2:
   version "0.3.4"
@@ -5891,6 +5901,17 @@ react-native-button@^2.3.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-dark-mode@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npm.taobao.org/react-native-dark-mode/download/react-native-dark-mode-0.2.2.tgz#4faa335e36330bfca832ba8b3d2bd84c7b880381"
+  integrity sha1-T6ozXjYzC/yoMrqLPSvYTHuIA4E=
+  dependencies:
+    "@types/events" "*"
+    "@types/react" "*"
+    "@types/react-native" "*"
+    events "^3.0.0"
+    toolkit.ts "^0.0.2"
+
 react-native-fast-image@^8.1.5:
   version "8.1.5"
   resolved "https://registry.npm.taobao.org/react-native-fast-image/download/react-native-fast-image-8.1.5.tgz#0a6404c988dad68c98d26f91155d0a5293ba2ea5"
@@ -7051,6 +7072,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/toidentifier/download/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha1-fhvjRw8ed5SLxD2Uo8j013UrpVM=
+
+toolkit.ts@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npm.taobao.org/toolkit.ts/download/toolkit.ts-0.0.2.tgz#91bde730e5e6ad1a22146cdaf83f4a52721cf3b2"
+  integrity sha1-kb3nMOXmrRoiFGza+D9KUnIc87I=
 
 tough-cookie@^2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"

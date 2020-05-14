@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   View,
@@ -18,6 +19,7 @@ export interface IInformationCardProps {
 export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   novel,
 }) => {
+  const isDarkMode = useDarkMode()
   const {
     id = -1,
     cover = ``,
@@ -32,6 +34,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   const typeName = _.get(novel, `type.name`, `暂无类型`)
   const rating = _.get(novel, `rating.source`, 0)
   const ratingCount = _.get(novel, `rating.count`, 0)
+  const textColor =  { color: isDarkMode ? `#aaa` : `#333` }
 
   const handleGoToReader = useCallback(() => {
     return goToReader(id)
@@ -43,39 +46,39 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
         <View style={styles.leftContainer}>
           <Img uri={cover} height={215} width={150} />
           <View style={styles.ratingContainer}>
-            <Text style={styles.ratingText}>{rating}</Text>
+            <Text style={[styles.ratingText, textColor]}>{rating}</Text>
             <Rating starSize={22} rating={rating / 2} />
           </View>
-          <Text style={styles.ratingCount}>{ratingCount ? `${ratingCount}人点评过` : `暂无人点评`}</Text>
+          <Text style={[styles.ratingCount, textColor]}>{ratingCount ? `${ratingCount}人点评过` : `暂无人点评`}</Text>
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
             <Icon name='ios-book' size={20} />
-            <Text style={styles.text}>{title}</Text>
+            <Text style={[styles.text, textColor]}>{title}</Text>
           </View>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-person' size={20} />
-            <Text style={styles.text}>{username}</Text>
+            <Text style={[styles.text, textColor]}>{username}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-pricetag' size={20} />
-            <Text style={styles.text}>{typeName}</Text>
+            <Text style={[styles.text, textColor]}>{typeName}</Text>
           </TouchableOpacity>
           <View style={styles.line}>
             <Icon name='ios-list-box' size={20} />
-            <Text style={styles.text}>{chaptersNum}章</Text>
+            <Text style={[styles.text, textColor]}>{chaptersNum}章</Text>
           </View>
           <View style={styles.line}>
             <Icon name='ios-hourglass' size={20} />
-            <Text style={styles.text}>{wordsNum}字</Text>
+            <Text style={[styles.text, textColor]}>{wordsNum}字</Text>
           </View>
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />
-            <Text style={styles.text}>{clickNum}次点击</Text>
+            <Text style={[styles.text, textColor]}>{clickNum}次点击</Text>
           </View>
           <View style={styles.line}>
             <Icon name='ios-filing' size={20} />
-            <Text style={styles.text}>{collectionsNum}人收藏</Text>
+            <Text style={[styles.text, textColor]}>{collectionsNum}人收藏</Text>
           </View>
         </View>
       </View>

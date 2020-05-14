@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   Text,
@@ -20,6 +21,7 @@ export const Novel: React.FC<INovelProps> = observer(({
   novel,
   setSize,
 }) => {
+  const isDarkMode = useDarkMode()
   const {
     id,
     cover,
@@ -39,9 +41,9 @@ export const Novel: React.FC<INovelProps> = observer(({
         <Card handle={handle}>
           <View style={styles.container}>
             <Img uri={cover} height={height / 4} width={width / 2} />
-            <Text style={styles.title}>{title}</Text>
+            <Text style={[styles.title, { color: isDarkMode ? `#fff` : `#000` }]}>{title}</Text>
             <TouchableOpacity>
-              <Text style={styles.username}>{username}</Text>
+              <Text style={[styles.username, { color: isDarkMode ? `#aaa` : `#333` }]}>{username}</Text>
             </TouchableOpacity>
           </View>
         </Card>
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 15,
     fontWeight: `300`,
-    color: `#333`,
     marginVertical: 10,
   },
 })

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import StarRating from 'react-native-star-rating'
@@ -14,6 +15,7 @@ export const Rating: React.SFC<IRatingProps> = observer(({
   starSize = 30,
   handleStarRating,
 }) => {
+  const isDarkMode = useDarkMode()
   return (
     <StarRating
       disabled={typeof handleStarRating === `undefined`}
@@ -22,7 +24,7 @@ export const Rating: React.SFC<IRatingProps> = observer(({
       fullStar='ios-star'
       halfStar='ios-star-half'
       iconSet='Ionicons'
-      fullStarColor='#333'
+      fullStarColor={isDarkMode ? `#aaa` : `#333`}
       rating={rating}
       selectedStar={handleStarRating}
     />

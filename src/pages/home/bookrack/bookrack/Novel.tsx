@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   Text,
@@ -22,6 +23,7 @@ export const Novel: React.FC<INovelProps> = observer(({
   setSize,
   handleRemoveCollection,
 }) => {
+  const isDarkMode = useDarkMode()
   const { id, novel } = collection
   const { id: novelId, cover, title } = novel
 
@@ -36,7 +38,7 @@ export const Novel: React.FC<INovelProps> = observer(({
       <TouchableWithoutFeedback onPress={handleGoToReader} onLongPress={() => handleRemoveCollection(collection, id)}>
         <View style={styles.root}>
           <Img uri={cover} height={height / 5.7} width={width / 3.8} resizeMode='stretch' />
-          <Text style={styles.title}>{title}</Text>
+          <Text style={[styles.title, { color: isDarkMode ? `#aaa` : `#000` }]}>{title}</Text>
         </View>
       </TouchableWithoutFeedback>
     </ViewSize>

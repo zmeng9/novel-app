@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   StyleSheet,
   View,
@@ -11,9 +11,11 @@ import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
 import { useWindowSize } from '../../../hooks'
 
+
 const { height } = useWindowSize()
 
 export interface IDirProps {
+  isDarkMode: boolean
   dir: Array<any>
   isShowDir: boolean
   closeDir: () => void
@@ -21,12 +23,13 @@ export interface IDirProps {
 }
 
 export const Dir: React.FC<IDirProps> = observer(({
+  isDarkMode,
   isShowDir,
   closeDir,
   dir,
   switchChapter,
 }) => {
-  
+
 
   const headerHeight = useHeaderHeight()
 
@@ -46,14 +49,14 @@ export const Dir: React.FC<IDirProps> = observer(({
 
     return (
       <TouchableOpacity style={styles.listItem} onPress={handle}>
-        <Text style={styles.text}>{chapterTitle}</Text>
+        <Text style={[styles.text, { color: isDarkMode ? `#aaa` : `#fff` }]}>{chapterTitle}</Text>
       </TouchableOpacity>
     )
   }
 
-  const renderHeader = () => {
-    return <Text style={styles.title}>目录</Text>
-  }
+  const renderHeader = useCallback(() => {
+    return <Text style={[styles.title, { color: isDarkMode ? `#aaa` : `#fff` }]}>目录</Text>
+  }, [])
 
   return (
     <Modal
@@ -67,7 +70,13 @@ export const Dir: React.FC<IDirProps> = observer(({
       useNativeDriver={true}
       style={styles.root}
     >
-      <View style={[styles.scrollContainer, { height: height - headerHeight }]}>
+      <View style={[
+        styles.scrollContainer,
+        {
+          height: height - headerHeight,
+          backgroundColor: isDarkMode ? `#333` : `#fff`,
+        }
+      ]}>
         <FlatList
           ListHeaderComponent={renderHeader()}
           data={dir}
@@ -87,7 +96,6 @@ const styles = StyleSheet.create({
   scrollContainer: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    backgroundColor: `#fff`,
     paddingHorizontal: 20,
   },
   title: {

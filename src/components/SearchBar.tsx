@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkMode } from 'react-native-dark-mode'
 import {
   StyleSheet,
   View,
@@ -17,6 +18,7 @@ export interface ISearchBarProps extends IInputProps {
 export const SearchBar: React.SFC<ISearchBarProps> = observer(({
   ...inputProps
 }) => {
+  const isDarkMode = useDarkMode()
   return (
     <View style={styles.root}>
       <View style={styles.inputContainer}>
@@ -33,7 +35,7 @@ export const SearchBar: React.SFC<ISearchBarProps> = observer(({
         />
       </View>
       <TouchableOpacity onPress={goBack} >
-        <Text style={styles.text}>取消</Text>
+        <Text style={[styles.text, { color: isDarkMode ? `#fff` : `#333` }]}>取消</Text>
       </TouchableOpacity>
     </View>
   )
