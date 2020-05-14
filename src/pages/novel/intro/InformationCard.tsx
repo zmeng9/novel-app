@@ -25,7 +25,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
     chaptersNum = 1,
     wordsNum = 0,
     clickNum = 0,
-    collectionNum = 0,
+    collectionsNum = 0,
   } = novel
 
   const username = _.get(novel, `author.username`, `无名氏`)
@@ -75,7 +75,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
           </View>
           <View style={styles.line}>
             <Icon name='ios-filing' size={20} />
-            <Text style={styles.text}>{collectionNum}人收藏</Text>
+            <Text style={styles.text}>{collectionsNum}人收藏</Text>
           </View>
         </View>
       </View>
