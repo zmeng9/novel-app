@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { IBaseColorType } from '../theme'
+import { IBaseColorType } from '../themes'
 import { useTheme } from '../hooks'
 
 

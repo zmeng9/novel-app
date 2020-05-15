@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDarkMode } from 'react-native-dark-mode'
-import { themeContext } from '../theme'
+import { themeContext } from '../themes'
 
 
 export const useTheme = () => {

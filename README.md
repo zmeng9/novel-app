@@ -8,7 +8,7 @@
 - [x] 双向列表
 - [x] 收藏书籍
 - [x] 评分
-- [x] ios dark mode
+- [x] ios 黑暗模式
 - [ ] 导入本地书籍
 
 ### 平台
@@ -27,6 +27,7 @@
 
   `pages` - 页面和页面自有组件，`components` - 公用组件，`stores` - 存放 `state`
   `hooks` - 封装公用的 `hook` 函数，`services` - 网络请求的 `api`，`utils` - 存放工具和帮助的函数
+  `themes` - 主题包
 
 ### 敏捷开发
   `vscode` 下使用 `typescript` 有良好的开发体验，添加 `snippet` 代码片段对通用的结构代码帮助很大，比如 `sfc` (无状态组件) 

@@ -2,7 +2,7 @@ import React from 'react'
 import VIcon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { useTheme } from '../hooks'
-import { IBaseColorType } from '../theme'
+import { IBaseColorType } from '../themes'
 
 export interface IIconProps {
   name: string
