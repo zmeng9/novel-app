@@ -1,15 +1,9 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Input, IInputProps } from './Input'
 import { goBack } from '../utils'
-import { Icon } from './Icon'
+import { ColorfulText } from './ColorfulText'
 
 export interface ISearchBarProps extends IInputProps {
 
@@ -18,25 +12,20 @@ export interface ISearchBarProps extends IInputProps {
 export const SearchBar: React.SFC<ISearchBarProps> = observer(({
   ...inputProps
 }) => {
-  const isDarkMode = useDarkMode()
   return (
     <View style={styles.root}>
-      <View style={styles.inputContainer}>
-        <View style={styles.iconContainer}>
-          <Icon name='ios-search' size={24} />
-        </View>
+      <View style={styles.input}>
         <Input
           {...inputProps}
-          type='input'
+          leftIconName='ios-search'
+          type='contain'
           placeholder='搜索'
           clearButtonMode='while-editing'
           returnKeyType='search'
           autoFocus
         />
       </View>
-      <TouchableOpacity onPress={goBack} >
-        <Text style={[styles.text, { color: isDarkMode ? `#fff` : `#333` }]}>取消</Text>
-      </TouchableOpacity>
+      <ColorfulText text='取消' handle={goBack} marginRight={12} />
     </View>
   )
 })
@@ -47,19 +36,7 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     flexDirection: `row`,
   },
-  inputContainer: {
+  input: {
     flex: 1,
-    justifyContent: `center`,
-    position: `relative`,
-  },
-  iconContainer: {
-    position: `absolute`,
-    left: 10,
-    zIndex: 1,
-  },
-  text: {
-    fontSize: 16,
-    color: `#333`,
-    marginRight: 10,
   },
 })

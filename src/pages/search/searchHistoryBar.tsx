@@ -1,11 +1,7 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Keyboard,
-} from 'react-native'
+import { StyleSheet, View, Keyboard } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Title, Btn } from '../../components'
+import { ColorfulText, Btn } from '../../components'
 
 export interface ISearchHistoryBarProps {
   searchHistory: Array<any>
@@ -25,7 +21,7 @@ export const SearchHistoryBar: React.SFC<ISearchHistoryBarProps> = observer(({
   }
   return (
     <View style={styles.root}>
-      <Title title='搜索记录' />
+      <ColorfulText text='搜索记录' fontWeight='bold' />
       <View style={styles.hotNovelsContainer}>
         {
           searchHistory.map((searchText, idx) => {

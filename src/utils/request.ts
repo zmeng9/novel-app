@@ -2,7 +2,7 @@ import axios from 'axios'
 import { loadAuthToken, removeAuthToken } from './storage'
 import { logger, consoleTheme } from './logger'
 import { isEmptyObj } from './helper'
-import { toast } from './toast'
+
 
 const localBaseURL = `http://localhost:8000`
 const apiURL = `https://api.tuscanyyy.top`
@@ -41,10 +41,8 @@ request.interceptors.response.use((res: any) => {
   const { code, msg, error } = data
 
   // Status is 200
-  if (!code && !error) {
-    toast(msg)
+  if (!code && !error)
     logger.debug(`--> ${method}`, url, `Opt fail: `, consoleTheme.fail, msg || data)
-  }
   else
     logger.debug(`--> ${method}`, url, `Result: `, consoleTheme.important, data.data || data)
 

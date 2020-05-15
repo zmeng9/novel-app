@@ -1,32 +1,32 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
 import VIcon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity } from 'react-native'
+import { useTheme } from '../hooks'
+import { IBaseColorType } from '../theme'
 
 export interface IIconProps {
   name: string
   size?: number
-  color?: string
+  color?: keyof IBaseColorType
   handle?: () => void
 }
 
 export const Icon: React.SFC<IIconProps> = ({
   name,
   size = 28,
-  color = `#333`,
+  color = `info`,
   handle,
 }) => {
-  const isDarkMode = useDarkMode()
-  color = isDarkMode ?  `#aaa` : color
+  const theme = useTheme()
 
   return (
-    typeof handle === 'function'
+    typeof handle === `function`
       ? (
         <TouchableOpacity style={styles.root} onPress={handle}>
-          <VIcon name={name} size={size} color={color} />
+          <VIcon name={name} size={size} color={theme[color]} />
         </TouchableOpacity>
       )
-      : <VIcon style={styles.root} name={name} size={size} color={color} />
+      : <VIcon style={styles.root} name={name} size={size} color={theme[color]} />
   )
 }
 

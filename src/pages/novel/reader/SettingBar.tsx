@@ -1,16 +1,12 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
-import { Slider } from '../../../components'
+import { useTheme } from '../../../hooks'
+import { Slider, ColorfulText } from '../../../components'
 
 export interface ISettingBarProps {
-  isDarkMode: boolean
   isShowSettingBar: boolean
   closeSettingBar: () => void
   fontSize: number
@@ -23,14 +19,12 @@ const maxFontSize = fontSizeRange.slice(-1)[0]
 const step = 1
 
 export const SettingBar: React.FC<ISettingBarProps> = observer(({
-  isDarkMode,
   isShowSettingBar,
   closeSettingBar,
   fontSize,
   setFontSize,
 }) => {
-
-
+  const { paper, divider } = useTheme()
   const headerHeight = useHeaderHeight()
 
   const handleFontSize = (value: number) => {
@@ -54,12 +48,12 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
         styles.container,
         {
           paddingBottom: headerHeight,
-          backgroundColor: isDarkMode ? `#333` : `#fff`,
-          borderColor: isDarkMode? `#555` : `#ddd`,
+          backgroundColor: paper,
+          borderColor: divider,
         }
       ]}>
         <View style={styles.sliderContainer}>
-          <Text style={[styles.minFontSizeText, { color: isDarkMode? `#aaa` : `#000` }]}>A</Text>
+          <ColorfulText text='A' fontSize={minFontSize} marginRight={5} />
           <Slider
             minimumValue={0}
             maximumValue={fontSizeRange.length - 1}
@@ -67,7 +61,7 @@ export const SettingBar: React.FC<ISettingBarProps> = observer(({
             value={fontSizeRange.indexOf(fontSize)}
             onChange={handleFontSize}
           />
-          <Text style={[styles.maxFontSizeText, { color: isDarkMode? `#aaa` : `#000` }]}>A</Text>
+           <ColorfulText text='A' fontSize={maxFontSize} marginLeft={5} />
         </View>
       </View>
     </Modal>
@@ -92,13 +86,5 @@ const styles = StyleSheet.create({
     flexDirection: `row`,
     alignItems: `center`,
     margin: 10,
-  },
-  minFontSizeText: {
-    fontSize: minFontSize,
-    marginRight: 5,
-  },
-  maxFontSizeText: {
-    fontSize: maxFontSize,
-    marginLeft: 5,
   },
 })

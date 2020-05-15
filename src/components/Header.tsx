@@ -1,13 +1,9 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-} from 'react-native'
+import { useSafeArea } from 'react-native-safe-area-context'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { observer } from 'mobx-react-lite'
+import { useTheme } from '../hooks'
 import { Icon } from './Icon'
 import { goBack } from '../utils'
 
@@ -24,24 +20,25 @@ export const Header: React.SFC<IHeaderProps> = observer(({
   type = `header`,
   isEmpty = false,
 }) => {
-  const isDarkMode = useDarkMode()
+  const insets = useSafeArea()
+  const { paper, divider } = useTheme()
   const headerHeight = useHeaderHeight()
-  const statusBarHeight = getStatusBarHeight()
   const isHeader = type === `header`
   const isFooter = type === `footer`
+  
   return (
     <View style={[
       styles.root,
       {
         height: headerHeight,
-        paddingTop: isHeader ? statusBarHeight : 0,
-        paddingBottom: isFooter ? 20 : 0,
+        paddingTop: isHeader ? insets.top : 0,
+        paddingBottom: isFooter ? insets.bottom : 0,
         paddingHorizontal: isFooter ? 10 : 0,
         borderBottomWidth: isHeader ? 0.5 : 0,
         borderTopWidth: isFooter ? 0.5 : 0,
-        backgroundColor: isDarkMode ? `#333` : `#fff`,
-        borderBottomColor: isDarkMode ? `#333` : `#ddd`,
-        borderTopColor: isDarkMode ? `#333` : `#ddd`,
+        backgroundColor: paper,
+        borderBottomColor: divider,
+        borderTopColor: divider,
       }
     ]}>
       {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}

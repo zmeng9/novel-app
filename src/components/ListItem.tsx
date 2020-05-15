@@ -4,12 +4,12 @@ import { observer } from 'mobx-react-lite'
 import { Card } from './Card'
 import { Icon } from './Icon'
 import { ColorfulText } from './ColorfulText'
-import { IIhemeColorColor } from '../utils'
+import { IBaseColorType } from '../theme'
 
 export interface IListItemProps {
   children?: React.ReactNode
   type?: `space-between` | `center`
-  colorfulTextType?: IIhemeColorColor
+  colorfulTextType?: keyof IBaseColorType
   text?: string
   isNavigator?: boolean
   leftText?: string
@@ -27,16 +27,18 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
   rightText,
   handle,
 }) => {
+
+
   return (
-    <Card handle={handle}>
+    <Card handle={handle} startShouldSetResponderCapture>
       {
         type === `center`
-          ? (text && <ColorfulText text={text} type={colorfulTextType} />)
+          ? (text && <ColorfulText text={text} color={colorfulTextType} textAlign='center' handle={() => console.log(`hi`)} />)
           : (
             <View style={styles.root}>
-              {children || (!!leftText && <ColorfulText text={leftText} type={colorfulTextType} />)}
+              {children || (!!leftText && <ColorfulText text={leftText} color={colorfulTextType} />)}
               <View style={styles.rightContainer}>
-                {!!rightText && <ColorfulText text={rightText} type={colorfulTextType} />}
+                {!!rightText && <ColorfulText text={rightText} color={colorfulTextType} />}
                 {isNavigator && <Icon name='ios-arrow-forward' size={24} />}
               </View>
             </View>

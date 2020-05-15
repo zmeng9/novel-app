@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback, useRef } from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
 import { useRoute, useNavigation } from '@react-navigation/native'
@@ -9,7 +8,7 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Dir } from './Dir'
 import { SettingBar } from './SettingBar'
-import { formatContent, parseContent, isEvenNumber, toast } from '../../../utils'
+import { formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
 import {
   getDir,
@@ -18,23 +17,28 @@ import {
 } from '../../../services'
 import {
   useStores,
+  useTheme,
   useService,
   useResetState,
   useWindowSize,
   useEcb,
+  useToast,
 } from '../../../hooks'
 
 
 const { height, width } = useWindowSize()
 
 export const Reader: React.FC = observer(() => {
-  const isDarkMode = useDarkMode()
+  const toast = useToast()
   const flatListRef = useRef()
 
   // Route params
   const route = useRoute()
   const navigation = useNavigation()
   const { id = -1 } = route.params as any
+
+  // Use theme
+  const { paper } = useTheme()
 
   // Use store
   const {
@@ -248,17 +252,15 @@ export const Reader: React.FC = observer(() => {
                 renderItem={renderItem}
                 onScrollBeginDrag={onScrollBeginDrag}
                 setCurrentPageNum={hanldeSetCurrentPageNum}
-                contentContainerStyle={{ backgroundColor: isDarkMode ? `#333` : `#fff` }}
+                contentContainerStyle={{ backgroundColor: paper }}
               />
               <Dir
-                isDarkMode={isDarkMode}
                 isShowDir={isShowDir}
                 closeDir={closeDir}
                 dir={dir}
                 switchChapter={switchChapter}
               />
               <SettingBar
-                isDarkMode={isDarkMode}
                 isShowSettingBar={isShowSettingBar}
                 closeSettingBar={closeSettingBar}
                 fontSize={fontSize}

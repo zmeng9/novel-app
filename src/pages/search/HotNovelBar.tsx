@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Title, Btn } from '../../components'
+import { ColorfulText, Btn } from '../../components'
 import { goToIntro } from '../../utils'
 
 export interface IHotNovelBarProps {
@@ -13,7 +13,7 @@ export const HotNovelBar: React.SFC<IHotNovelBarProps> = observer(({
 }) => {
   return (
     <View style={styles.root}>
-      <Title title='最近热门' />
+      <ColorfulText text='最近热门' fontWeight='bold' />
       <View style={styles.hotNovelsContainer}>
         {
           hotNovels.map(hotNovel => {

@@ -20,7 +20,7 @@ export const UserInfo: React.FC = observer(() => {
 
   return (
     <View style={styles.root}>
-      <ListItem type='center' text='退出登陆' colorfulTextType='secondary' handle={logout} />
+      <ListItem type='center' text='退出登陆' colorfulTextType='error' handle={logout} />
     </View>
   )
 })

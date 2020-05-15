@@ -1,9 +1,8 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useNumerOfLines } from '../../../hooks'
-import { Card, CardHeader, Title, CollapsibleIcon, ViewSize } from '../../../components'
+import { Card, CardHeader, ColorfulText, CollapsibleIcon, ViewSize } from '../../../components'
 
 export interface IInfoCardProps {
   info: string
@@ -12,7 +11,6 @@ export interface IInfoCardProps {
 export const InfoCard: React.SFC<IInfoCardProps> = observer(({
   info,
 }) => {
-  const isDarkMode = useDarkMode()
   const {
     numberOfLines,
     handleNumberOfLines,
@@ -28,11 +26,11 @@ export const InfoCard: React.SFC<IInfoCardProps> = observer(({
     <Card handle={handleNumberOfLines}>
       <View style={styles.root}>
         <CardHeader>
-          <Title title='简介' fontSize={18} />
+          <ColorfulText text='简介' fontSize={18} fontWeight='bold' />
           <CollapsibleIcon height={size.height} maxHeight={maxHeight} numberOfLines={numberOfLines} />
         </CardHeader>
         <ViewSize setSize={setSize}>
-          <Text style={[styles.text, { color: isDarkMode ? `#aaa` : `#333` }]} numberOfLines={numberOfLines}>{info}</Text>
+          <ColorfulText text={info} numberOfLines={numberOfLines} lineHeight={20} />
         </ViewSize>
       </View>
     </Card>
@@ -41,10 +39,5 @@ export const InfoCard: React.SFC<IInfoCardProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-  },
-  text: {
-    margin: 5,
-    fontSize: 16,
-    lineHeight: 20,
   },
 })

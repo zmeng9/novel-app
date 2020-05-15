@@ -5994,11 +5994,6 @@ react-native-star-rating@^1.1.0:
     react-native-button "^2.3.0"
     react-native-vector-icons "^4.5.0"
 
-react-native-status-bar-height@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.npm.taobao.org/react-native-status-bar-height/download/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
-  integrity sha1-vA+4UjBgOFCquWZ+6BEaYpVN6Qw=
-
 react-native-unimodules@^0.8.1:
   version "0.8.1"
   resolved "https://registry.npm.taobao.org/react-native-unimodules/download/react-native-unimodules-0.8.1.tgz#c556c97d334d68786b1c9678ceea72e2e3e3e115"

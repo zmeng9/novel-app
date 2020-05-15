@@ -1,30 +1,26 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useTheme } from '../../../hooks'
 import { Bookrack } from './bookrack'
 
 const Stack = createStackNavigator()
 
 export const BookrackStackNavigator: React.SFC = () => {
-  const isDarkMode = useDarkMode()
+  const { text, paper, divider, shadowOffset, backgroundColor } = useTheme()
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTintColor: isDarkMode ? `#fff` : `#333`,
+        headerTintColor: text.info,
         headerBackTitleVisible: false,
+        headerTitleAlign: `center`,
         headerStyle: {
-          backgroundColor: isDarkMode ? `#333` : `#fff`,
-          shadowOffset: isDarkMode ? {
-            width: 0,
-            height: 0,
-          }: {
-            width: 1,
-            height: 1,
-          },
+          backgroundColor: paper,
+          borderBottomColor: divider,
+          shadowOffset,
         },
         cardStyle: {
-          backgroundColor: isDarkMode ? `#000` : `#eee`,
+          backgroundColor,
         },
       }}
     >

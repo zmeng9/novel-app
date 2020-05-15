@@ -3,8 +3,7 @@ import { StyleSheet, FlatList as RnFlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Loading } from './Loading'
 import { NoData } from './NoData'
-import { useIsFirstRender } from '../hooks'
-import { toast } from '../utils'
+import { useIsFirstRender, useToast } from '../hooks'
 
 export interface IFlatListProps {
   store: any
@@ -27,6 +26,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
   numColumns = 1,
   renderItem,
 }) => {
+  const toast = useToast()
   const isFirstRender = useIsFirstRender()
 
   const {
@@ -136,6 +136,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       ]}
       data={numColumns > 1 ? listData.slice() : listData}
       scrollIndicatorInsets={{ right: 1 }}
+      keyboardDismissMode='interactive'
       alwaysBounceVertical={isLoading || alwaysBounceVertical}
       ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}

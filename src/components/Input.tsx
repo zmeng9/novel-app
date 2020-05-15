@@ -1,12 +1,14 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import { StyleSheet, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { Icon } from './Icon'
+import { useTheme } from '../hooks'
 
 export interface IInputProps {
   value: string
-  type?: `outline` | `input`
+  type?: `contain` | `outline`
   size?: `large` | `small`
+  leftIconName?: string
   placeholder?: string
   secureTextEntry?: boolean
   autoFocus?: boolean
@@ -20,6 +22,7 @@ export const Input: React.SFC<IInputProps> = observer(({
   value,
   type = `outline`,
   size = `small`,
+  leftIconName,
   placeholder = ``,
   secureTextEntry = false,
   autoFocus = false,
@@ -28,39 +31,49 @@ export const Input: React.SFC<IInputProps> = observer(({
   onChangeText,
   onSubmitEditing,
 }) => {
-  const isDarkMode = useDarkMode()
+  const { input, divider, text } = useTheme()
+  const isSmall = size === `small`
+  const isOutline = type === `outline`
+
   return (
-    <TextInput
-      style={[
-        styles.root,
-        styles[type],
-        styles[size],
-        { backgroundColor: isDarkMode ? `#555` : `#eee` },
-        { color: isDarkMode ? `#fff` : `#333` },
-      ]}
-      value={value}
-      onChangeText={onChangeText}
-      onSubmitEditing={onSubmitEditing}
-      autoFocus={autoFocus}
-      placeholder={placeholder}
-      clearButtonMode={clearButtonMode}
-      enablesReturnKeyAutomatically
-      secureTextEntry={secureTextEntry}
-      returnKeyType={returnKeyType}
-    />
+    <View style={styles.root}>
+      {
+        leftIconName && (
+          <View style={styles.iconContainer}>
+            <Icon name={leftIconName} size={isSmall ? 24 : 30} />
+          </View>
+        )
+      }
+      <TextInput
+        style={[
+          styles.root,
+          styles[size],
+          {
+            borderWidth: isOutline ? 0.7 : 0,
+            borderColor: divider,
+            backgroundColor: input[type],
+            paddingLeft: leftIconName ? 40 : 10,
+            color: text.info,
+          },
+        ]}
+        value={value}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
+        autoFocus={autoFocus}
+        placeholder={placeholder}
+        clearButtonMode={clearButtonMode}
+        enablesReturnKeyAutomatically
+        secureTextEntry={secureTextEntry}
+        returnKeyType={returnKeyType}
+      />
+    </View>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
-  },
-  outline: {
-    borderWidth: 0.7,
-    borderColor: `#ccc`,
-    backgroundColor: `#fff`,
-  },
-  input: {
-    paddingLeft: 40,
+    justifyContent: `center`,
+    position: `relative`,
   },
   large: {
     padding: 10,
@@ -75,5 +88,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     fontSize: 16,
     borderRadius: 8,
+  },
+  iconContainer: {
+    position: `absolute`,
+    left: 10,
+    zIndex: 1,
   },
 })

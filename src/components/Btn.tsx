@@ -1,19 +1,13 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  View,
-} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { themeColor, IIhemeColorColor } from '../utils'
+import { IBaseColorType } from '../theme'
+import { useTheme } from '../hooks'
 
 
 export interface IBtnProps {
   text: string
-  type?: `solid` | `outline` | `text`
-  color?: IIhemeColorColor
+  color?: keyof IBaseColorType
   size?: `large` | `small`
   fullWidth?: boolean
   disabled?: boolean
@@ -23,21 +17,24 @@ export interface IBtnProps {
 
 export const Btn: React.SFC<IBtnProps> = observer(({
   text,
-  type = `solid`,
-  color = `default`,
+  color = `info`,
   size = `small`,
   fullWidth = false,
   disabled = false,
   isLoading = false,
   handle,
 }) => {
+  const { btn } = useTheme()
+  const isSmall = size === `small`
+
   return (
     <TouchableOpacity
       style={[
-        styles.root,
         styles[size],
-        fullWidth ? { width: `100%` } : {},
-        type === `solid` ? { backgroundColor: disabled ? `#ccc` : themeColor[color] } : {},
+        {
+          width: fullWidth ? `100%` : `auto`,
+          backgroundColor: disabled ? btn.bg.disabled : btn.bg[color],
+        },
       ]}
       disabled={disabled}
       onPress={handle}
@@ -47,17 +44,11 @@ export const Btn: React.SFC<IBtnProps> = observer(({
           ? <ActivityIndicator />
           : (
             <Text
-              style={[
-                styles.text,
-                styles[color],
-                size === `large` && styles.largeBtnText,
-                type === `text`
-                && {
-                  color: color === `secondary`
-                    ? themeColor.secondary
-                    : themeColor.primary
-                }
-              ]}>
+              style={{
+                fontSize: isSmall ? 16 : 18, 
+                color: disabled ? btn.text.disabled : btn.text[color],
+                textAlign: `center`,
+              }}>
               {text}
             </Text>
           )
@@ -67,12 +58,9 @@ export const Btn: React.SFC<IBtnProps> = observer(({
 })
 
 const styles = StyleSheet.create({
-  root: {
-  },
   large: {
     alignSelf: `center`,
     marginVertical: 10,
-    marginHorizontal: 15,
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -83,21 +71,5 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 10,
-  },
-  default: {
-    color: `#000`,
-  },
-  primary: {
-    color: `#fff`,
-  },
-  secondary: {
-    color: `#fff`,
-  },
-  text: {
-    textAlign: `center`,
-    fontSize: 16,
-  },
-  largeBtnText: {
-    fontSize: 18,
   },
 })

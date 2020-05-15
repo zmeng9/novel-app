@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useStores, useService } from '../../../../hooks'
 import { login, getUserInfo } from '../../../../services'
-import { KeyboardAvoidingScrollView, Input, Btn } from '../../../../components'
+import { KeyboardAvoidingScrollView, Input, Btn, ColorfulText } from '../../../../components'
 import { saveAuthToken, goBack, goToReg } from '../../../../utils'
 
 
@@ -85,10 +85,12 @@ export const Login: React.FC = observer(() => {
           handle={handleLogin}
         />
       </View>
-      <Btn
+      <ColorfulText
         text='去注册'
-        type='text'
-        size='large'
+        color='primary'
+        fontSize={18}
+        marginTop={15}
+        textAlign='center'
         handle={goToReg}
       />
     </KeyboardAvoidingScrollView>

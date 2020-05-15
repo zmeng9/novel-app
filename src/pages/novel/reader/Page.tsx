@@ -1,13 +1,7 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useWindowSize } from '../../../hooks'
+import { useWindowSize, useTheme } from '../../../hooks'
 
 export interface IPageProps {
   page: string
@@ -26,7 +20,7 @@ export const Page: React.SFC<IPageProps> = observer(({
   handlePageClick,
   handleBack,
 }) => {
-  const isDarkMode = useDarkMode()
+  const { text } = useTheme()
   console.log(`render Page`, pageIdx, Page)
 
   return (
@@ -41,7 +35,7 @@ export const Page: React.SFC<IPageProps> = observer(({
             lineHeight: Math.ceil(fontSize + 15),
             fontWeight: `300`,
             fontVariant: ['tabular-nums'],
-            color: isDarkMode ? `#aaa` : `#000`,
+            color: text.secondary,
           }}
         >
           {page}

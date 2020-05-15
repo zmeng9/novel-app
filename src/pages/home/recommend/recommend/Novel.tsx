@@ -1,13 +1,7 @@
 import React, { useCallback } from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Img, ViewSize, IViewSizeProps } from '../../../../components'
+import { Card, Img, ViewSize, IViewSizeProps, ColorfulText } from '../../../../components'
 import { useWindowSize } from '../../../../hooks'
 import { goToIntro } from '../../../../utils'
 
@@ -21,7 +15,6 @@ export const Novel: React.FC<INovelProps> = observer(({
   novel,
   setSize,
 }) => {
-  const isDarkMode = useDarkMode()
   const {
     id,
     cover,
@@ -41,10 +34,8 @@ export const Novel: React.FC<INovelProps> = observer(({
         <Card handle={handle}>
           <View style={styles.container}>
             <Img uri={cover} height={height / 4} width={width / 2} />
-            <Text style={[styles.title, { color: isDarkMode ? `#fff` : `#000` }]}>{title}</Text>
-            <TouchableOpacity>
-              <Text style={[styles.username, { color: isDarkMode ? `#aaa` : `#333` }]}>{username}</Text>
-            </TouchableOpacity>
+            <ColorfulText text={title} fontSize={20} marginTop={20} />
+            <ColorfulText text={username} color='secondary' fontWeight='300' marginVertical={10} />
           </View>
         </Card>
       </View>
@@ -61,14 +52,5 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     paddingTop: 35,
     paddingBottom: 20,
-  },
-  title: {
-    marginTop: 20,
-    fontSize: 20,
-  },
-  username: {
-    fontSize: 15,
-    fontWeight: `300`,
-    marginVertical: 10,
   },
 })

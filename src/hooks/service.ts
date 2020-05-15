@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useIsFirstRender } from './isFirstRender'
-import { toast } from '../utils'
+import { useToast } from './toast'
 import _ from 'lodash'
 
 export interface IService {
@@ -24,6 +24,7 @@ export const useService = ({
   deps = [],
   beforeHandle,
 }: IService): any => {
+  const toast = useToast()
   const isFirstRender = useIsFirstRender()
   const [data, setData] = useState(null)
   const { error, setIsLoading, setError, setIsSubmit } = store
@@ -36,7 +37,7 @@ export const useService = ({
     try {
       const result = await service(...params)
       if (result) {
-        const { code, data = null } = result.data
+        const { code, data = null, msg } = result.data
 
         if (code) {
           setData(data)
@@ -44,12 +45,13 @@ export const useService = ({
           if (error)
             setError(null)
         }
+        else if (!code && !error)
+          toast(msg)
 
         setIsLoading(false)
       }
-      else {
+      else
         toast(`内部服务器错误`)
-      }
     } catch (error) {
       setError(error.message)
 
@@ -57,11 +59,9 @@ export const useService = ({
 
       switch (error.message) {
         case `Network Error`:
-          toast(`连接失败，请检查你的网络设置`)
-          break
+          return toast(`连接失败，请检查你的网络设置`)
         default:
-          toast(`发生意外性错误`)
-          break
+          return toast(`发生意外性错误`)
       }
     } finally {
       if (isForm)

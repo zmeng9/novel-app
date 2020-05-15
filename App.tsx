@@ -3,6 +3,7 @@ import 'mobx-react-lite/batchingForReactNative'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
 import { storesContext, stores } from './src/stores'
+import { themeContext, theme } from './src/theme'
 import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
 import { navigationRef, isMountedRef } from './src/utils'
@@ -38,11 +39,13 @@ const AppContainer: React.SFC = () => {
   }, [])
 
   return (
-    <storesContext.Provider value={stores}>
-      <NavigationContainer ref={navigationRef}>
-        <StackNavigator />
-      </NavigationContainer>
-    </storesContext.Provider>
+    <themeContext.Provider value={theme}>
+      <storesContext.Provider value={stores}>
+        <NavigationContainer ref={navigationRef}>
+          <StackNavigator />
+        </NavigationContainer>
+      </storesContext.Provider>
+    </themeContext.Provider>
   )
 }
 

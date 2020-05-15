@@ -1,12 +1,13 @@
-import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
+import React, { useCallback } from 'react'
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { shadow } from '../utils'
+import { useTheme } from '../hooks'
+
 
 export interface ICardProps {
   children?: React.ReactNode
   margin?: number
+  startShouldSetResponderCapture?: boolean
   handle?: () => void
 }
 
@@ -17,17 +18,24 @@ export interface ICardHeaderProps {
 export const Card: React.SFC<ICardProps> = observer(({
   children,
   margin = 5,
+  startShouldSetResponderCapture = false,
   handle,
 }) => {
-  const isDarkMode = useDarkMode()
-  const backgroundColor = isDarkMode ? `#333` : `#fff`
+  const { paper, shadow } = useTheme()
+
+  const onStartShouldSetResponderCapture = useCallback(() => {
+    return startShouldSetResponderCapture
+  }, [])
 
   return (
     <TouchableWithoutFeedback
-      disabled={!(typeof handle === 'function')}
+      disabled={!(typeof handle === `function`)}
       onPress={handle}
     >
-      <View style={[styles.root, { margin, backgroundColor }, isDarkMode ? {} : { ...shadow }]}>
+      <View
+        style={[styles.root, { margin, backgroundColor: paper, ...shadow }]}
+        onStartShouldSetResponderCapture={onStartShouldSetResponderCapture}
+      >
         {children}
       </View>
     </TouchableWithoutFeedback>

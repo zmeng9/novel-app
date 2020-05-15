@@ -1,13 +1,7 @@
 import React, { useCallback } from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Icon, Img, Rating } from '../../../components'
+import { Card, Icon, Img, Rating, ColorfulText } from '../../../components'
 import { goToReader } from '../../../utils'
 import _ from 'lodash'
 
@@ -19,7 +13,6 @@ export interface IInformationCardProps {
 export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   novel,
 }) => {
-  const isDarkMode = useDarkMode()
   const {
     id = -1,
     cover = ``,
@@ -34,7 +27,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
   const typeName = _.get(novel, `type.name`, `暂无类型`)
   const rating = _.get(novel, `rating.source`, 0)
   const ratingCount = _.get(novel, `rating.count`, 0)
-  const textColor =  { color: isDarkMode ? `#aaa` : `#333` }
+
 
   const handleGoToReader = useCallback(() => {
     return goToReader(id)
@@ -46,39 +39,44 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
         <View style={styles.leftContainer}>
           <Img uri={cover} height={215} width={150} />
           <View style={styles.ratingContainer}>
-            <Text style={[styles.ratingText, textColor]}>{rating}</Text>
+            <ColorfulText text={rating} fontSize={26} marginRight={10}/>
             <Rating starSize={22} rating={rating / 2} />
           </View>
-          <Text style={[styles.ratingCount, textColor]}>{ratingCount ? `${ratingCount}人点评过` : `暂无人点评`}</Text>
+          <ColorfulText
+            text={ratingCount ? `${ratingCount}人点评过` : `暂无人点评`}
+            fontSize={15}
+            fontWeight='300'
+            marginBottom={8}
+          />
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.line}>
             <Icon name='ios-book' size={20} />
-            <Text style={[styles.text, textColor]}>{title}</Text>
+            <ColorfulText text={title} fontSize={15} />
           </View>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-person' size={20} />
-            <Text style={[styles.text, textColor]}>{username}</Text>
+            <ColorfulText text={username} fontSize={15} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.line}>
             <Icon name='ios-pricetag' size={20} />
-            <Text style={[styles.text, textColor]}>{typeName}</Text>
+            <ColorfulText text={typeName} fontSize={15} />
           </TouchableOpacity>
           <View style={styles.line}>
             <Icon name='ios-list-box' size={20} />
-            <Text style={[styles.text, textColor]}>{chaptersNum}章</Text>
+            <ColorfulText text={`${chaptersNum}章`} fontSize={15} />
           </View>
           <View style={styles.line}>
             <Icon name='ios-hourglass' size={20} />
-            <Text style={[styles.text, textColor]}>{wordsNum}字</Text>
+            <ColorfulText text={`${wordsNum}字`} fontSize={15} />
           </View>
           <View style={styles.line}>
             <Icon name='ios-color-wand' size={20} />
-            <Text style={[styles.text, textColor]}>{clickNum}次点击</Text>
+            <ColorfulText text={`${clickNum}次点击`} fontSize={15} />
           </View>
           <View style={styles.line}>
             <Icon name='ios-filing' size={20} />
-            <Text style={[styles.text, textColor]}>{collectionsNum}人收藏</Text>
+            <ColorfulText text={`${collectionsNum}人收藏`} fontSize={15} />
           </View>
         </View>
       </View>
@@ -98,7 +96,6 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: `row`,
     alignItems: `center`,
-    marginVertical: 2,
   },
   ratingCount: {
     fontSize: 15,
@@ -114,21 +111,13 @@ const styles = StyleSheet.create({
   rightContainer: {
     flex: 1,
     justifyContent: `flex-start`,
+    paddingTop: 5,
     paddingLeft: 10,
   },
-  ratingText: {
-    fontSize: 26,
-    color: `#333`,
-    marginRight: 10,
-  },
   line: {
-    margin: 5,
+    margin: 2,
     flexDirection: `row`,
     justifyContent: `flex-start`,
     alignItems: `center`,
-  },
-  text: {
-    fontSize: 15,
-    color: `#555`,
   },
 })

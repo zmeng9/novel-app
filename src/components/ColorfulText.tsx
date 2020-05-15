@@ -1,44 +1,64 @@
-import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
-import { StyleSheet, View, Text } from 'react-native'
+import React, { useCallback } from 'react'
+import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { IIhemeColorColor, themeColor } from '../utils'
+import { useTheme } from '../hooks'
+import { IBaseColorType } from '../theme'
+
 
 export interface IColorfulTextProps {
+  color?: keyof IBaseColorType
+  fontWeight?: `normal` | `bold` | `300`
+  lineHeight?: number
   text: string
-  margin?: number
+  numberOfLines?: number
+  marginTop?: number
+  marginBottom?: number
+  marginLeft?: number
+  marginRight?: number
   fontSize?: number
-  type?: IIhemeColorColor
+  textAlign?: `auto` | `center`
+  handle?: () => void
 }
 
 export const ColorfulText: React.SFC<IColorfulTextProps> = observer(({
+  color = `info`,
+  fontWeight = `normal`,
   text,
-  margin = 5,
+  numberOfLines,
+  marginTop = 5,
+  marginBottom = 5,
+  marginLeft = 5,
+  marginRight = 5,
   fontSize = 16,
-  type = `default`,
+  lineHeight = fontSize + 2,
+  textAlign = `auto`,
+  handle,
 }) => {
-  const isDarkMode = useDarkMode()
+  const { text: themeText } = useTheme()
+
   return (
-    <View style={[styles.root, { margin }]}>
+    <TouchableWithoutFeedback onPress={handle} disabled={!(typeof handle === `function`)}>
       <Text
-        style={[
-          styles.text,
-          {
-            fontSize,
-            color: type === `default` ? (isDarkMode ? `#fff` : `#000`) : themeColor[type]
-          }
-        ]}>
+        numberOfLines={numberOfLines}
+        style={{
+          fontSize,
+          fontWeight,
+          lineHeight,
+          marginTop,
+          marginBottom,
+          marginLeft,
+          marginRight,
+          color: themeText[color],
+          textAlign,
+        }}
+      >
         {text}
       </Text>
-    </View>
+    </TouchableWithoutFeedback>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
-
-  },
-  text: {
-    textAlign: `center`
   },
 })

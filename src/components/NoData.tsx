@@ -1,10 +1,7 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { ColorfulText } from './ColorfulText'
 
 export interface INoDataProps {
   text?: string
@@ -15,7 +12,7 @@ export const NoData: React.SFC<INoDataProps> = observer(({
 }) => {
   return (
     <View style={styles.root}>
-      <Text style={styles.text}>{text}</Text>
+      <ColorfulText color='secondary' text={text} fontSize={18} textAlign='center' />
     </View>
   )
 })
@@ -25,9 +22,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: `center`,
     alignContent: `center`,
-  },
-  text: {
-    textAlign: `center`,
-    fontSize: 18,
   },
 })

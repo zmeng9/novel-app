@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Rating as RnRating, IRatingProps, Title } from '../../../components'
+import { Card, Rating as RnRating, IRatingProps, ColorfulText } from '../../../components'
 
 
 export const Rating: React.SFC<IRatingProps> = observer(({
@@ -11,7 +11,7 @@ export const Rating: React.SFC<IRatingProps> = observer(({
     <Card>
       <View style={styles.root}>
         <View style={styles.title}>
-          <Title fontSize={18} title={ratingProps.rating ? `已评分` : `评分：`} />
+          <ColorfulText text={ratingProps.rating ? `已评分` : `评分：`} fontSize={18} fontWeight='bold' />
         </View>
         <View style={styles.rating}>
           <RnRating {...ratingProps} />

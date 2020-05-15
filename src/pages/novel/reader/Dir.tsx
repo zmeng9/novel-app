@@ -1,21 +1,15 @@
 import React, { useCallback } from 'react'
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
-import { useWindowSize } from '../../../hooks'
+import { useWindowSize, useTheme } from '../../../hooks'
+import { ColorfulText } from '../../../components'
 
 
 const { height } = useWindowSize()
 
 export interface IDirProps {
-  isDarkMode: boolean
   dir: Array<any>
   isShowDir: boolean
   closeDir: () => void
@@ -23,21 +17,19 @@ export interface IDirProps {
 }
 
 export const Dir: React.FC<IDirProps> = observer(({
-  isDarkMode,
   isShowDir,
   closeDir,
   dir,
   switchChapter,
 }) => {
-
-
+  const { paper } = useTheme()
   const headerHeight = useHeaderHeight()
 
-  const keyExtractor = (item: any) => {
+  const keyExtractor = useCallback((item: any) => {
     return String(item.id)
-  }
+  }, [])
 
-  const renderItem = ({ item }: any) => {
+  const renderItem = useCallback(({ item }: any) => {
     const { id, chapterTitle } = item
 
     const handle = () => {
@@ -49,14 +41,14 @@ export const Dir: React.FC<IDirProps> = observer(({
 
     return (
       <TouchableOpacity style={styles.listItem} onPress={handle}>
-        <Text style={[styles.text, { color: isDarkMode ? `#aaa` : `#fff` }]}>{chapterTitle}</Text>
+        <ColorfulText text={chapterTitle} fontSize={18} />
       </TouchableOpacity>
     )
-  }
-
-  const renderHeader = useCallback(() => {
-    return <Text style={[styles.title, { color: isDarkMode ? `#aaa` : `#fff` }]}>目录</Text>
   }, [])
+
+  const renderHeader = useCallback(() => (
+    <ColorfulText text='目录' fontSize={20} marginTop={20} marginBottom={20} fontWeight='bold' />
+  ), [])
 
   return (
     <Modal
@@ -74,7 +66,7 @@ export const Dir: React.FC<IDirProps> = observer(({
         styles.scrollContainer,
         {
           height: height - headerHeight,
-          backgroundColor: isDarkMode ? `#333` : `#fff`,
+          backgroundColor: paper,
         }
       ]}>
         <FlatList
