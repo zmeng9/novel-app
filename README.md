@@ -21,7 +21,9 @@
 
 ### 运行
 
-`git clone git@github.com:hauer9/novel-app.git && cd novel-app && yarn && yarn ios`
+克隆到本地 `git clone git@github.com:hauer9/novel-app.git`
+下载依赖 `cd novel-app && yarn`
+运行 ios 模拟器 `yarn ios` 或 android 模拟器 `yarn android`
 
 ### 目录结构
 
