@@ -20,7 +20,7 @@ export const Novel: React.FC<INovelProps> = observer(({
   const { id, novel } = collection
   const { id: novelId, cover, title } = novel
 
-  console.log(`render novel`, id)
+  // console.log(`render novel`, id)
 
   const handleGoToReader = useCallback(() => {
     goToReader(novelId)

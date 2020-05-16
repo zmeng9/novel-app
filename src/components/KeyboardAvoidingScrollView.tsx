@@ -11,12 +11,14 @@ export interface IKeyboardAvoidingScrollViewProps {
   children: React.ReactNode
   hasHeader?: boolean
   centerContent?: boolean
+  paddingHorizontal?: number
 }
 
 export const KeyboardAvoidingScrollView: React.SFC<IKeyboardAvoidingScrollViewProps> = observer(({
   children,
   hasHeader = false,
   centerContent = false,
+  paddingHorizontal = 0,
 }) => {
   const headerHeight = useHeaderHeight()
 
@@ -27,7 +29,13 @@ export const KeyboardAvoidingScrollView: React.SFC<IKeyboardAvoidingScrollViewPr
       behavior='padding'
     >
       <ScrollView
-        contentContainerStyle={[styles.container, centerContent && styles.centerContent]}
+        contentContainerStyle={[
+          styles.container, 
+          centerContent && styles.centerContent,
+          {
+            paddingHorizontal,
+          },
+        ]}
         keyboardShouldPersistTaps='handled'
         alwaysBounceVertical={false}
       >

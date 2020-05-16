@@ -1,4 +1,5 @@
 import React from 'react'
+export * from './types'
 import { light, dark } from './packages'
 
 

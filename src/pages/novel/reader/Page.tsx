@@ -21,7 +21,7 @@ export const Page: React.SFC<IPageProps> = observer(({
   handleBack,
 }) => {
   const { text } = useTheme()
-  console.log(`render Page`, pageIdx, Page)
+  // console.log(`render Page`, pageIdx, Page)
 
   return (
     <TouchableWithoutFeedback

@@ -41,7 +41,7 @@ export const Login: React.FC = observer(() => {
   useEffect(() => {
     if (data) {
       (async () => {
-        const { token = '' } = data
+        const { token = `` } = data
         await saveAuthToken(token)
         setAuthToken(token)
       })()
@@ -60,7 +60,7 @@ export const Login: React.FC = observer(() => {
   }, [])
 
   return (
-    <KeyboardAvoidingScrollView centerContent>
+    <KeyboardAvoidingScrollView centerContent paddingHorizontal={15}>
       <Input
         placeholder='用户名'
         size='large'
@@ -74,31 +74,28 @@ export const Login: React.FC = observer(() => {
         value={password}
         onChangeText={setPassword}
       />
-      <View style={styles.loginBtn}>
-        <Btn
-          fullWidth
-          text='登陆'
+      <Btn
+        fullWidth
+        text='登陆'
+        color='primary'
+        size='large'
+        disabled={unameOrPwdIsEmpty || isLoading}
+        isLoading={isLoading}
+        handle={handleLogin}
+      />
+      <View>
+        <ColorfulText
+          text='去注册'
           color='primary'
-          size='large'
-          disabled={unameOrPwdIsEmpty || isLoading}
-          isLoading={isLoading}
-          handle={handleLogin}
+          fontSize={18}
+          marginTop={15}
+          textAlign='center'
+          handle={goToReg}
         />
       </View>
-      <ColorfulText
-        text='去注册'
-        color='primary'
-        fontSize={18}
-        marginTop={15}
-        textAlign='center'
-        handle={goToReg}
-      />
     </KeyboardAvoidingScrollView>
   )
 })
 
 const styles = StyleSheet.create({
-  loginBtn: {
-    marginHorizontal: 15,
-  },
 })

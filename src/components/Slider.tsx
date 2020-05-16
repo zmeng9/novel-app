@@ -4,8 +4,8 @@ import {
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import RnSlider from '@react-native-community/slider'
-import { useWindowSize } from '../hooks'
-import { themeColor } from '../utils'
+import { useWindowSize, useTheme } from '../hooks'
+
 
 export interface ISliderProps {
   minimumValue?: number
@@ -24,6 +24,7 @@ export const Slider: React.SFC<ISliderProps> = observer(({
   value,
   onChange,
 }) => {
+  const theme = useTheme()
   return (
     <RnSlider
       style={styles.root}
@@ -32,8 +33,9 @@ export const Slider: React.SFC<ISliderProps> = observer(({
       onValueChange={onChange}
       minimumValue={minimumValue}
       maximumValue={maximumValue}
-      minimumTrackTintColor={themeColor.primary}
-      maximumTrackTintColor={themeColor.primary}
+      thumbTintColor={theme.input.outline}
+      minimumTrackTintColor={theme.primary}
+      maximumTrackTintColor={theme.primary}
     />
   )
 })

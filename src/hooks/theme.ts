@@ -1,12 +1,11 @@
 import React from 'react'
-import { useDarkMode } from 'react-native-dark-mode'
+import { useDarkModeContext } from 'react-native-dark-mode'
 import { themeContext } from '../themes'
 
 
 export const useTheme = () => {
   const theme = React.useContext(themeContext)
-  const isDarkMode = useDarkMode()
-  const mode = isDarkMode ? `dark` : `light`
+  const mode = useDarkModeContext()
 
   if (!theme)
     throw new Error('useTheme must be used within a themeProvider')

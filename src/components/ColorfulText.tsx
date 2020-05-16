@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../hooks'

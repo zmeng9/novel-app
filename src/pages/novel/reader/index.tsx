@@ -74,6 +74,10 @@ export const Reader: React.FC = observer(() => {
   // Reset the state when unmount
   useResetState(readerStore)
 
+  useEffect(() => {
+    console.log(`chapterId`, id, chapterId)
+  }, [chapterId])
+
   // Use service
   const dirData = useService({
     store: readerStore,

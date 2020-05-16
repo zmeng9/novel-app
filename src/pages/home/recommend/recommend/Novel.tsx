@@ -22,7 +22,7 @@ export const Novel: React.FC<INovelProps> = observer(({
     author: { username },
   } = novel
 
-  console.log(`render novel`, id)
+  // console.log(`render novel`, id)
 
   const handle = useCallback(() => {
     goToIntro(id)

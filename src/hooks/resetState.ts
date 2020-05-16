@@ -7,6 +7,7 @@ import { useEffect } from "react"
 export const useResetState = (store: any) => {
   useEffect(() => {
     return () => {
+      console.log(`unmount and reset the store`)
       store.reset()
     }
   }, [])

@@ -27,6 +27,8 @@ request.interceptors.request.use(async (config: any) => {
     logger.debug(`<-- ${method}`, url, `Query: `, consoleTheme.testing, params)
   if (!isEmptyObj(data))
     logger.debug(`<-- ${method}`, url, `Body: `, consoleTheme.testing, data)
+  else
+    logger.debug(`<-- ${method}`, url, ``, consoleTheme.testing)
 
   return config
 }, error => {

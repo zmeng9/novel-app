@@ -41,14 +41,13 @@ export const Intro: React.FC = observer(() => {
     }
   }, [data])
 
-  const handleStarRating = useCallback(async (rating: number) => {
+  const handleStarRating = useCallback((rating: number) => {
     setRating(rating * 2)
 
-    if (novel)
-      await createRating({
-        novelId: novel.id,
-        rating: rating * 2,
-      })
+    createRating({
+      novelId: id,
+      rating: rating * 2,
+    })
   }, [rating])
 
   const rated = _.get(novel, `rating.ownSource`, 0)

@@ -29,7 +29,7 @@ export const HorizontalFlatList: React.SFC<IHorizontalFlatListProps & IRef> = ob
   },
   ref,
 ) => {
-  console.log(`render HorizontalFlatList`, HorizontalFlatList)
+  // console.log(`render HorizontalFlatList`, HorizontalFlatList)
 
   const flatListReg = useRef()
 
