@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import 'mobx-react-lite/batchingForReactNative'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
-import { storesContext, stores } from './src/stores'
-import { themeContext, theme } from './src/themes'
+import { useDarkModeContext } from 'react-native-dark-mode'
+import { StoresContext, stores } from './src/stores'
+import { ThemeContext, themes } from './src/themes'
 import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
 import { navigationRef, isMountedRef } from './src/utils'
@@ -24,6 +25,9 @@ if (__DEV__) {
 }
 
 const AppContainer: React.SFC = () => {
+  // Get the theme mode
+  const mode = useDarkModeContext()
+
   // Hide the screen image
   useEffect(() => {
     SplashScreen.hide()
@@ -39,13 +43,13 @@ const AppContainer: React.SFC = () => {
   }, [])
 
   return (
-    <themeContext.Provider value={theme}>
-      <storesContext.Provider value={stores}>
+    <ThemeContext.Provider value={themes[mode]}>
+      <StoresContext.Provider value={stores}>
         <NavigationContainer ref={navigationRef}>
           <StackNavigator />
         </NavigationContainer>
-      </storesContext.Provider>
-    </themeContext.Provider>
+      </StoresContext.Provider>
+    </ThemeContext.Provider>
   )
 }
 

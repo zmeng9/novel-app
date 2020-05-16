@@ -25,4 +25,4 @@ export const stores = types
   })
 
 // Create the stores context
-export const storesContext = React.createContext<Instance<typeof stores> | null>(null)
+export const StoresContext = React.createContext<Instance<typeof stores> | null>(null)

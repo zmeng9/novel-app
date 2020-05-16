@@ -1,14 +1,12 @@
 import React from 'react'
-import { useDarkModeContext } from 'react-native-dark-mode'
-import { themeContext } from '../themes'
+import { ThemeContext } from '../themes'
 
 
 export const useTheme = () => {
-  const theme = React.useContext(themeContext)
-  const mode = useDarkModeContext()
+  const theme = React.useContext(ThemeContext)
 
   if (!theme)
     throw new Error('useTheme must be used within a themeProvider')
 
-  return theme[mode]
+  return theme
 }
