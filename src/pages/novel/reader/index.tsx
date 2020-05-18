@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import _ from 'lodash'
-import { useRoute, useNavigation } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 import { Page } from './Page'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Dir } from './Dir'
 import { SettingBar } from './SettingBar'
-import { formatContent, parseContent, isEvenNumber } from '../../../utils'
+import { navigation, formatContent, parseContent, isEvenNumber } from '../../../utils'
 import { Loading, HorizontalFlatList } from '../../../components'
 import {
   getDir,
@@ -34,7 +34,6 @@ export const Reader: React.FC = observer(() => {
 
   // Route params
   const route = useRoute()
-  const navigation = useNavigation()
   const { novelId = -1, firstChapterId = -1 } = route.params as any
 
   // Use theme

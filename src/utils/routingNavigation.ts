@@ -17,6 +17,9 @@ export const navigation = {
     if (isMountedRef.current && navigationRef.current)
       navigationRef.current.goBack()
   },
+  setParams(obj: Object) {
+    navigationRef.current.setParams(obj)
+  },
 }
 
 export const goBack = () => {
