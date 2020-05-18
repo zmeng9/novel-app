@@ -18,12 +18,15 @@ export const Novel: React.FC<INovelProps> = observer(({
   handleRemoveCollection,
 }) => {
   const { id, novel } = collection
-  const { id: novelId, cover, title } = novel
+  const { id: novelId, cover, title, chapters: [{ id: firstChapterId }] } = novel
 
   // console.log(`render novel`, id)
 
   const handleGoToReader = useCallback(() => {
-    goToReader(novelId)
+    goToReader({
+      novelId,
+      firstChapterId,
+    })
   }, [])
 
   return (

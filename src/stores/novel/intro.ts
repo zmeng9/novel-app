@@ -31,6 +31,10 @@ export const UserInfo = types.model({
   ...TimestampsState,
 })
 
+export const Chapters = types.model({
+  id: types.identifierNumber,
+})
+
 export const Novel = types.model({
   id: -1,
   title: ``,
@@ -43,9 +47,12 @@ export const Novel = types.model({
   likeNum: 0,
   collectionsNum: 0,
   wordsNum: 0,
+  chapters: types.optional(types.array(Chapters), [{
+    id: -1,
+  }]),
   rating: types.maybe(Rating),
-  author: UserInfo,
-  type: Type,
+  author: types.maybeNull(UserInfo),
+  type: types.maybeNull(Type),
   ...TimestampsState,
 })
 

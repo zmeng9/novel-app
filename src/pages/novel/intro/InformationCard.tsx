@@ -21,6 +21,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
     wordsNum = 0,
     clickNum = 0,
     collectionsNum = 0,
+    chapters: [{ id: firstChapterId }],
   } = novel
 
   const username = _.get(novel, `author.username`, `无名氏`)
@@ -30,7 +31,10 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
 
 
   const handleGoToReader = useCallback(() => {
-    return goToReader(id)
+    return goToReader({
+      novelId: id,
+      firstChapterId,
+    })
   }, [])
 
   return (
@@ -39,7 +43,7 @@ export const InformationCard: React.SFC<IInformationCardProps> = observer(({
         <View style={styles.leftContainer}>
           <Img uri={cover} height={215} width={150} />
           <View style={styles.ratingContainer}>
-            <ColorfulText text={rating} fontSize={26} marginRight={10}/>
+            <ColorfulText text={rating} fontSize={26} marginRight={10} />
             <Rating starSize={22} rating={rating / 2} />
           </View>
           <ColorfulText

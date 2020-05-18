@@ -35,8 +35,14 @@ export const goToIntro = (id: number) => {
   navigation.navigate(`Intro`, { id })
 }
 
-export const goToReader = (id: number) => {
-  navigation.navigate(`Reader`, { id })
+export const goToReader = ({
+  novelId, 
+  firstChapterId,
+}: {
+  novelId: number
+  firstChapterId: number
+}) => {
+  navigation.navigate(`Reader`, { novelId, firstChapterId })
 }
 
 export const goToLogin = () => {

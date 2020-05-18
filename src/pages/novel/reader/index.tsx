@@ -35,7 +35,7 @@ export const Reader: React.FC = observer(() => {
   // Route params
   const route = useRoute()
   const navigation = useNavigation()
-  const { id = -1 } = route.params as any
+  const { novelId = -1, firstChapterId = -1 } = route.params as any
 
   // Use theme
   const { paper } = useTheme()
@@ -74,21 +74,20 @@ export const Reader: React.FC = observer(() => {
   // Reset the state when unmount
   useResetState(readerStore)
 
-  useEffect(() => {
-    console.log(`chapterId`, id, chapterId)
-  }, [chapterId])
-
   // Use service
   const dirData = useService({
     store: readerStore,
     service: getDir,
-    params: [id],
+    params: [novelId],
+    isFetch: !dir.length,
+    immedate: false,
+    deps: [isShowDir],
   })
 
   const data = useService({
     store: readerStore,
     service: getChapter,
-    params: [id, chapterId],
+    params: [novelId, chapterId],
     isFetch: !!~chapterId,
     deps: [chapterId],
     beforeHandle: () => {
@@ -103,15 +102,18 @@ export const Reader: React.FC = observer(() => {
     })
   }, [isShowSetting, currentPageNum])
 
+  // Set the chapter
+  useEffect(() => {
+    // const newChapterId = !!~chapterId ? chapterId : firstChapterId
+
+    setChapterId(firstChapterId)
+  }, [])
+
   useEffect(() => {
     if (dirData) {
       const { rows = [] } = dirData
-      const firstChapterId = _.get(rows, `[0].id`, -1)
-      const newChapterId = !!~chapterId ? chapterId : firstChapterId
 
-      // Update state
       setDir(rows)
-      setChapterId(newChapterId)
     }
   }, [dirData])
 
@@ -211,7 +213,7 @@ export const Reader: React.FC = observer(() => {
     setIsCollect(true)
 
     if (authToken) {
-      const result = await addToCollections(id)
+      const result = await addToCollections(novelId)
       const { code, data } = result.data
       if (code) {
         unshiftToListData(data)
