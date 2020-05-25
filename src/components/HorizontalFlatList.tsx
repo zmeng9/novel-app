@@ -1,7 +1,7 @@
-import React, { useRef, useImperativeHandle, forwardRef, useCallback } from 'react'
+import React, { useRef, useImperativeHandle, useCallback } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useWindowSize } from '../hooks'
+import { useWindowSize } from '@/hooks'
 
 const { width } = useWindowSize()
 

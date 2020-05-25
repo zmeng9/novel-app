@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Img, ViewSize, ColorfulText, IViewSizeProps } from '../../../../components'
-import { useWindowSize } from '../../../../hooks'
-import { goToReader } from '../../../../utils'
+import { Img, ViewSize, ColorfulText, IViewSizeProps } from '@/components'
+import { useWindowSize } from '@/hooks'
+import { goToReader } from '@/utils'
 
 export interface INovelProps extends IViewSizeProps {
   collection: any

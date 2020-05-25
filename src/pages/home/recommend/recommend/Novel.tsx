@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Img, ViewSize, IViewSizeProps, ColorfulText } from '../../../../components'
-import { useWindowSize } from '../../../../hooks'
-import { goToIntro } from '../../../../utils'
+import { Card, Img, ViewSize, IViewSizeProps, ColorfulText } from '@/components'
+import { useWindowSize } from '@/hooks'
+import { goToIntro } from '@/utils'
 
 export interface INovelProps extends IViewSizeProps {
   novel: any
@@ -35,7 +35,7 @@ export const Novel: React.FC<INovelProps> = observer(({
           <View style={styles.container}>
             <Img uri={cover} height={height / 4} width={width / 2} />
             <ColorfulText text={title} fontSize={20} marginTop={20} />
-            <ColorfulText text={username} color='secondary' fontWeight='300' marginVertical={10} />
+            <ColorfulText text={username} color='secondary' fontWeight='300' marginLeft={10} marginRight={10} />
           </View>
         </Card>
       </View>

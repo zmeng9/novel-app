@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useWindowSize, useTheme } from '../../../hooks'
+import { useWindowSize, useTheme } from '@/hooks'
 
 export interface IPageProps {
   page: string

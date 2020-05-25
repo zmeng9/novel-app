@@ -3,9 +3,9 @@ import { useSafeArea } from 'react-native-safe-area-context'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack'
 import { observer } from 'mobx-react-lite'
-import { useTheme } from '../hooks'
+import { useTheme } from '@/hooks'
 import { Icon } from './Icon'
-import { goBack } from '../utils'
+import { goBack } from '@/utils'
 
 export interface IHeaderProps {
   children?: React.ReactNode

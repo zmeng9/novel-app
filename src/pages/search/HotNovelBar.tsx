@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { ColorfulText, Btn } from '../../components'
-import { goToIntro } from '../../utils'
+import { ColorfulText, Btn } from '@/components'
+import { goToIntro } from '@/utils'
 
 export interface IHotNovelBarProps {
   hotNovels: Array<any>

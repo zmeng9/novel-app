@@ -55,8 +55,6 @@ export const useService = ({
     } catch (error) {
       setError(error.message)
 
-      console.log(error)
-
       switch (error.message) {
         case `Network Error`:
           return toast(`连接失败，请检查你的网络设置`)

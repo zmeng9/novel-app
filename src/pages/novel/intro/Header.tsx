@@ -5,7 +5,7 @@ import {
   Text,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Header as RnHeader } from '../../../components'
+import { Header as RnHeader } from '@/components'
 
 export interface IHeaderProps {
 

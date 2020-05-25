@@ -1,5 +1,5 @@
 import { ICommonParams } from './common'
-import { request } from '../utils'
+import { request } from '@/utils'
 
 export const getRecommends = (params: ICommonParams) => {
   return request.get(`/types/novels`, { params })

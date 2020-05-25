@@ -1,10 +1,10 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useTheme } from '../../../hooks'
+import { useTheme } from '@/hooks'
 import { Recommend } from './recommend'
 import { Plaza } from './plaza'
-import { Icon } from '../../../components'
-import { goToPlaza, goToSearch } from '../../../utils'
+import { Icon } from '@/components'
+import { goToPlaza, goToSearch } from '@/utils'
 
 const Stack = createStackNavigator()
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Rating as RnRating, IRatingProps, ColorfulText } from '../../../components'
+import { Card, Rating as RnRating, IRatingProps, ColorfulText } from '@/components'
 
 
 export const Rating: React.SFC<IRatingProps> = observer(({

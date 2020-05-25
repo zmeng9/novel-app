@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useNumerOfLines } from '../../../hooks'
-import { Card, CardHeader, ColorfulText, CollapsibleIcon, ViewSize } from '../../../components'
+import { useNumerOfLines } from '@/hooks'
+import { Card, CardHeader, ColorfulText, CollapsibleIcon, ViewSize } from '@/components'
 
 export interface IInfoCardProps {
   info: string

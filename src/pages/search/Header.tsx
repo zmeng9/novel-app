@@ -5,7 +5,7 @@ import {
   Header as RnHeader,
   SearchBar,
   ISearchBarProps,
-} from '../../components'
+} from '@/components'
 
 export interface IHeaderProps extends ISearchBarProps {
 

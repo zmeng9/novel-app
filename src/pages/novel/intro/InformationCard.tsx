@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Icon, Img, Rating, ColorfulText } from '../../../components'
-import { goToReader } from '../../../utils'
+import { Card, Icon, Img, Rating, ColorfulText } from '@/components'
+import { goToReader } from '@/utils'
 import _ from 'lodash'
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Icon } from './Icon'
-import { useTheme } from '../hooks'
+import { useTheme } from '@/hooks'
 
 export interface IInputProps {
   value: string

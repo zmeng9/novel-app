@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Input, IInputProps } from './Input'
-import { goBack } from '../utils'
+import { goBack } from '@/utils'
 import { ColorfulText } from './ColorfulText'
 
 export interface ISearchBarProps extends IInputProps {

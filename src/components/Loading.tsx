@@ -12,6 +12,6 @@ export const Loading: React.SFC = observer(({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    paddingVertical: 10,
+    padding: 10,
   },
 })

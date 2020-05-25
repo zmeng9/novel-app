@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useTheme } from '../hooks'
+import { useTheme } from '@/hooks'
 
 
 export interface ICardProps {

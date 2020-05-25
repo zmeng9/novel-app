@@ -3,8 +3,8 @@ import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
-import { useWindowSize, useTheme } from '../../../hooks'
-import { ColorfulText } from '../../../components'
+import { useWindowSize, useTheme } from '@/hooks'
+import { ColorfulText } from '@/components'
 
 
 const { height } = useWindowSize()

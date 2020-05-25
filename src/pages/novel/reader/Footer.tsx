@@ -4,7 +4,7 @@ import {
   View,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Header, Icon, Silde } from '../../../components'
+import { Header, Icon, Silde } from '@/components'
 import { useHeaderHeight } from '@react-navigation/stack'
 
 export interface IFooterProps {

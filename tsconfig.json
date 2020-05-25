@@ -13,7 +13,11 @@
     "noEmit": true,
     "strict": true,
     "noImplicitReturns": true,
-    "target": "esnext"
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "exclude": [
     "node_modules",

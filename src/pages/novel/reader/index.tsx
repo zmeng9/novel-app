@@ -8,13 +8,13 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Dir } from './Dir'
 import { SettingBar } from './SettingBar'
-import { navigation, formatContent, parseContent, isEvenNumber } from '../../../utils'
-import { Loading, HorizontalFlatList } from '../../../components'
+import { navigation, formatContent, parseContent, isEvenNumber } from '@/utils'
+import { Loading, HorizontalFlatList } from '@/components'
 import {
   getDir,
   getChapter,
   addToCollections,
-} from '../../../services'
+} from '@/services'
 import {
   useStores,
   useTheme,
@@ -23,7 +23,7 @@ import {
   useWindowSize,
   useEcb,
   useToast,
-} from '../../../hooks'
+} from '@/hooks'
 
 
 const { height, width } = useWindowSize()
@@ -47,6 +47,7 @@ export const Reader: React.FC = observer(() => {
   } = useStores()
   const {
     isLoading,
+    collectLoading,
     isCollect,
     isScrollEnabled,
     isShowSetting,
@@ -58,6 +59,7 @@ export const Reader: React.FC = observer(() => {
     contentOfPage,
     currentPageNum,
     totalPageNum,
+    setCollectLoading,
     setIsCollect,
     setIsScrollEnabled,
     setIsShowSetting,
@@ -209,14 +211,25 @@ export const Reader: React.FC = observer(() => {
   }, [])
 
   const handleAddToCollections = useCallback(async () => {
-    setIsCollect(true)
+    setCollectLoading(true)
 
     if (authToken) {
-      const result = await addToCollections(novelId)
-      const { code, data } = result.data
-      if (code) {
-        unshiftToListData(data)
-        toast(`已收藏到书架`)
+      try {
+        const result = await addToCollections(novelId)
+        const { code, data } = result.data
+        if (code) {
+          setIsCollect(true)
+          unshiftToListData(data)
+          toast(`已收藏到书架`)
+        }
+        else
+          toast(`收藏出错`)
+
+        setCollectLoading(false)
+      } catch (err) {
+
+      } finally {
+
       }
     }
     // else
@@ -246,6 +259,7 @@ export const Reader: React.FC = observer(() => {
           : (
             <>
               <Header
+                collectLoading={collectLoading}
                 isCollect={isCollect}
                 isShowSetting={isShowSetting}
                 handleAddToCollections={handleAddToCollections}

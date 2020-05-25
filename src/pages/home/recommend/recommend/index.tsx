@@ -1,11 +1,15 @@
 import React, { useEffect, useCallback } from 'react'
+import WebAssembly from 'webassemblyjs'
+import fs from 'react-native-fs'
 import { observer } from 'mobx-react-lite'
 import { StyleSheet, View } from 'react-native'
-import { useStores, useService } from '../../../../hooks'
-import { getRecommends, getUserInfo } from '../../../../services'
-import { FlatList, HorizontalFlatList } from '../../../../components'
-import { loadAuthToken } from '../../../../utils'
+import { useStores, useService } from '@/hooks'
+import { getRecommends, getUserInfo } from '@/services'
+import { FlatList, HorizontalFlatList } from '@/components'
+import { loadAuthToken } from '@/utils'
+// import { greet } from '@/thirdParty/wasm'
 import { Novel } from './Novel'
+
 
 export const Recommend: React.FC = observer(() => {
   const { recommendStore, mineStore } = useStores()
@@ -17,7 +21,14 @@ export const Recommend: React.FC = observer(() => {
     itemSize,
     setItemSize,
   } = recommendStore
-  const { authToken, setAuthToken, setUserInfo } = mineStore
+  const { authToken, setAuthToken, setUserInfo } = mineStore;
+
+  (async () => {
+    // console.log(`wasm`, greet)
+    // const asm = await WebAssembly.instantiate('@/thirdParty/wasm')
+    // console.log(`wasm`, asm)
+  })()
+  
 
   const data = useService({
     store: recommendStore,

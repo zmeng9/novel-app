@@ -1,6 +1,6 @@
 import { types, cast } from 'mobx-state-tree'
 import { CommonState, CommonActions } from '../common'
-import { Novel } from './Intro'
+
 
 const Dir = types.model({
   id: types.identifierNumber,
@@ -11,6 +11,7 @@ export const Reader = types
   .model(`Reader`, {
     ...CommonState(),
 
+    collectLoading: false,
     isCollect: false,
     isScrollEnabled: true,
     isShowSetting: false,
@@ -30,6 +31,9 @@ export const Reader = types
   .actions(self => ({
     ...CommonActions(self),
     
+    setCollectLoading(collectLoading: boolean) {
+      self.collectLoading = collectLoading
+    },
     setIsCollect(isCollect: boolean) {
       self.isCollect = isCollect
     },

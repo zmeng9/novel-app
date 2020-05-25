@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useHeaderHeight } from '@react-navigation/stack'
 import Modal from 'react-native-modal'
-import { useTheme } from '../../../hooks'
-import { Slider, ColorfulText } from '../../../components'
+import { useTheme } from '@/hooks'
+import { Slider, ColorfulText } from '@/components'
 
 export interface ISettingBarProps {
   isShowSettingBar: boolean

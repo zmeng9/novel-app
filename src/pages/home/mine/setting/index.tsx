@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { ListItem } from '../../../../components'
+import { ListItem } from '@/components'
 
 export const Setting: React.FC = observer(() => {
   return (

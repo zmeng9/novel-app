@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import StarRating from 'react-native-star-rating'
-import { useTheme } from '../hooks'
+import { useTheme } from '@/hooks'
 
 export interface IRatingProps {
   rating: number

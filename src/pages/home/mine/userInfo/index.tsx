@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useStores } from '../../../../hooks'
-import { removeAuthToken, goBack } from '../../../../utils'
-import { ListItem } from '../../../../components'
+import { useStores } from '@/hooks'
+import { removeAuthToken, goBack } from '@/utils'
+import { ListItem } from '@/components'
 
 
 export const UserInfo: React.FC = observer(() => {

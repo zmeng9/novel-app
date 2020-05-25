@@ -1,10 +1,10 @@
 import React, { useEffect, useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useStores, useService } from '../../../../hooks'
-import { login, getUserInfo } from '../../../../services'
-import { KeyboardAvoidingScrollView, Input, Btn, ColorfulText } from '../../../../components'
-import { saveAuthToken, goBack, goToReg } from '../../../../utils'
+import { useStores, useService } from '@/hooks'
+import { login, getUserInfo } from '@/services'
+import { KeyboardAvoidingScrollView, Input, Btn, ColorfulText } from '@/components'
+import { saveAuthToken, goBack, goToReg } from '@/utils'
 
 
 export const Login: React.FC = observer(() => {

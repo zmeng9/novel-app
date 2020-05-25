@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { Card } from './Card'
 import { Icon } from './Icon'
 import { ColorfulText } from './ColorfulText'
-import { IBaseColorType } from '../themes'
+import { IBaseColorType } from '@/themes'
 
 export interface IListItemProps {
   children?: React.ReactNode

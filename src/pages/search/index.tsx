@@ -5,13 +5,13 @@ import {
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Header } from './Header'
-import { useStores, useResetState, useService } from '../../hooks'
-import { FlatList } from '../../components'
-import { getHotNovels, getNovels } from '../../services'
+import { useStores, useResetState, useService } from '@/hooks'
+import { FlatList } from '@/components'
+import { getHotNovels, getNovels } from '@/services'
 import { Novel } from '../home/recommend/recommend/Novel'
 import { SearchHistoryBar } from './searchHistoryBar'
 import { HotNovelBar } from './HotNovelBar'
-import { loadSearchHistory, saveSearchHistory } from '../../utils'
+import { loadSearchHistory, saveSearchHistory } from '@/utils'
 
 export const Search: React.FC = observer(() => {
   const { searchStore } = useStores()

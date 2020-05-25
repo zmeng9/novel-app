@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { Card, Icon, ColorfulText, Avatar } from '../../../../components'
-import { goToLogin, goToUserInfo } from '../../../../utils'
+import { Card, Icon, ColorfulText, Avatar } from '@/components'
+import { goToLogin, goToUserInfo } from '@/utils'
 
 export interface IListHeaderProps {
   authToken: string | null

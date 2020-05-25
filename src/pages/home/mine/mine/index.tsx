@@ -6,8 +6,8 @@ import {
   ScrollView,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useStores } from '../../../../hooks'
-import { Card } from '../../../../components'
+import { useStores } from '@/hooks'
+import { Card } from '@/components'
 import { ListHeader } from './ListHeader'
 
 

@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { findById } from '../../utils'
+import { findById } from '@/utils'
 
 
 /* 

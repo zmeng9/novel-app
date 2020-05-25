@@ -2,12 +2,12 @@ import React, { useCallback } from 'react'
 import { observer } from 'mobx-react-lite'
 import { StyleSheet, View } from 'react-native'
 import { useActionSheet } from '@expo/react-native-action-sheet'
-import { useStores, useService } from '../../../../hooks'
-import { getCollections, removeCollection } from '../../../../services'
-import { FlatList } from '../../../../components'
+import { useStores, useService } from '@/hooks'
+import { getCollections, removeCollection } from '@/services'
+import { FlatList } from '@/components'
 import { Novel } from './Novel'
 import _ from 'lodash'
-import { goToReader } from '../../../../utils'
+import { goToReader } from '@/utils'
 
 
 export const Bookrack: React.FC = observer(() => {

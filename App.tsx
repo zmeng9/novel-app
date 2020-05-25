@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import 'mobx-react-lite/batchingForReactNative'
+import '@/thirdParty/wasm/sourceTransformer'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDarkModeContext } from 'react-native-dark-mode'

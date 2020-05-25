@@ -3,7 +3,7 @@ import { StyleSheet, FlatList as RnFlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Loading } from './Loading'
 import { NoData } from './NoData'
-import { useIsFirstRender, useToast } from '../hooks'
+import { useIsFirstRender, useToast } from '@/hooks'
 
 export interface IFlatListProps {
   store: any

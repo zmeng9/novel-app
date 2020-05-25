@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useTheme } from '../../../hooks'
+import { useTheme } from '@/hooks'
 import { Bookrack } from './bookrack'
 
 const Stack = createStackNavigator()
