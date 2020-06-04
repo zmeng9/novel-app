@@ -3,40 +3,39 @@
 */
 
 export const consoleTheme = {
-  normal: '',
-  testing: 'color: darkcyan; font-style: italic;',
-  important: 'color: green; font-style: normal; font-weight: bold;',
-  fail: 'color: #e67e22; font-style: normal; font-weight: normal;',
-  warn: 'color: #fdcb6e; font-style: normal; font-weight: normal;',
-  error: 'color: red; font-style: normal; font-weight: bold;',
+  info: `color: darkcyan; font-style: italic;`,
+  success: `color: green; font-weight: bold;`,
+  fail: `color: #e67e22;`,
+  warn: `color: #fdcb6e;`,
+  error: `color: red; font-weight: bold;`,
 }
 
-const debug = (
-  objRef: Object | string,
-  methodName: string,
-  msg: string,
-  displayFormat: string,
-  data?: any
-) => {
-  const className = objRef instanceof Object ? objRef.constructor.name : objRef
+const log = (themeType: keyof typeof consoleTheme, msg?: string, data?: any) => {
+  if (data)
+    console.log(`%c${msg}`, consoleTheme[themeType], data)
+  else
+    console.log(`%c${msg}`, consoleTheme[themeType])
+}
 
-  const messageToPrint = displayFormat
-    ? `%c${className} ${methodName} ${msg}`
-    : `${className} ${methodName} ${msg}`
+const info = (msg?: string, data?: any) => {
+  return log(`info`, msg, data)
+}
 
-  if (displayFormat) {
-    if (data)
-      console.log(messageToPrint, displayFormat, data) // tslint:disable-line no-console
-    else
-      console.log(messageToPrint, displayFormat) // tslint:disable-line no-console
-  } else {
-    if (data)
-      console.log(messageToPrint, data) // tslint:disable-line no-console
-    else
-      console.log(messageToPrint) // tslint:disable-line no-console
-  }
+const success = (msg?: string, data?: any) => {
+  return log(`success`, msg, data)
+}
+
+const warn = (msg?: string, data?: any) => {
+  return log(`warn`, msg, data)
+}
+
+const error = (msg?: string, data?: any) => {
+  return log(`error`, msg, data)
 }
 
 export const logger = {
-  debug
+  info,
+  success,
+  warn,
+  error,
 }

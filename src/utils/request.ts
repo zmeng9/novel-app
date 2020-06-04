@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { loadAuthToken, removeAuthToken } from './storage'
-import { logger, consoleTheme } from './logger'
+import { logger } from './logger'
 import { isEmptyObj } from './helper'
 
 
@@ -24,11 +24,11 @@ request.interceptors.request.use(async (config: any) => {
   const method = config.method.toUpperCase()
 
   if (!isEmptyObj(params))
-    logger.debug(`<-- ${method}`, url, `Query: `, consoleTheme.testing, params)
+    logger.info(`<-- ${method} ${url} Query: `, params)
   if (!isEmptyObj(data))
-    logger.debug(`<-- ${method}`, url, `Body: `, consoleTheme.testing, data)
+    logger.info(`<-- ${method} ${url} Body: `, data)
   else
-    logger.debug(`<-- ${method}`, url, ``, consoleTheme.testing)
+    logger.info(`<-- ${method} ${url}`)
 
   return config
 }, error => {
@@ -44,9 +44,9 @@ request.interceptors.response.use((res: any) => {
 
   // Status is 200
   if (!code && !error)
-    logger.debug(`--> ${method}`, url, `Opt fail: `, consoleTheme.fail, msg || data)
+    logger.warn(`--> ${method} ${url} Opt fail: `, msg || data)
   else
-    logger.debug(`--> ${method}`, url, `Result: `, consoleTheme.important, data.data || data)
+    logger.success(`--> ${method} ${url} Result: `, data.data || data)
 
   return res
 }, async (error: any) => {
@@ -60,14 +60,14 @@ request.interceptors.response.use((res: any) => {
     switch (status) {
       case 400:
       case 404:
-        return logger.debug(`--> ${method}`, url, `Client error: `, consoleTheme.error, data)
+        return logger.error(`--> ${method} ${url} Client error: `, data)
       case 401:
         await removeAuthToken()
-        return logger.debug(`--> ${method}`, url, `Unauthorized error: `, consoleTheme.error, data)
+        return logger.error(`--> ${method} ${url} Unauthorized error: `, data)
       case 500:
-        return logger.debug(`--> ${method}`, url, `Server error: `, consoleTheme.error, data)
+        return logger.error(`--> ${method} ${url} Server error: `, data)
       default:
-        return logger.debug(`--> ${method}`, url, `Unexpected error: `, consoleTheme.error, data)
+        return logger.error(`--> ${method} ${url} Unexpected error: `, data)
     }
   }
 
