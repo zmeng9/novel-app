@@ -20,7 +20,7 @@
     "@react-navigation/stack": "^5.2.9",
     "@types/react-native-star-rating": "^1.1.1",
     "add": "^2.0.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "is-fullwidth-code-point": "^3.0.0",
     "lodash": "^4.17.15",
