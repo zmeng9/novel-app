@@ -23,7 +23,7 @@
     "axios": "^0.19.2",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "is-fullwidth-code-point": "^3.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^2.0.6",
     "mobx-state-tree": "^3.16.0",
